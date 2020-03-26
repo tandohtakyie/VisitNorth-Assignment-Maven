@@ -27,10 +27,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Login extends JFrame {
+	
+	private static Login frameLogin;
 
 	private JPanel contentPane;
 	private JTextField txtUsername;
 	private JPasswordField txtPassword;
+	private JLabel lblError;
 	
 	Connection conn = DatabaseConnection.connectDB();
     PreparedStatement preparedStatement = null;
@@ -45,7 +48,7 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frameLogin = new Login();
+					frameLogin = new Login();
 					frameLogin.setUndecorated(true);
 					frameLogin.setVisible(true);
 				} catch (Exception e) {
@@ -103,6 +106,11 @@ public class Login extends JFrame {
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(label);
 		
+		lblError = new JLabel("");
+		lblError.setVisible(false);
+		lblError.setForeground(Color.RED);
+		lblError.setBounds(343, 319, 235, 22);
+		
 		JLabel lblNewLabel_1 = new JLabel("VisitNorth System");
 		lblNewLabel_1.setFont(new Font("Candara", Font.PLAIN, 16));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -121,6 +129,18 @@ public class Login extends JFrame {
 
                     if (resultSet.next()){
                         System.out.println("logged in");
+                        frameLogin.dispose();
+                        
+                        if (getEmployeeRole().equals("Agent")) {
+                            AgentScreen agentScreen = new AgentScreen();
+                            agentScreen.setVisible(true);
+                        }else if (getEmployeeRole().equals("Manager")){
+                            ManagerScreen managerScreen = new ManagerScreen();
+                            managerScreen.setVisible(true);
+                        }
+                    }else {
+                    	lblError.setVisible(true);
+                    	lblError.setText("Invalid Username or Password!");
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -164,6 +184,9 @@ public class Login extends JFrame {
 		lblClose.setHorizontalAlignment(SwingConstants.CENTER);
 		lblClose.setBounds(632, 0, 22, 22);
 		contentPane.add(lblClose);
+		
+		
+		contentPane.add(lblError);
 	}
 	
 	private String getEmployeeRole(){
