@@ -66,9 +66,11 @@ public class ManagerScreen extends JFrame {
 	JLabel lblCities;
 	JSeparator separator;
 	JPanel panel_9;
+	JLabel lblLastname;
 	JLabel lblNewLabel_8;
 	JPanel btnSchedulePanel;
 	JPanel btnAddCity;
+	JPanel btnAddDriver;
 	JLabel label_2;
 	JLabel lblSchedules;
 	JLabel lblReduceTheBrightness;
@@ -85,7 +87,6 @@ public class ManagerScreen extends JFrame {
 	JPanel panel_6;
 	JLabel lblCities_1;
 	final JPanel driversPanel;
-	JLabel lblNewLabel_9;
 	JPanel panel_8;
 	final JPanel vehiclesPanel;
 	JLabel lblNewLabel_11;
@@ -100,12 +101,15 @@ public class ManagerScreen extends JFrame {
 	JLabel lblAdjustBrightness;
 	JLabel lblBrightness;
 	JPanel btnDriversPanel;
+	JLabel lblAddDriver;
 	JLabel lblDrivers;
+	JSeparator separator_1;
 	JLabel label_3;
 	JCheckBox chckbxNewCheckBox;
 	JPanel btnVehiclesPanel;
 	JLabel label_5;
 	JPanel panel_11;
+	JLabel lblFirstname;
 	JPanel panel_12;
 	JLabel lblRoutes;
 	JLabel lblNewLabel_4;
@@ -126,11 +130,19 @@ public class ManagerScreen extends JFrame {
 	JPanel panel_4;
 	JLabel lblSettings_1;
 	JPanel panel_2;
+	JLabel lblAListOf_1;
+	JLabel lblDriver;
 	JCheckBox checkBox;
 	JLabel lblFontSize;
 	JComboBox comboBox;
+	JScrollPane scrollPane_1;
 	JPanel panel_7;
 	private JLabel lblAListOf;
+	private JLabel lblCity_1;
+	private JTextField txtFirstnameDriver;
+	private JTextField txtLastnameDriver;
+	private JTable tableDrivers;
+	private JLabel lblErrorDriver;
 
 	/**
 	 * Launch the application.
@@ -347,9 +359,76 @@ public class ManagerScreen extends JFrame {
 		layeredPane.add(driversPanel, "name_42887129278700");
 		driversPanel.setLayout(null);
 		
-		lblNewLabel_9 = new JLabel("drivers");
-		lblNewLabel_9.setBounds(27, 31, 46, 14);
-		driversPanel.add(lblNewLabel_9);
+		btnAddDriver = new JPanel();
+		btnAddDriver.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				insertDriver();
+				getDrivers();
+			}
+		});
+		btnAddDriver.setLayout(null);
+		btnAddDriver.setBackground(new Color(60, 71, 85));
+		btnAddDriver.setBounds(83, 306, 110, 32);
+		driversPanel.add(btnAddDriver);
+		
+		lblAddDriver = new JLabel("ADD DRIVER");
+		lblAddDriver.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAddDriver.setForeground(Color.WHITE);
+		lblAddDriver.setFont(new Font("Candara", Font.BOLD, 14));
+		lblAddDriver.setBounds(10, 11, 90, 14);
+		btnAddDriver.add(lblAddDriver);
+		
+		lblAListOf_1 = new JLabel("A list of the coach drivers. Feel free to add more drivers to it. ");
+		lblAListOf_1.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblAListOf_1.setBounds(20, 48, 533, 32);
+		driversPanel.add(lblAListOf_1);
+		
+		lblDriver = new JLabel("Drivers");
+		lblDriver.setFont(new Font("Candara", Font.PLAIN, 18));
+		lblDriver.setBounds(10, 11, 110, 41);
+		driversPanel.add(lblDriver);
+		
+		separator_1 = new JSeparator();
+		separator_1.setOrientation(SwingConstants.VERTICAL);
+		separator_1.setBounds(264, 170, 22, 316);
+		driversPanel.add(separator_1);
+		
+		lblFirstname = new JLabel("Firstname");
+		lblFirstname.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblFirstname.setBounds(20, 170, 65, 20);
+		driversPanel.add(lblFirstname);
+		
+		txtFirstnameDriver = new JTextField();
+		txtFirstnameDriver.setToolTipText("Driver's firstname");
+		txtFirstnameDriver.setColumns(10);
+		txtFirstnameDriver.setBounds(20, 199, 175, 30);
+		driversPanel.add(txtFirstnameDriver);
+		
+		lblLastname = new JLabel("Lastname");
+		lblLastname.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblLastname.setBounds(18, 236, 67, 20);
+		driversPanel.add(lblLastname);
+		
+		txtLastnameDriver = new JTextField();
+		txtLastnameDriver.setToolTipText("Driver's lastname");
+		txtLastnameDriver.setColumns(10);
+		txtLastnameDriver.setBounds(18, 265, 175, 30);
+		driversPanel.add(txtLastnameDriver);
+		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(298, 172, 255, 293);
+		driversPanel.add(scrollPane_1);
+		
+		tableDrivers = new JTable();
+		scrollPane_1.setViewportView(tableDrivers);
+		
+		lblErrorDriver = new JLabel("");
+		lblErrorDriver.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblErrorDriver.setForeground(new Color(204, 0, 0));
+		lblErrorDriver.setFont(new Font("Candara", Font.PLAIN, 12));
+		lblErrorDriver.setBounds(20, 349, 175, 20);
+		driversPanel.add(lblErrorDriver);
 		
 		vehiclesPanel = new JPanel();
 		vehiclesPanel.setBackground(new Color(255, 255, 255));
@@ -376,7 +455,7 @@ public class ManagerScreen extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				switchPanel(citiesPanel);
-				getRequestedTable("City", "city", "cityID", "cityName", tableCity);
+				getcities();
 			}
 		});
 		sidePanel.add(btnCitiesPanel);
@@ -402,6 +481,7 @@ public class ManagerScreen extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				switchPanel(driversPanel);
+				getDrivers();
 			}
 		});
 		sidePanel.add(btnDriversPanel);
@@ -507,7 +587,8 @@ public class ManagerScreen extends JFrame {
 		citiesPanel.add(lblCities_2);
 		
 		txtCity = new JTextField();
-		txtCity.setBounds(10, 170, 175, 30);
+		txtCity.setToolTipText("Add new city");
+		txtCity.setBounds(10, 192, 175, 30);
 		citiesPanel.add(txtCity);
 		txtCity.setColumns(10);
 		
@@ -515,13 +596,13 @@ public class ManagerScreen extends JFrame {
 		btnAddCity.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				insertData("city","cityName", txtCity);
-				getRequestedTable("City", "city", "cityID", "cityName", tableCity);
+				insertCity();
+				getcities();
 			}
 		});
 		btnAddCity.setLayout(null);
 		btnAddCity.setBackground(new Color(60, 71, 85));
-		btnAddCity.setBounds(97, 211, 88, 32);
+		btnAddCity.setBounds(97, 233, 88, 32);
 		citiesPanel.add(btnAddCity);
 		
 		lblAddCity = new JLabel("ADD CITY");
@@ -547,13 +628,18 @@ public class ManagerScreen extends JFrame {
 		lblErrorCity.setFont(new Font("Candara", Font.PLAIN, 12));
 		lblErrorCity.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblErrorCity.setForeground(new Color(204, 0, 0));
-		lblErrorCity.setBounds(10, 257, 175, 20);
+		lblErrorCity.setBounds(10, 270, 175, 20);
 		citiesPanel.add(lblErrorCity);
 		
 		lblAListOf = new JLabel("A list of the cities where tourists can visit. Feel free to add more cities to it. ");
 		lblAListOf.setFont(new Font("Candara", Font.PLAIN, 13));
 		lblAListOf.setBounds(20, 48, 533, 32);
 		citiesPanel.add(lblAListOf);
+		
+		lblCity_1 = new JLabel("City");
+		lblCity_1.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblCity_1.setBounds(10, 163, 35, 20);
+		citiesPanel.add(lblCity_1);
 		
 		travelInfoPanel = new JPanel();
 		travelInfoPanel.setBackground(new Color(255, 255, 255));
@@ -746,45 +832,105 @@ public class ManagerScreen extends JFrame {
 		layeredPane.revalidate();
 	}
 	
-	public void insertData(String dbTableName, String dbTableColumnName, JTextField textField ) {
-		try {
-			String query = "select * from "+ dbTableName +" where "+ dbTableColumnName+"=?";
-			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, textField.getText());
-			resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				lblErrorCity.setText(textField.getText() + " already exists!");
-				System.out.println(textField.getText() + " already exists!");
-			}else {
-				String insertDataQueryString = "insert into "+dbTableName+" ("+ dbTableColumnName+") values(?)";
-				preparedStatement = conn.prepareStatement(insertDataQueryString);
-				preparedStatement.setString(1, textField.getText());
-				preparedStatement.execute();
-				textField.setText("");
+	public void insertCity() {
+		if (!(txtCity.getText().isEmpty())) {
+			try {
+				String query = "select * from city where cityName=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setString(1, txtCity.getText());
+				resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()) {
+					lblErrorCity.setText(txtCity.getText() + " already exists!");
+					System.out.println(txtCity.getText() + " already exists!");
+				}else {
+					String insertDataQueryString = "insert into city (cityName) values(?)";
+					preparedStatement = conn.prepareStatement(insertDataQueryString);
+					preparedStatement.setString(1, txtCity.getText());
+					preparedStatement.execute();
+					txtCity.setText("");
+					lblErrorCity.setText("");
+				}
+			} catch (Exception e) {
+				System.out.println("error: " + e);
 			}
-		} catch (Exception e) {
-			System.out.println("error: " + e);
+		}else {
+			lblErrorCity.setText("Please, provide city...");
 		}
 	}
 	
-	public void getRequestedTable(String guiTableColumnName, String dbTableName, String dbTableColumnID, String dbTableColumnName, JTable guiTableName ) {
+	public void getcities() {
 		
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("ID");
-		model.addColumn(guiTableColumnName);
+		model.addColumn("City");
         try {
-        	String query = "select * from " + dbTableName;
+        	String query = "select * from city";
             preparedStatement = conn.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
             
             while(resultSet.next()) {
             	model.addRow(new Object[] {
-            			resultSet.getString(dbTableColumnID),
-            			resultSet.getString(dbTableColumnName)
+            			resultSet.getString("cityID"),
+            			resultSet.getString("cityName")
             	});
             }
             
-            guiTableName.setModel(model);
+            tableCity.setModel(model);
+        }catch (Exception e) {
+			System.out.println("error: " + e);
+		}
+	}
+	
+	public void insertDriver() {
+		if (!(txtFirstnameDriver.getText().isEmpty() && txtLastnameDriver.getText().isEmpty())) {
+			try {
+				String query = "select * from driver where firstname=? and lastname=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setString(1, txtFirstnameDriver.getText());
+				preparedStatement.setString(2, txtLastnameDriver.getText());
+				resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()) {
+					lblErrorDriver.setText(txtFirstnameDriver.getText() + " " + txtLastnameDriver.getText() + " already exists!");
+					System.out.println(txtFirstnameDriver.getText() + " " + txtLastnameDriver.getText() + " already exists!");
+				}else {
+					String insertDataQueryString = "insert into driver (firstname,lastname) values(?,?)";
+					preparedStatement = conn.prepareStatement(insertDataQueryString);
+					preparedStatement.setString(1, txtFirstnameDriver.getText());
+					preparedStatement.setString(2, txtLastnameDriver.getText());
+					preparedStatement.execute();
+					txtFirstnameDriver.setText("");
+					txtLastnameDriver.setText("");
+					lblErrorDriver.setText("");
+				}
+			} catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+		}else {
+			lblErrorCity.setText("Please, provide city...");
+		}
+	}
+	
+public void getDrivers() {
+		
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("ID");
+		model.addColumn("FIRSTNAME");
+		model.addColumn("LASTNAME");
+        try {
+        	String query = "select * from driver";
+            preparedStatement = conn.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+            
+            while(resultSet.next()) {
+            	model.addRow(new Object[] {
+            			resultSet.getString("driverID"),
+            			resultSet.getString("firstname"),
+            			resultSet.getString("lastname")
+            	});
+            }
+            
+            tableDrivers.setModel(model);
+            
         }catch (Exception e) {
 			System.out.println("error: " + e);
 		}
