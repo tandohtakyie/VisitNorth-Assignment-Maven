@@ -55,7 +55,6 @@ public class ManagerScreen extends JFrame {
 	private JScrollPane scrollPane;
 	JPanel panelBG;
 	JPanel sidePanel;
-	JLabel lblNewLabel_10;
 	JPanel panel;
 	final JPanel homePanel;
 	JPanel btnHomePanel;
@@ -64,6 +63,7 @@ public class ManagerScreen extends JFrame {
 	JPanel btnRoutePanel;
 	JLabel label;
 	JLabel lblCities;
+	JLabel lblVehicle;
 	JSeparator separator;
 	JPanel panel_9;
 	JLabel lblLastname;
@@ -76,10 +76,13 @@ public class ManagerScreen extends JFrame {
 	JLabel lblReduceTheBrightness;
 	JPanel btnSettingsPanel;
 	JLabel label_4;
+	JLabel lblType;
+	JPanel btnAddVehicle;
 	JLabel lblSettings;
 	JPanel panel_5;
 	JLabel lblLogout;
 	JPanel panel_10;
+	JComboBox cmbType;
 	JLabel lblJohnDoe;
 	JPanel btnRoutesPanel;
 	JLabel lblLogoutWhenNo;
@@ -90,6 +93,7 @@ public class ManagerScreen extends JFrame {
 	JPanel panel_8;
 	final JPanel vehiclesPanel;
 	JLabel lblNewLabel_11;
+	JLabel lblVehicleLicensePlate;
 	final JPanel routesPanel;
 	JPanel panel_1;
 	JPanel btnCitiesPanel;
@@ -115,6 +119,7 @@ public class ManagerScreen extends JFrame {
 	JLabel lblNewLabel_4;
 	JLabel label_6;
 	JLabel lblNewLabel_7;
+	JScrollPane scrollPane_2;
 	JLabel lblNewLabel_2;
 	JLabel lblAddCity;
 	JLabel lblClose;
@@ -124,6 +129,7 @@ public class ManagerScreen extends JFrame {
 	JLabel lblNewLabel_5;
 	JPanel panel_3;
 	JLabel lblAutoLogOut;
+	JLabel lblAListOf_2;
 	JLabel lblCity;
 	JLabel lblChangeTheFont;
 	JLabel lblFont;
@@ -139,10 +145,17 @@ public class ManagerScreen extends JFrame {
 	JPanel panel_7;
 	private JLabel lblAListOf;
 	private JLabel lblCity_1;
+	JSeparator separator_2;
 	private JTextField txtFirstnameDriver;
+	JLabel lblAddVehicle;
 	private JTextField txtLastnameDriver;
 	private JTable tableDrivers;
 	private JLabel lblErrorDriver;
+	private JTextField txtLicencePlate;
+	private JTable tableVehicle;
+	private JLabel lblErrorVehicle;
+	private JPanel profilePanel;
+	private JPanel panel_13;
 
 	/**
 	 * Launch the application.
@@ -318,6 +331,12 @@ public class ManagerScreen extends JFrame {
 		btnSettingsPanel.add(lblSettings);
 		
 		panel_5 = new JPanel();
+		panel_5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				switchPanel(profilePanel);
+			}
+		});
 		panel_5.setLayout(null);
 		panel_5.setBackground(new Color(48, 55, 66));
 		panel_5.setBounds(0, 702, 283, 58);
@@ -435,9 +454,75 @@ public class ManagerScreen extends JFrame {
 		layeredPane.add(vehiclesPanel, "name_42931343579900");
 		vehiclesPanel.setLayout(null);
 		
-		lblNewLabel_10 = new JLabel("Vehicle");
-		lblNewLabel_10.setBounds(29, 35, 46, 14);
-		vehiclesPanel.add(lblNewLabel_10);
+		lblVehicle = new JLabel("Vehicle");
+		lblVehicle.setFont(new Font("Candara", Font.PLAIN, 18));
+		lblVehicle.setBounds(10, 11, 110, 41);
+		vehiclesPanel.add(lblVehicle);
+		
+		lblAListOf_2 = new JLabel("A list of the coaches/buses.  Feel free to add more to it. ");
+		lblAListOf_2.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblAListOf_2.setBounds(20, 48, 533, 32);
+		vehiclesPanel.add(lblAListOf_2);
+		
+		lblVehicleLicensePlate = new JLabel("Vehicle License Plate");
+		lblVehicleLicensePlate.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblVehicleLicensePlate.setBounds(20, 170, 122, 20);
+		vehiclesPanel.add(lblVehicleLicensePlate);
+		
+		txtLicencePlate = new JTextField();
+		txtLicencePlate.setToolTipText("Vehicle license plate");
+		txtLicencePlate.setColumns(10);
+		txtLicencePlate.setBounds(20, 199, 175, 30);
+		vehiclesPanel.add(txtLicencePlate);
+		
+		lblType = new JLabel("Type");
+		lblType.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblType.setBounds(18, 236, 67, 20);
+		vehiclesPanel.add(lblType);
+		
+		btnAddVehicle = new JPanel();
+		btnAddVehicle.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				insertVehicle();
+			}
+		});
+		btnAddVehicle.setLayout(null);
+		btnAddVehicle.setBackground(new Color(60, 71, 85));
+		btnAddVehicle.setBounds(83, 306, 110, 32);
+		vehiclesPanel.add(btnAddVehicle);
+		
+		lblAddVehicle = new JLabel("ADD VEHICLE");
+		lblAddVehicle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAddVehicle.setForeground(Color.WHITE);
+		lblAddVehicle.setFont(new Font("Candara", Font.BOLD, 14));
+		lblAddVehicle.setBounds(10, 11, 90, 14);
+		btnAddVehicle.add(lblAddVehicle);
+		
+		separator_2 = new JSeparator();
+		separator_2.setOrientation(SwingConstants.VERTICAL);
+		separator_2.setBounds(220, 170, 22, 316);
+		vehiclesPanel.add(separator_2);
+		
+		scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(252, 172, 361, 316);
+		vehiclesPanel.add(scrollPane_2);
+		
+		tableVehicle = new JTable();
+		scrollPane_2.setViewportView(tableVehicle);
+		
+		cmbType = new JComboBox();
+		cmbType.setToolTipText("type of vehicle");
+		cmbType.setModel(new DefaultComboBoxModel(new String[] {"Coach", "Bus"}));
+		cmbType.setBounds(20, 259, 175, 30);
+		vehiclesPanel.add(cmbType);
+		
+		lblErrorVehicle = new JLabel("");
+		lblErrorVehicle.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblErrorVehicle.setForeground(new Color(204, 0, 0));
+		lblErrorVehicle.setFont(new Font("Candara", Font.PLAIN, 12));
+		lblErrorVehicle.setBounds(20, 349, 175, 20);
+		vehiclesPanel.add(lblErrorVehicle);
 		
 		routesPanel = new JPanel();
 		routesPanel.setBackground(new Color(255, 255, 255));
@@ -506,6 +591,8 @@ public class ManagerScreen extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				switchPanel(vehiclesPanel);
+				getVehicles();
+				
 			}
 		});
 		sidePanel.add(btnVehiclesPanel);
@@ -821,6 +908,15 @@ public class ManagerScreen extends JFrame {
 		lblCancel.setBounds(10, 11, 68, 14);
 		panel_12.add(lblCancel);
 		
+		profilePanel = new JPanel();
+		layeredPane.add(profilePanel, "name_255630843630500");
+		profilePanel.setLayout(null);
+		
+		panel_13 = new JPanel();
+		panel_13.setBackground(new Color(86, 97, 115));
+		panel_13.setBounds(0, 0, 790, 110);
+		profilePanel.add(panel_13);
+		
 		
 		
 	}
@@ -910,29 +1006,83 @@ public class ManagerScreen extends JFrame {
 		}
 	}
 	
-public void getDrivers() {
-		
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("ID");
-		model.addColumn("FIRSTNAME");
-		model.addColumn("LASTNAME");
-        try {
-        	String query = "select * from driver";
-            preparedStatement = conn.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
-            
-            while(resultSet.next()) {
-            	model.addRow(new Object[] {
-            			resultSet.getString("driverID"),
-            			resultSet.getString("firstname"),
-            			resultSet.getString("lastname")
-            	});
-            }
-            
-            tableDrivers.setModel(model);
-            
-        }catch (Exception e) {
-			System.out.println("error: " + e);
+	public void getDrivers() {
+			
+			DefaultTableModel model = new DefaultTableModel();
+			model.addColumn("ID");
+			model.addColumn("FIRSTNAME");
+			model.addColumn("LASTNAME");
+	        try {
+	        	String query = "select * from driver";
+	            preparedStatement = conn.prepareStatement(query);
+	            resultSet = preparedStatement.executeQuery();
+	            
+	            while(resultSet.next()) {
+	            	model.addRow(new Object[] {
+	            			resultSet.getString("driverID"),
+	            			resultSet.getString("firstname"),
+	            			resultSet.getString("lastname")
+	            	});
+	            }
+	            
+	            tableDrivers.setModel(model);
+	            
+	        }catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+		}
+
+	public void insertVehicle() {
+		if (!(txtLicencePlate.getText().isEmpty())) {
+			try {
+				String query = "select * from vehicle where vehicleLicensePlate=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setString(1, txtLicencePlate.getText());
+				resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()) {
+					lblErrorVehicle.setText(txtLicencePlate.getText() + " already exists!");
+					System.out.println(txtLicencePlate.getText() + " already exists!");
+				}else {
+					String insertDataQueryString = "insert into vehicle (vehicleType,vehicleLicensePlate) values(?,?)";
+					preparedStatement = conn.prepareStatement(insertDataQueryString);
+					preparedStatement.setString(1, cmbType.getSelectedItem().toString());
+					preparedStatement.setString(2, txtLicencePlate.getText());
+					preparedStatement.execute();
+					txtLicencePlate.setText("");
+					lblErrorVehicle.setText("");
+				}
+			} catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+		}else {
+			lblErrorCity.setText("Please, provide vehicle...");
 		}
 	}
+	
+	public void getVehicles() {
+			
+			DefaultTableModel model = new DefaultTableModel();
+			model.addColumn("ID");
+			model.addColumn("VEHICLE TYPE");
+			model.addColumn("LICENSE PLATE");
+	        try {
+	        	String query = "select * from vehicle";
+	            preparedStatement = conn.prepareStatement(query);
+	            resultSet = preparedStatement.executeQuery();
+	            
+	            while(resultSet.next()) {
+	            	model.addRow(new Object[] {
+	            			resultSet.getString("vehicleID"),
+	            			resultSet.getString("vehicleType"),
+	            			resultSet.getString("vehicleLicensePlate")
+	            	});
+	            }
+	            
+	            tableVehicle.setModel(model);
+	            
+	        }catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+	}
+	
 }
