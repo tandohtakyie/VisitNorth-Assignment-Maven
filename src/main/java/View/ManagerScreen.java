@@ -84,9 +84,9 @@ public class ManagerScreen extends JFrame {
 	JPanel panel_5;
 	JLabel lblLogout;
 	JPanel panel_10;
-	JComboBox cmbType;
+	JComboBox<String> cmbType;
 	JLabel lblAllThePossible;
-	JLabel lblJohnDoe;
+	JLabel lblEmployeeName;
 	JPanel btnRoutesPanel;
 	JLabel lblLogoutWhenNo;
 	JLabel lblVisitNorth;
@@ -172,6 +172,7 @@ public class ManagerScreen extends JFrame {
 	private JLabel lblErrorRoute;
 	private JTable tableRoute;
 	JScrollPane scrollPane_3;
+	private JLabel lblNewLabel_10;
 
 	/**
 	 * Launch the application.
@@ -183,6 +184,7 @@ public class ManagerScreen extends JFrame {
 					managerFrame = new ManagerScreen();
 					managerFrame.setUndecorated(true);
 					managerFrame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -347,6 +349,7 @@ public class ManagerScreen extends JFrame {
 		btnSettingsPanel.add(lblSettings);
 		
 		panel_5 = new JPanel();
+		panel_5.setToolTipText("Profile");
 		panel_5.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -359,17 +362,27 @@ public class ManagerScreen extends JFrame {
 		sidePanel.add(panel_5);
 		
 		lblLogout = new JLabel("");
+		lblLogout.setToolTipText("Sign out");
+		lblLogout.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				managerFrame.dispose();
+				Login loginScreen = new Login();
+				loginScreen.setUndecorated(true);
+				loginScreen.setVisible(true);
+			}
+		});
 		lblLogout.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_sign_out_20px.png")));
 		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogout.setBounds(22, 11, 40, 33);
 		panel_5.add(lblLogout);
 		
-		lblJohnDoe = new JLabel("John Doe");
-		lblJohnDoe.setHorizontalAlignment(SwingConstants.LEFT);
-		lblJohnDoe.setForeground(Color.WHITE);
-		lblJohnDoe.setFont(new Font("Candara", Font.BOLD, 19));
-		lblJohnDoe.setBounds(95, 14, 78, 33);
-		panel_5.add(lblJohnDoe);
+		lblEmployeeName = new JLabel(Login.empName);
+		lblEmployeeName.setHorizontalAlignment(SwingConstants.LEFT);
+		lblEmployeeName.setForeground(Color.WHITE);
+		lblEmployeeName.setFont(new Font("Candara", Font.BOLD, 19));
+		lblEmployeeName.setBounds(95, 14, 78, 33);
+		panel_5.add(lblEmployeeName);
 		
 		lblVisitNorth = new JLabel("Visit North");
 		lblVisitNorth.setBounds(39, 39, 111, 33);
@@ -388,6 +401,18 @@ public class ManagerScreen extends JFrame {
 		lblCities_1.setFont(new Font("Candara", Font.PLAIN, 18));
 		lblCities_1.setBounds(10, 0, 110, 41);
 		homePanel.add(lblCities_1);
+		
+		JLabel lblWelcomeName = new JLabel("Welcome " + Login.empName);
+		lblWelcomeName.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblWelcomeName.setFont(new Font("Candara", Font.PLAIN, 18));
+		lblWelcomeName.setBounds(591, 0, 131, 41);
+		homePanel.add(lblWelcomeName);
+		
+		lblNewLabel_10 = new JLabel("");
+		lblNewLabel_10.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_10.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_handshake_30px.png")));
+		lblNewLabel_10.setBounds(495, 0, 40, 41);
+		homePanel.add(lblNewLabel_10);
 		
 		driversPanel = new JPanel();
 		driversPanel.setBackground(new Color(255, 255, 255));
@@ -527,9 +552,9 @@ public class ManagerScreen extends JFrame {
 		tableVehicle = new JTable();
 		scrollPane_2.setViewportView(tableVehicle);
 		
-		cmbType = new JComboBox();
+		cmbType = new JComboBox<String>();
 		cmbType.setToolTipText("type of vehicle");
-		cmbType.setModel(new DefaultComboBoxModel(new String[] {"Coach", "Bus"}));
+		cmbType.setModel(new DefaultComboBoxModel<String>(new String[] {"Coach", "Bus"}));
 		cmbType.setBounds(20, 259, 175, 30);
 		vehiclesPanel.add(cmbType);
 		
@@ -605,7 +630,7 @@ public class ManagerScreen extends JFrame {
 //		routesPanel.add(departureDate);
 		
 		txtDepartureDate = new JTextField();
-		txtDepartureDate.setToolTipText("Vehicle license plate");
+		txtDepartureDate.setToolTipText("Departure Date");
 		txtDepartureDate.setColumns(10);
 		txtDepartureDate.setBounds(10, 333, 175, 30);
 		routesPanel.add(txtDepartureDate);
@@ -616,7 +641,7 @@ public class ManagerScreen extends JFrame {
 		routesPanel.add(lblDepartureDate);
 		
 		txtDepartureTime = new JTextField();
-		txtDepartureTime.setToolTipText("Vehicle license plate");
+		txtDepartureTime.setToolTipText("Departure Time");
 		txtDepartureTime.setColumns(10);
 		txtDepartureTime.setBounds(10, 407, 175, 30);
 		routesPanel.add(txtDepartureTime);
@@ -1018,6 +1043,7 @@ public class ManagerScreen extends JFrame {
 		panel_12.add(lblCancel);
 		
 		profilePanel = new JPanel();
+		profilePanel.setBackground(Color.WHITE);
 		layeredPane.add(profilePanel, "name_255630843630500");
 		profilePanel.setLayout(null);
 		
@@ -1025,6 +1051,54 @@ public class ManagerScreen extends JFrame {
 		panel_13.setBackground(new Color(86, 97, 115));
 		panel_13.setBounds(0, 0, 790, 110);
 		profilePanel.add(panel_13);
+		
+		JPanel panel_14 = new JPanel();
+		panel_14.setBounds(214, 176, 340, 60);
+		profilePanel.add(panel_14);
+		panel_14.setLayout(null);
+		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_secured_letter_20px.png")));
+		lblNewLabel_3.setBounds(10, 11, 39, 38);
+		panel_14.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_9 = new JLabel("employeemanager@visitnorth.ac.uk");
+		lblNewLabel_9.setFont(new Font("Candara", Font.PLAIN, 15));
+		lblNewLabel_9.setBounds(70, 23, 241, 14);
+		panel_14.add(lblNewLabel_9);
+		
+		JPanel panel_15 = new JPanel();
+		panel_15.setLayout(null);
+		panel_15.setBounds(214, 247, 340, 60);
+		profilePanel.add(panel_15);
+		
+		JLabel label_7 = new JLabel("");
+		label_7.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_phone_20px.png")));
+		label_7.setHorizontalAlignment(SwingConstants.CENTER);
+		label_7.setBounds(10, 11, 39, 38);
+		panel_15.add(label_7);
+		
+		JLabel label_8 = new JLabel("+44 7456 5857 554");
+		label_8.setFont(new Font("Candara", Font.PLAIN, 15));
+		label_8.setBounds(70, 23, 241, 14);
+		panel_15.add(label_8);
+		
+		JPanel panel_16 = new JPanel();
+		panel_16.setLayout(null);
+		panel_16.setBounds(214, 318, 340, 60);
+		profilePanel.add(panel_16);
+		
+		JLabel label_9 = new JLabel("");
+		label_9.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_website_20px.png")));
+		label_9.setHorizontalAlignment(SwingConstants.CENTER);
+		label_9.setBounds(10, 11, 39, 38);
+		panel_16.add(label_9);
+		
+		JLabel lblWwwvisitnorthacuk = new JLabel("www.visitnorth.ac.uk");
+		lblWwwvisitnorthacuk.setFont(new Font("Candara", Font.PLAIN, 15));
+		lblWwwvisitnorthacuk.setBounds(70, 23, 241, 14);
+		panel_16.add(lblWwwvisitnorthacuk);
 		
 		
 		

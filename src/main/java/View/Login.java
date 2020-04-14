@@ -34,6 +34,7 @@ public class Login extends JFrame {
 	private JTextField txtUsername;
 	private JPasswordField txtPassword;
 	private JLabel lblError;
+	public static String empName = "";
 	
 	Connection conn = DatabaseConnection.connectDB();
     PreparedStatement preparedStatement = null;
@@ -120,6 +121,7 @@ public class Login extends JFrame {
 		Button btnLogin = new Button("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				String query = "select * from employee where username=? and password=?";
                 try {
                     preparedStatement = conn.prepareStatement(query);
@@ -128,14 +130,17 @@ public class Login extends JFrame {
                     resultSet = preparedStatement.executeQuery();
 
                     if (resultSet.next()){
+                    	empName = resultSet.getString("name");
                         System.out.println("logged in");
                         frameLogin.dispose();
                         
                         if (getEmployeeRole().equals("Agent")) {
                             AgentScreen agentScreen = new AgentScreen();
+                            agentScreen.setUndecorated(true);                            
                             agentScreen.setVisible(true);
                         }else if (getEmployeeRole().equals("Manager")){
                             ManagerScreen managerScreen = new ManagerScreen();
+                            managerScreen.setUndecorated(true);
                             managerScreen.setVisible(true);
                         }
                     }else {
