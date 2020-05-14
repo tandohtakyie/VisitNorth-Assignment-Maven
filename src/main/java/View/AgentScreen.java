@@ -11,6 +11,8 @@ import java.awt.event.MouseMotionAdapter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -173,6 +175,7 @@ public class AgentScreen extends JFrame {
 	private JComboBox<String> cmbDateTravel;
 	private JLabel lblTime;
 	private JComboBox<String> cmbTimeTravel;
+	private JTable tableTicket;
 
 	/**
 	 * Launch the application.
@@ -280,6 +283,7 @@ public class AgentScreen extends JFrame {
 			public void mousePressed(MouseEvent arg0) {
 				switchPanel(sellTicketPanel);
 				getFromTo();
+				displayTicketInTable();
 			}
 		});
 		sidePanel.add(btnSellTicket);
@@ -800,7 +804,7 @@ public class AgentScreen extends JFrame {
 		sellTicketPanel.add(lblSellTicket);
 		
 		cmbFromTo = new JComboBox<String>();
-		cmbFromTo.setToolTipText("type of vehicle");
+		cmbFromTo.setToolTipText("From and To destination of customer");
 		cmbFromTo.setBounds(22, 143, 207, 30);
 		sellTicketPanel.add(cmbFromTo);
 		
@@ -815,7 +819,7 @@ public class AgentScreen extends JFrame {
 		sellTicketPanel.add(lblDate);
 		
 		cmbDateTravel = new JComboBox<String>();
-		cmbDateTravel.setToolTipText("type of vehicle");
+		cmbDateTravel.setToolTipText("date customer wants to travel");
 		cmbDateTravel.setBounds(22, 207, 207, 30);
 		sellTicketPanel.add(cmbDateTravel);
 		
@@ -825,9 +829,41 @@ public class AgentScreen extends JFrame {
 		sellTicketPanel.add(lblTime);
 		
 		cmbTimeTravel = new JComboBox<String>();
-		cmbTimeTravel.setToolTipText("type of vehicle");
+		cmbTimeTravel.setToolTipText("time customer wants to travel");
 		cmbTimeTravel.setBounds(22, 271, 207, 30);
 		sellTicketPanel.add(cmbTimeTravel);
+		
+		JSeparator separator_4 = new JSeparator();
+		separator_4.setOrientation(SwingConstants.VERTICAL);
+		separator_4.setBounds(239, 120, 22, 440);
+		sellTicketPanel.add(separator_4);
+		
+		JScrollPane scrollPane_4 = new JScrollPane();
+		scrollPane_4.setBounds(250, 120, 514, 440);
+		sellTicketPanel.add(scrollPane_4);
+		
+		tableTicket = new JTable();
+		scrollPane_4.setViewportView(tableTicket);
+		
+		JPanel btnProceedBuyTicket = new JPanel();
+		btnProceedBuyTicket.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				insertTicket();
+				displayTicketInTable();
+			}
+		});
+		btnProceedBuyTicket.setLayout(null);
+		btnProceedBuyTicket.setBackground(new Color(60, 71, 85));
+		btnProceedBuyTicket.setBounds(119, 319, 110, 32);
+		sellTicketPanel.add(btnProceedBuyTicket);
+		
+		JLabel lblProceed = new JLabel("PROCEED");
+		lblProceed.setHorizontalAlignment(SwingConstants.CENTER);
+		lblProceed.setForeground(Color.WHITE);
+		lblProceed.setFont(new Font("Candara", Font.BOLD, 14));
+		lblProceed.setBounds(10, 11, 90, 14);
+		btnProceedBuyTicket.add(lblProceed);
 		
 		schedulePanel = new JPanel();
 		schedulePanel.setBackground(new Color(255, 255, 255));
@@ -1288,7 +1324,7 @@ public class AgentScreen extends JFrame {
         }catch (Exception e) {
 			System.out.println("error: " + e);
 		}
-}
+	}
 	
 	
 	public void getFromTo() {
@@ -1309,33 +1345,109 @@ public class AgentScreen extends JFrame {
 			System.out.println("error: " + e);
 		}
 	}
-//	public void getDateForFromTo() {
+	
+	
+	public double getPrice() {
+		double price = 0;
+		try {
+			String query = "select * from route where description=?";
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, cmbFromTo.getSelectedItem().toString());
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				price = resultSet.getDouble("price");
+			}
+		} catch (Exception e) {
+			System.out.println("error: " + e);
+		} 
+		return price;
+	}
+	
+	
+	public String getScheduleID() {
+		String scheduleCode = "";
+		try {
+			String query = "select * from route where description=?";
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, cmbFromTo.getSelectedItem().toString());
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				scheduleCode = resultSet.getString("scheduleCode");
+			}
+		} catch (Exception e) {
+			System.out.println("error: " + e.toString());
+		} 
+		return scheduleCode;
+	}
+	
+	public void insertTicket() {
+		try {
+			String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+			String scheduleID = getScheduleID();
+			double price = getPrice();
+			
+			String insertDataQueryString = "insert into ticket (transactionTime,scheduleID,date,time,price) values(?,?,?,?,?)";
+			preparedStatement = conn.prepareStatement(insertDataQueryString);
+			preparedStatement.setString(1, timeStamp);
+			preparedStatement.setString(2, scheduleID);
+			preparedStatement.setString(3, cmbDateTravel.getSelectedItem().toString());
+			preparedStatement.setString(4, cmbTimeTravel.getSelectedItem().toString());
+			preparedStatement.setDouble(5, price);
+			preparedStatement.execute();
+			
+		} catch (Exception e) {
+			System.out.println("error: " + e);
+		}
+	}
+	
+	
+	
+	public void updateTicketwithScheduleID() {
 //		try {
-//			String query = "select * from route where description=?";
-//			preparedStatement = conn.prepareStatement(query);
-//			preparedStatement.setString(1, cmbFromTo.getSelectedItem().toString());
-//			resultSet = preparedStatement.executeQuery();
+//			String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
 //			
-//			while(resultSet.next()) {
-//				cmbDateTravel.setSelectedIndex(-1);
-//				cmbDateTravel.addItem(resultSet.getString("departureDate"));
-//			}
+//			String insertDataQueryString = "Update ticket set scheduleID=?, price=?  WHERE id = 1;";
+//			preparedStatement = conn.prepareStatement(insertDataQueryString);
+//			preparedStatement.setString(1, timeStamp);
+//			preparedStatement.setString(2, getScheduleID());
+//			preparedStatement.setDouble(3, getPrice());
+//			preparedStatement.execute();
+//			
 //		} catch (Exception e) {
 //			System.out.println("error: " + e);
 //		}
-//	}
-//	public void getTimeForFromTo() {
-//		try {
-//			String query = "select * from route where departureDate=?";
-//			preparedStatement = conn.prepareStatement(query);
-//			preparedStatement.setString(1, cmbDateTravel.getSelectedItem().toString());
-//			resultSet = preparedStatement.executeQuery();
-//			
-//			while(resultSet.next()) {
-//				cmbTimeTravel.addItem(resultSet.getString("departureTime"));
-//			}
-//		} catch (Exception e) {
-//			System.out.println("error: " + e);
-//		}
-//	}
+	}
+	
+
+public void displayTicketInTable() {
+		
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("TRANSACTION TIME");
+		model.addColumn("SCHEDULE ID");
+		model.addColumn("DATE");
+		model.addColumn("TIME");
+		model.addColumn("PRICE");
+        try {
+        	String query = "select * from ticket";
+            preparedStatement = conn.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+            
+            while(resultSet.next()) {
+            	model.addRow(new Object[] {
+            			resultSet.getString("transactionTime"),
+            			resultSet.getString("scheduleID"),
+            			resultSet.getString("date"),
+            			resultSet.getString("time"),
+            			resultSet.getString("price")
+            	});
+            }
+            
+            tableTicket.setModel(model);
+            
+        }catch (Exception e) {
+			System.out.println("error: " + e);
+		}
+	}
 }

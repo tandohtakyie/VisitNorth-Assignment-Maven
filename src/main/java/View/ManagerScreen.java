@@ -16,6 +16,7 @@ import java.awt.event.MouseMotionAdapter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JLayeredPane;
 import java.awt.CardLayout;
@@ -69,6 +70,7 @@ public class ManagerScreen extends JFrame {
 	JSeparator separator;
 	JPanel panel_9;
 	JLabel lblLastname;
+	JLabel lblDepartureDate;
 	JLabel lblNewLabel_8;
 	JPanel btnSchedulePanel;
 	JPanel btnAddCity;
@@ -111,14 +113,19 @@ public class ManagerScreen extends JFrame {
 	JLabel lblAddDriver;
 	JLabel lblDrivers;
 	JSeparator separator_1;
+	JLabel lblTo;
+	JLabel lblWelcomeName;
 	JLabel lblRoute;
 	JLabel label_3;
+	JComboBox<String> cmbSchedule;
 	JCheckBox chckbxNewCheckBox;
+	JLabel lblPrice;
 	JPanel btnVehiclesPanel;
 	JLabel lblFrom;
 	JLabel label_5;
 	JPanel panel_11;
 	JComboBox<String> cmbFromCity;
+	JLabel lblAssignRouteTo;
 	JLabel lblFirstname;
 	JPanel panel_12;
 	JLabel lblRoutes;
@@ -403,7 +410,7 @@ public class ManagerScreen extends JFrame {
 		lblCities_1.setBounds(10, 0, 110, 41);
 		homePanel.add(lblCities_1);
 		
-		JLabel lblWelcomeName = new JLabel("Welcome " + Login.empName);
+		lblWelcomeName = new JLabel("Welcome " + Login.empName);
 		lblWelcomeName.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblWelcomeName.setFont(new Font("Candara", Font.PLAIN, 18));
 		lblWelcomeName.setBounds(591, 0, 131, 41);
@@ -573,7 +580,7 @@ public class ManagerScreen extends JFrame {
 		
 		separator_3 = new JSeparator();
 		separator_3.setOrientation(SwingConstants.VERTICAL);
-		separator_3.setBounds(264, 170, 22, 408);
+		separator_3.setBounds(195, 163, 22, 440);
 		routesPanel.add(separator_3);
 		
 		btnAddRoute = new JPanel();
@@ -586,7 +593,7 @@ public class ManagerScreen extends JFrame {
 		});
 		btnAddRoute.setLayout(null);
 		btnAddRoute.setBackground(new Color(60, 71, 85));
-		btnAddRoute.setBounds(75, 535, 110, 32);
+		btnAddRoute.setBounds(75, 571, 110, 32);
 		routesPanel.add(btnAddRoute);
 		
 		lblAddRoute = new JLabel("ADD ROUTE");
@@ -611,19 +618,19 @@ public class ManagerScreen extends JFrame {
 		lblRoute.setBounds(10, 11, 110, 41);
 		routesPanel.add(lblRoute);
 		
-		cmbFromCity = new JComboBox();
+		cmbFromCity = new JComboBox<String>();
 		cmbFromCity.setToolTipText("from which city");
-		cmbFromCity.setBounds(10, 192, 175, 30);
+		cmbFromCity.setBounds(10, 182, 175, 30);
 		routesPanel.add(cmbFromCity);
 		
-		cmbToCity = new JComboBox();
+		cmbToCity = new JComboBox<String>();
 		cmbToCity.setToolTipText("to which city");
-		cmbToCity.setBounds(10, 263, 175, 30);
+		cmbToCity.setBounds(10, 241, 175, 30);
 		routesPanel.add(cmbToCity);
 		
-		JLabel lblTo = new JLabel("To");
+		lblTo = new JLabel("To");
 		lblTo.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblTo.setBounds(10, 234, 35, 20);
+		lblTo.setBounds(10, 223, 35, 20);
 		routesPanel.add(lblTo);
 		
 //		departureDate = new JCalendar();
@@ -633,34 +640,34 @@ public class ManagerScreen extends JFrame {
 		txtDepartureDate = new JTextField();
 		txtDepartureDate.setToolTipText("Departure Date");
 		txtDepartureDate.setColumns(10);
-		txtDepartureDate.setBounds(10, 333, 175, 30);
+		txtDepartureDate.setBounds(10, 303, 175, 30);
 		routesPanel.add(txtDepartureDate);
 		
-		JLabel lblDepartureDate = new JLabel("Departure Date");
+		lblDepartureDate = new JLabel("Departure Date");
 		lblDepartureDate.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblDepartureDate.setBounds(10, 304, 122, 20);
+		lblDepartureDate.setBounds(10, 282, 122, 20);
 		routesPanel.add(lblDepartureDate);
 		
 		txtDepartureTime = new JTextField();
 		txtDepartureTime.setToolTipText("Departure Time");
 		txtDepartureTime.setColumns(10);
-		txtDepartureTime.setBounds(10, 407, 175, 30);
+		txtDepartureTime.setBounds(10, 365, 175, 30);
 		routesPanel.add(txtDepartureTime);
 		
 		lblDepartureTime = new JLabel("Departure Time");
 		lblDepartureTime.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblDepartureTime.setBounds(10, 378, 122, 20);
+		lblDepartureTime.setBounds(10, 344, 122, 20);
 		routesPanel.add(lblDepartureTime);
 		
 		lblErrorRoute = new JLabel("");
 		lblErrorRoute.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblErrorRoute.setForeground(new Color(204, 0, 0));
 		lblErrorRoute.setFont(new Font("Candara", Font.PLAIN, 10));
-		lblErrorRoute.setBounds(10, 504, 175, 20);
+		lblErrorRoute.setBounds(10, 540, 175, 20);
 		routesPanel.add(lblErrorRoute);
 		
 		scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(296, 170, 448, 316);
+		scrollPane_3.setBounds(211, 170, 533, 316);
 		routesPanel.add(scrollPane_3);
 		
 		tableRoute = new JTable();
@@ -669,13 +676,23 @@ public class ManagerScreen extends JFrame {
 		txtPrice = new JTextField();
 		txtPrice.setToolTipText("Price ex. 10.50");
 		txtPrice.setColumns(10);
-		txtPrice.setBounds(10, 477, 175, 30);
+		txtPrice.setBounds(10, 424, 175, 30);
 		routesPanel.add(txtPrice);
 		
-		JLabel lblPrice = new JLabel("Price");
+		lblPrice = new JLabel("Price");
 		lblPrice.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblPrice.setBounds(10, 448, 122, 20);
+		lblPrice.setBounds(10, 406, 122, 20);
 		routesPanel.add(lblPrice);
+		
+		cmbSchedule = new JComboBox<String>();
+		cmbSchedule.setToolTipText("from which city");
+		cmbSchedule.setBounds(10, 484, 175, 30);
+		routesPanel.add(cmbSchedule);
+		
+		lblAssignRouteTo = new JLabel("Assign Route to Schedule");
+		lblAssignRouteTo.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblAssignRouteTo.setBounds(10, 465, 159, 20);
+		routesPanel.add(lblAssignRouteTo);
 		
 		btnCitiesPanel = new JPanel();
 		btnCitiesPanel.setBackground(new Color(61,70,85));
@@ -762,6 +779,7 @@ public class ManagerScreen extends JFrame {
 			public void mousePressed(MouseEvent arg0) {
 				switchPanel(routesPanel);
 				getCitiesToComboBox();
+				getScheduleToComboBox();
 				displayRouteInTable();
 			}
 		});
@@ -1290,43 +1308,59 @@ public class ManagerScreen extends JFrame {
 		
 		char cFrom = from.charAt(0);
 		char cTo = to.charAt(0);
+	
 		
 		
 		if (!(txtDepartureDate.getText().isEmpty() || txtDepartureTime.getText().isEmpty() || txtPrice.getText().isEmpty())) {
-			if (!(checkComboBoxValues())) {
-				try {
-					String query = "select * from route where description=? and departureDate=?";
-					preparedStatement = conn.prepareStatement(query);
-					preparedStatement.setString(1, cmbFromCity.getSelectedItem().toString() + " - " + cmbToCity.getSelectedItem().toString());
-					preparedStatement.setString(2, txtDepartureDate.getText());
+			try {
+				if(!(checkComboBoxValues())) {
+					String querySchedule = "select * from route where scheduleCode=?";
+					preparedStatement = conn.prepareStatement(querySchedule);
+					preparedStatement.setString(1, cmbSchedule.getSelectedItem().toString());
 					resultSet = preparedStatement.executeQuery();
+					
 					if (resultSet.next()) {
-						lblErrorRoute.setText("This route already exists!");
-						System.out.println("This route already exists!");
+						lblErrorRoute.setText("This schedule is assigned to route!");
+						System.out.println("This schedule is assigned to route!");
+						
+					}else if (!(checkComboBoxValues())) {
+						try {
+							String query = "select * from route where description=? and departureDate=?";
+							preparedStatement = conn.prepareStatement(query);
+							preparedStatement.setString(1, cmbFromCity.getSelectedItem().toString() + " - " + cmbToCity.getSelectedItem().toString());
+							preparedStatement.setString(2, txtDepartureDate.getText());
+							resultSet = preparedStatement.executeQuery();
+							if (resultSet.next()) {
+								lblErrorRoute.setText("This route already exists!");
+								System.out.println("This route already exists!");
+							}else {
+								String insertRouteData = "insert into route (description,departureDate,departureTime,rID,price,scheduleCode) values(?,?,?,?,?,?)";
+								preparedStatement = conn.prepareStatement(insertRouteData);
+								preparedStatement.setString(1, cmbFromCity.getSelectedItem().toString() + " - " + cmbToCity.getSelectedItem().toString());
+								preparedStatement.setString(2, txtDepartureDate.getText());
+								preparedStatement.setString(3, txtDepartureTime.getText());
+								preparedStatement.setString(4, String.valueOf(cFrom) + String.valueOf(cTo));
+								preparedStatement.setString(5, txtPrice.getText());		
+								preparedStatement.setString(6, cmbSchedule.getSelectedItem().toString());		
+								
+								preparedStatement.execute();
+								
+								txtDepartureDate.setText("");
+								txtDepartureTime.setText("");
+								txtPrice.setText("");
+								lblErrorRoute.setText("");
+								
+							}
+						} catch (Exception e) {
+							System.out.println("error: " + e);
+						}
 					}else {
-						String insertRouteData = "insert into route (description,departureDate,departureTime,rID,price) values(?,?,?,?,?)";
-						preparedStatement = conn.prepareStatement(insertRouteData);
-						preparedStatement.setString(1, cmbFromCity.getSelectedItem().toString() + " - " + cmbToCity.getSelectedItem().toString());
-						preparedStatement.setString(2, txtDepartureDate.getText());
-						preparedStatement.setString(3, txtDepartureTime.getText());
-						preparedStatement.setString(4, String.valueOf(cFrom) + String.valueOf(cTo));
-						preparedStatement.setString(5, txtPrice.getText());						
-						
-						preparedStatement.execute();
-						
-						txtDepartureDate.setText("");
-						txtDepartureTime.setText("");
-						txtPrice.setText("");
-						lblErrorRoute.setText("");
-						
+						lblErrorRoute.setText("From and To can't be the same");
 					}
-				} catch (Exception e) {
-					System.out.println("error: " + e);
 				}
-			}else {
-				lblErrorRoute.setText("From and To can't be the same");
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
-			
 
 		}else {
 			lblErrorRoute.setText("Invalid date, time or price...");
@@ -1336,6 +1370,7 @@ public class ManagerScreen extends JFrame {
 	public void displayRouteInTable() {
 		
 		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("SCHEDULE ID");
 		model.addColumn("ROUTE ID");
 		model.addColumn("DESCRIPTION");
 		model.addColumn("DATE");
@@ -1348,6 +1383,7 @@ public class ManagerScreen extends JFrame {
             
             while(resultSet.next()) {
             	model.addRow(new Object[] {
+            			resultSet.getString("scheduleCode"),
             			resultSet.getString("rID"),
             			resultSet.getString("description"),
             			resultSet.getString("departureDate"),
@@ -1361,7 +1397,7 @@ public class ManagerScreen extends JFrame {
         }catch (Exception e) {
 			System.out.println("error: " + e);
 		}
-}
+	}
 	
 	
 	public void getCitiesToComboBox() {
@@ -1378,4 +1414,34 @@ public class ManagerScreen extends JFrame {
 			System.out.println("error: " + e);
 		}
 	}
+	
+	public void getScheduleToComboBox() {
+		try {
+			String query = "select * from schedule";
+			preparedStatement = conn.prepareStatement(query);
+			resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				cmbSchedule.setSelectedIndex(-1);
+				cmbSchedule.addItem(resultSet.getString("scheduleCode"));
+			}
+		} catch (Exception e) {
+			System.out.println("error: " + e);
+		}
+	}
+	
+	private int getScheduleID(){
+        int scheduleID = 0;
+        try {
+            String query = "select * from schedule where scheduleCode='" + cmbSchedule.getSelectedItem().toString() + "'";
+            preparedStatement = conn.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+            	scheduleID = resultSet.getInt("scheduleCode");
+            }
+        }catch (SQLException e) {
+            e.getMessage();
+        }
+        return scheduleID;
+    }
 }
