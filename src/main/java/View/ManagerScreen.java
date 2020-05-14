@@ -173,6 +173,7 @@ public class ManagerScreen extends JFrame {
 	private JTable tableRoute;
 	JScrollPane scrollPane_3;
 	private JLabel lblNewLabel_10;
+	private JTextField txtPrice;
 
 	/**
 	 * Launch the application.
@@ -572,7 +573,7 @@ public class ManagerScreen extends JFrame {
 		
 		separator_3 = new JSeparator();
 		separator_3.setOrientation(SwingConstants.VERTICAL);
-		separator_3.setBounds(264, 170, 22, 354);
+		separator_3.setBounds(264, 170, 22, 408);
 		routesPanel.add(separator_3);
 		
 		btnAddRoute = new JPanel();
@@ -585,7 +586,7 @@ public class ManagerScreen extends JFrame {
 		});
 		btnAddRoute.setLayout(null);
 		btnAddRoute.setBackground(new Color(60, 71, 85));
-		btnAddRoute.setBounds(75, 454, 110, 32);
+		btnAddRoute.setBounds(75, 535, 110, 32);
 		routesPanel.add(btnAddRoute);
 		
 		lblAddRoute = new JLabel("ADD ROUTE");
@@ -664,6 +665,17 @@ public class ManagerScreen extends JFrame {
 		
 		tableRoute = new JTable();
 		scrollPane_3.setViewportView(tableRoute);
+		
+		txtPrice = new JTextField();
+		txtPrice.setToolTipText("Price ex. 10.50");
+		txtPrice.setColumns(10);
+		txtPrice.setBounds(10, 477, 175, 30);
+		routesPanel.add(txtPrice);
+		
+		JLabel lblPrice = new JLabel("Price");
+		lblPrice.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblPrice.setBounds(10, 448, 122, 20);
+		routesPanel.add(lblPrice);
 		
 		btnCitiesPanel = new JPanel();
 		btnCitiesPanel.setBackground(new Color(61,70,85));
@@ -1273,7 +1285,14 @@ public class ManagerScreen extends JFrame {
 	}
 	
 	public void insertRoute() {
-		if (!(txtDepartureDate.getText().isEmpty() || txtDepartureTime.getText().isEmpty())) {
+		String from = cmbFromCity.getSelectedItem().toString();
+		String to = cmbToCity.getSelectedItem().toString();
+		
+		char cFrom = from.charAt(0);
+		char cTo = to.charAt(0);
+		
+		
+		if (!(txtDepartureDate.getText().isEmpty() || txtDepartureTime.getText().isEmpty() || txtPrice.getText().isEmpty())) {
 			if (!(checkComboBoxValues())) {
 				try {
 					String query = "select * from route where description=? and departureDate=?";
@@ -1285,15 +1304,21 @@ public class ManagerScreen extends JFrame {
 						lblErrorRoute.setText("This route already exists!");
 						System.out.println("This route already exists!");
 					}else {
-						String insertRouteData = "insert into route (description,departureDate,departureTime) values(?,?,?)";
+						String insertRouteData = "insert into route (description,departureDate,departureTime,rID,price) values(?,?,?,?,?)";
 						preparedStatement = conn.prepareStatement(insertRouteData);
 						preparedStatement.setString(1, cmbFromCity.getSelectedItem().toString() + " - " + cmbToCity.getSelectedItem().toString());
 						preparedStatement.setString(2, txtDepartureDate.getText());
 						preparedStatement.setString(3, txtDepartureTime.getText());
+						preparedStatement.setString(4, String.valueOf(cFrom) + String.valueOf(cTo));
+						preparedStatement.setString(5, txtPrice.getText());						
+						
 						preparedStatement.execute();
+						
 						txtDepartureDate.setText("");
 						txtDepartureTime.setText("");
+						txtPrice.setText("");
 						lblErrorRoute.setText("");
+						
 					}
 				} catch (Exception e) {
 					System.out.println("error: " + e);
@@ -1304,17 +1329,18 @@ public class ManagerScreen extends JFrame {
 			
 
 		}else {
-			lblErrorRoute.setText("Invalid date or time...");
+			lblErrorRoute.setText("Invalid date, time or price...");
 		}
 	}
 	
 	public void displayRouteInTable() {
 		
 		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("ID");
+		model.addColumn("ROUTE ID");
 		model.addColumn("DESCRIPTION");
 		model.addColumn("DATE");
 		model.addColumn("TIME");
+		model.addColumn("PRICE");
         try {
         	String query = "select * from route";
             preparedStatement = conn.prepareStatement(query);
@@ -1322,10 +1348,11 @@ public class ManagerScreen extends JFrame {
             
             while(resultSet.next()) {
             	model.addRow(new Object[] {
-            			resultSet.getString("routeID"),
+            			resultSet.getString("rID"),
             			resultSet.getString("description"),
             			resultSet.getString("departureDate"),
-            			resultSet.getString("departureTime")
+            			resultSet.getString("departureTime"),
+            			resultSet.getString("price")
             	});
             }
             
