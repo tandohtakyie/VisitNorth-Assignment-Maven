@@ -50,7 +50,7 @@ public class ManagerScreen extends JFrame {
 	private JLayeredPane layeredPane;
 	
 	private JPanel citiesPanel;
-	private JPanel travelInfoPanel;
+	private JPanel availableSeatsPanel;
 	private JPanel schedulePanel;
 	private JPanel settingsPanel;
 	private JTextField txtCity;
@@ -62,10 +62,11 @@ public class ManagerScreen extends JFrame {
 	final JPanel homePanel;
 	JPanel btnHomePanel;
 	JLabel lblNewLabel;
-	JLabel lblNewLabel_1;
-	JPanel btnRoutePanel;
+	JLabel lblHomeButton;
+	JPanel btnAvailableSeatsLeft;
+	JPanel btnAvailableSeats;
 	JLabel label;
-	JLabel lblCities;
+	JLabel lblAvailableSeatsButton;
 	JLabel lblVehicle;
 	JSeparator separator;
 	JPanel panel_9;
@@ -76,21 +77,21 @@ public class ManagerScreen extends JFrame {
 	JPanel btnAddCity;
 	JPanel btnAddDriver;
 	JLabel label_2;
-	JLabel lblSchedules;
+	JLabel lblSchedulesButton;
 	JLabel lblReduceTheBrightness;
 	JPanel btnSettingsPanel;
 	JLabel label_4;
 	JLabel lblType;
 	JPanel btnAddVehicle;
-	JLabel lblSettings;
-	JPanel panel_5;
+	JLabel lblSettingsButton;
+	JPanel btnProfilePanel;
 	JLabel lblLogout;
 	JPanel panel_10;
 	JComboBox<String> cmbType;
 	JLabel lblAllThePossible;
 	JLabel lblEmployeeName;
 	JPanel btnRoutesPanel;
-	JLabel lblLogoutWhenNo;
+	JLabel lblLogoutWhenNoText;
 	JLabel lblVisitNorth;
 	JPanel panel_6;
 	JLabel lblCities_1;
@@ -102,15 +103,15 @@ public class ManagerScreen extends JFrame {
 	final JPanel routesPanel;
 	JPanel panel_1;
 	JPanel btnCitiesPanel;
-	JLabel lblSchedule;
 	JLabel lblNewLabel_6;
-	JLabel lblCancel;
+	JLabel lblCancelButtonText;
 	JLabel lblVehicles;
 	JLabel label_1;
-	JLabel lblAdjustBrightness;
+	JLabel lblAdjustBrightnessText;
 	JLabel lblBrightness;
 	JPanel btnDriversPanel;
 	JLabel lblAddDriver;
+	JPanel btnAddScheduleID;
 	JLabel lblDrivers;
 	JSeparator separator_1;
 	JLabel lblTo;
@@ -118,32 +119,33 @@ public class ManagerScreen extends JFrame {
 	JLabel lblRoute;
 	JLabel label_3;
 	JComboBox<String> cmbSchedule;
-	JCheckBox chckbxNewCheckBox;
+	JCheckBox chkbAdjustBrightness;
 	JLabel lblPrice;
 	JPanel btnVehiclesPanel;
 	JLabel lblFrom;
 	JLabel label_5;
-	JPanel panel_11;
+	JPanel btnSettingsSave;
 	JComboBox<String> cmbFromCity;
 	JLabel lblAssignRouteTo;
 	JLabel lblFirstname;
-	JPanel panel_12;
+	JPanel btnSettingsCancel;
 	JLabel lblRoutes;
-	JLabel lblNewLabel_4;
+	JLabel lblThemeColorText;
 	JLabel label_6;
 	JLabel lblNewLabel_7;
 	JScrollPane scrollPane_2;
+	JLabel lblRouteDescription;
 	JLabel lblNewLabel_2;
+	JComboBox<String> cmbRole;
 	JLabel lblAddCity;
 	JLabel lblClose;
 	JLabel lblCities_2;
 	JLabel lblLogOutIf;
 	JLabel lblErrorCity;
 	JLabel lblNewLabel_5;
-	JPanel panel_3;
+	JPanel btnColorOrange;
 	JLabel lblAutoLogOut;
 	JLabel lblAListOf_2;
-	JLabel lblCity;
 	JLabel lblChangeTheFont;
 	JLabel lblFont;
 	JPanel panel_4;
@@ -151,9 +153,10 @@ public class ManagerScreen extends JFrame {
 	JPanel panel_2;
 	JLabel lblAListOf_1;
 	JLabel lblDriver;
-	JCheckBox checkBox;
-	JLabel lblFontSize;
-	JComboBox comboBox;
+	JCheckBox chkbAutoLogout;
+	JLabel lblName;
+	JLabel lblFontSizeText;
+	JComboBox cmbFontSize;
 	JScrollPane scrollPane_1;
 	JPanel panel_7;
 	private JLabel lblAListOf;
@@ -168,8 +171,9 @@ public class ManagerScreen extends JFrame {
 	private JTextField txtLicencePlate;
 	private JTable tableVehicle;
 	private JLabel lblErrorVehicle;
+	JPanel btnAddEmployee;
 	private JPanel profilePanel;
-	private JPanel panel_13;
+	private JPanel profilePanelBar;
 	JPanel btnAddRoute;
 	private JTextField txtDepartureDate;
 	private JCalendar departureDate;
@@ -181,6 +185,42 @@ public class ManagerScreen extends JFrame {
 	JScrollPane scrollPane_3;
 	private JLabel lblNewLabel_10;
 	private JTextField txtPrice;
+	private JTextField txtScheduleID;
+	private JTable tableScheduleIDs;
+	private JLabel lblErrorScheduleID;
+	private JPanel issueTicketNumberPanel;
+	JLabel lblAddEmployee;
+	private JLabel label_10;
+	private JLabel label_11;
+	JLabel lblScheduleID;
+	private JComboBox<String> cmbIssueTicketScheduleID;
+	private JLabel label_12;
+	private JSeparator separator_5;
+	private JPanel btnProceedIssueTicketNumber;
+	private JLabel label_13;
+	private JLabel lblErrorIssueTicketNumber;
+	private JTextField txtTicketNumber;
+	private JLabel label_15;
+	private JPanel btnIssueTicketNumber;
+	private JLabel label_16;
+	private JLabel lblIssueTicketNumberButton;
+	private JTable tableTicket;
+	private JScrollPane scrollPane_5;
+	private JTextField txtAvailableSeatsLeft;
+	private JTable tableTicketNrOfSeat;
+	private JLabel lblErrorNumberSeats;
+	private JPanel panel_14;
+	private JLabel label_7;
+	private JLabel lblEmailAddress;
+	private JPanel panel_15;
+	private JLabel label_9;
+	private JLabel lblPhoneNumber;
+	private JPanel panel_16;
+	private JLabel label_22;
+	private JLabel lblWebsite;
+	private JTextField txtName;
+	private JTable tableEmployees;
+	private JLabel lblErrorHome;
 
 	/**
 	 * Launch the application.
@@ -223,6 +263,9 @@ public class ManagerScreen extends JFrame {
 				ManagerScreen.this.setLocation(x - xx, y - xy);
 			}
 		});
+		
+		
+		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -234,7 +277,7 @@ public class ManagerScreen extends JFrame {
 		panelBG.setLayout(null);
 		
 		sidePanel = new JPanel();
-		sidePanel.setBackground(new Color(61, 70, 85));
+		sidePanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		sidePanel.setBounds(0, 0, 283, 760);
 		panelBG.add(sidePanel);
 		sidePanel.setLayout(null);
@@ -261,9 +304,10 @@ public class ManagerScreen extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				switchPanel(homePanel);
+				displayEmployeeInTable();
 			}
 		});
-		btnHomePanel.setBackground(new Color(61, 70, 85));
+		btnHomePanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnHomePanel.setBounds(0, 105, 283, 58);
 		sidePanel.add(btnHomePanel);
 		btnHomePanel.setLayout(null);
@@ -274,46 +318,49 @@ public class ManagerScreen extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_home_20px.png")));
 		btnHomePanel.add(lblNewLabel);
 		
-		lblNewLabel_1 = new JLabel("Home");
-		lblNewLabel_1.setBounds(95, 14, 78, 33);
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 19));
-		btnHomePanel.add(lblNewLabel_1);
+		lblHomeButton = new JLabel("Home");
+		lblHomeButton.setBounds(95, 14, 78, 33);
+		lblHomeButton.setForeground(new Color(255, 255, 255));
+		lblHomeButton.setHorizontalAlignment(SwingConstants.LEFT);
+		lblHomeButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+		btnHomePanel.add(lblHomeButton);
 		
-		btnRoutePanel = new JPanel();
-		btnRoutePanel.setLayout(null);
-		btnRoutePanel.setBackground(new Color(61, 70, 85));
-		btnRoutePanel.setBounds(0, 164, 283, 58);
-		btnRoutePanel.addMouseListener(new MouseAdapter() {
+		btnAvailableSeats = new JPanel();
+		btnAvailableSeats.setLayout(null);
+		btnAvailableSeats.setBackground(new Color(getColorR(), getColorG(), getColorB()));
+		btnAvailableSeats.setBounds(0, 164, 283, 58);
+		btnAvailableSeats.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				switchPanel(travelInfoPanel);
+				switchPanel(availableSeatsPanel);
+				displayRouteInTableWithNrOfSeat();
+				btnAvailableSeatsLeft.setVisible(false);
 			}
 		});
-		sidePanel.add(btnRoutePanel);
+		sidePanel.add(btnAvailableSeats);
 		
 		label = new JLabel("");
 		label.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_tour_bus_20px.png")));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setBounds(22, 11, 40, 33);
-		btnRoutePanel.add(label);
+		btnAvailableSeats.add(label);
 		
-		lblCities = new JLabel("Travel info");
-		lblCities.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCities.setForeground(Color.WHITE);
-		lblCities.setFont(new Font("Candara", Font.BOLD, 19));
-		lblCities.setBounds(95, 14, 110, 33);
-		btnRoutePanel.add(lblCities);
+		lblAvailableSeatsButton = new JLabel("Available Seats");
+		lblAvailableSeatsButton.setHorizontalAlignment(SwingConstants.LEFT);
+		lblAvailableSeatsButton.setForeground(Color.WHITE);
+		lblAvailableSeatsButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+		lblAvailableSeatsButton.setBounds(95, 14, 133, 33);
+		btnAvailableSeats.add(lblAvailableSeatsButton);
 		
 		btnSchedulePanel = new JPanel();
 		btnSchedulePanel.setLayout(null);
-		btnSchedulePanel.setBackground(new Color(61, 70, 85));
+		btnSchedulePanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnSchedulePanel.setBounds(0, 407, 283, 58);
 		btnSchedulePanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				switchPanel(schedulePanel);
+				getScheduleIDs();
 			}
 		});
 		sidePanel.add(btnSchedulePanel);
@@ -324,17 +371,17 @@ public class ManagerScreen extends JFrame {
 		label_2.setBounds(22, 11, 40, 33);
 		btnSchedulePanel.add(label_2);
 		
-		lblSchedules = new JLabel("Schedules");
-		lblSchedules.setHorizontalAlignment(SwingConstants.LEFT);
-		lblSchedules.setForeground(Color.WHITE);
-		lblSchedules.setFont(new Font("Candara", Font.BOLD, 19));
-		lblSchedules.setBounds(95, 14, 97, 33);
-		btnSchedulePanel.add(lblSchedules);
+		lblSchedulesButton = new JLabel("Schedules");
+		lblSchedulesButton.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSchedulesButton.setForeground(Color.WHITE);
+		lblSchedulesButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+		lblSchedulesButton.setBounds(95, 14, 97, 33);
+		btnSchedulePanel.add(lblSchedulesButton);
 		
 		btnSettingsPanel = new JPanel();
 		btnSettingsPanel.setLayout(null);
-		btnSettingsPanel.setBackground(new Color(61, 70, 85));
-		btnSettingsPanel.setBounds(0, 465, 283, 58);
+		btnSettingsPanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
+		btnSettingsPanel.setBounds(0, 525, 283, 58);
 		btnSettingsPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -349,48 +396,49 @@ public class ManagerScreen extends JFrame {
 		label_4.setBounds(22, 11, 40, 33);
 		btnSettingsPanel.add(label_4);
 		
-		lblSettings = new JLabel("Settings");
-		lblSettings.setHorizontalAlignment(SwingConstants.LEFT);
-		lblSettings.setForeground(Color.WHITE);
-		lblSettings.setFont(new Font("Candara", Font.BOLD, 19));
-		lblSettings.setBounds(95, 14, 78, 33);
-		btnSettingsPanel.add(lblSettings);
+		lblSettingsButton = new JLabel("Settings");
+		lblSettingsButton.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSettingsButton.setForeground(Color.WHITE);
+		lblSettingsButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+		lblSettingsButton.setBounds(95, 14, 78, 33);
+		btnSettingsPanel.add(lblSettingsButton);
 		
-		panel_5 = new JPanel();
-		panel_5.setToolTipText("Profile");
-		panel_5.addMouseListener(new MouseAdapter() {
+		btnProfilePanel = new JPanel();
+		btnProfilePanel.setToolTipText("Profile");
+		btnProfilePanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				switchPanel(profilePanel);
 			}
 		});
-		panel_5.setLayout(null);
-		panel_5.setBackground(new Color(48, 55, 66));
-		panel_5.setBounds(0, 702, 283, 58);
-		sidePanel.add(panel_5);
+		btnProfilePanel.setLayout(null);
+		btnProfilePanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
+		btnProfilePanel.setBounds(0, 702, 283, 58);
+		sidePanel.add(btnProfilePanel);
 		
 		lblLogout = new JLabel("");
 		lblLogout.setToolTipText("Sign out");
 		lblLogout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				managerFrame.dispose();
-				Login loginScreen = new Login();
-				loginScreen.setUndecorated(true);
-				loginScreen.setVisible(true);
+				System.exit(0);
+//				managerFrame.dispose();
+//				Login loginScreen = new Login();
+//				loginScreen.setUndecorated(true);
+//				loginScreen.setVisible(true);
 			}
 		});
 		lblLogout.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_sign_out_20px.png")));
 		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogout.setBounds(22, 11, 40, 33);
-		panel_5.add(lblLogout);
+		btnProfilePanel.add(lblLogout);
 		
 		lblEmployeeName = new JLabel(Login.empName);
 		lblEmployeeName.setHorizontalAlignment(SwingConstants.LEFT);
 		lblEmployeeName.setForeground(Color.WHITE);
-		lblEmployeeName.setFont(new Font("Candara", Font.BOLD, 19));
+		lblEmployeeName.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
 		lblEmployeeName.setBounds(95, 14, 78, 33);
-		panel_5.add(lblEmployeeName);
+		btnProfilePanel.add(lblEmployeeName);
 		
 		lblVisitNorth = new JLabel("Visit North");
 		lblVisitNorth.setBounds(39, 39, 111, 33);
@@ -422,6 +470,68 @@ public class ManagerScreen extends JFrame {
 		lblNewLabel_10.setBounds(495, 0, 40, 41);
 		homePanel.add(lblNewLabel_10);
 		
+		JSeparator separator_6 = new JSeparator();
+		separator_6.setOrientation(SwingConstants.VERTICAL);
+		separator_6.setBounds(256, 131, 22, 316);
+		homePanel.add(separator_6);
+		
+		btnAddEmployee = new JPanel();
+		btnAddEmployee.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				addNewEmployee();
+				addNewEmployeeSettings();
+				displayEmployeeInTable();
+			}
+		});
+		btnAddEmployee.setLayout(null);
+		btnAddEmployee.setBackground(new Color(getColorR(), getColorG(), getColorB()));
+		btnAddEmployee.setBounds(63, 267, 122, 32);
+		homePanel.add(btnAddEmployee);
+		
+		lblAddEmployee = new JLabel("ADD EMPLOYEE");
+		lblAddEmployee.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAddEmployee.setForeground(Color.WHITE);
+		lblAddEmployee.setFont(new Font("Candara", Font.BOLD, 14));
+		lblAddEmployee.setBounds(10, 11, 102, 14);
+		btnAddEmployee.add(lblAddEmployee);
+		
+		txtName = new JTextField();
+		txtName.setToolTipText("New employees name");
+		txtName.setColumns(10);
+		txtName.setBounds(12, 160, 175, 30);
+		homePanel.add(txtName);
+		
+		lblName = new JLabel("Name");
+		lblName.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblName.setBounds(12, 131, 65, 20);
+		homePanel.add(lblName);
+		
+		JScrollPane scrollPane_7 = new JScrollPane();
+		scrollPane_7.setBounds(288, 133, 434, 314);
+		homePanel.add(scrollPane_7);
+		
+		tableEmployees = new JTable();
+		scrollPane_7.setViewportView(tableEmployees);
+		
+		cmbRole = new JComboBox<String>();
+		cmbRole.setModel(new DefaultComboBoxModel(new String[] {"Agent", "Manager", "Clerk"}));
+		cmbRole.setToolTipText("Role employee");
+		cmbRole.setBounds(12, 226, 175, 30);
+		homePanel.add(cmbRole);
+		
+		JLabel lblRole = new JLabel("Role");
+		lblRole.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblRole.setBounds(10, 203, 67, 20);
+		homePanel.add(lblRole);
+		
+		lblErrorHome = new JLabel("");
+		lblErrorHome.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblErrorHome.setForeground(new Color(204, 0, 0));
+		lblErrorHome.setFont(new Font("Candara", Font.PLAIN, 12));
+		lblErrorHome.setBounds(10, 310, 175, 20);
+		homePanel.add(lblErrorHome);
+		
 		driversPanel = new JPanel();
 		driversPanel.setBackground(new Color(255, 255, 255));
 		layeredPane.add(driversPanel, "name_42887129278700");
@@ -436,7 +546,7 @@ public class ManagerScreen extends JFrame {
 			}
 		});
 		btnAddDriver.setLayout(null);
-		btnAddDriver.setBackground(new Color(60, 71, 85));
+		btnAddDriver.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnAddDriver.setBounds(83, 306, 110, 32);
 		driversPanel.add(btnAddDriver);
 		
@@ -537,7 +647,7 @@ public class ManagerScreen extends JFrame {
 			}
 		});
 		btnAddVehicle.setLayout(null);
-		btnAddVehicle.setBackground(new Color(60, 71, 85));
+		btnAddVehicle.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnAddVehicle.setBounds(83, 306, 110, 32);
 		vehiclesPanel.add(btnAddVehicle);
 		
@@ -592,7 +702,7 @@ public class ManagerScreen extends JFrame {
 			}
 		});
 		btnAddRoute.setLayout(null);
-		btnAddRoute.setBackground(new Color(60, 71, 85));
+		btnAddRoute.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnAddRoute.setBounds(75, 571, 110, 32);
 		routesPanel.add(btnAddRoute);
 		
@@ -695,7 +805,7 @@ public class ManagerScreen extends JFrame {
 		routesPanel.add(lblAssignRouteTo);
 		
 		btnCitiesPanel = new JPanel();
-		btnCitiesPanel.setBackground(new Color(61,70,85));
+		btnCitiesPanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnCitiesPanel.setBounds(79, 225, 179, 40);
 		btnCitiesPanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -721,7 +831,7 @@ public class ManagerScreen extends JFrame {
 		
 		btnDriversPanel = new JPanel();
 		btnDriversPanel.setLayout(null);
-		btnDriversPanel.setBackground(new Color(61, 70, 85));
+		btnDriversPanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnDriversPanel.setBounds(79, 270, 179, 40);
 		btnDriversPanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -746,7 +856,7 @@ public class ManagerScreen extends JFrame {
 		
 		btnVehiclesPanel = new JPanel();
 		btnVehiclesPanel.setLayout(null);
-		btnVehiclesPanel.setBackground(new Color(61, 70, 85));
+		btnVehiclesPanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnVehiclesPanel.setBounds(79, 314, 179, 40);
 		btnVehiclesPanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -772,7 +882,7 @@ public class ManagerScreen extends JFrame {
 		
 		btnRoutesPanel = new JPanel();
 		btnRoutesPanel.setLayout(null);
-		btnRoutesPanel.setBackground(new Color(61, 70, 85));
+		btnRoutesPanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnRoutesPanel.setBounds(79, 356, 179, 40);
 		btnRoutesPanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -802,6 +912,34 @@ public class ManagerScreen extends JFrame {
 		lblNewLabel_7.setFont(new Font("Candara", Font.PLAIN, 12));
 		lblNewLabel_7.setBounds(152, 39, 46, 14);
 		sidePanel.add(lblNewLabel_7);
+		
+		btnIssueTicketNumber = new JPanel();
+		btnIssueTicketNumber.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				switchPanel(issueTicketNumberPanel);
+				getScheduleIDFromSoldTicket();
+				displayRouteInTableManager();
+				displayTicketInTable();
+			}
+		});
+		btnIssueTicketNumber.setLayout(null);
+		btnIssueTicketNumber.setBackground(new Color(getColorR(), getColorG(), getColorB()));
+		btnIssueTicketNumber.setBounds(0, 466, 283, 58);
+		sidePanel.add(btnIssueTicketNumber);
+		
+		label_16 = new JLabel("");
+		label_16.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_home_address_20px.png")));
+		label_16.setHorizontalAlignment(SwingConstants.CENTER);
+		label_16.setBounds(22, 11, 40, 33);
+		btnIssueTicketNumber.add(label_16);
+		
+		lblIssueTicketNumberButton = new JLabel("Issue Ticket Number");
+		lblIssueTicketNumberButton.setHorizontalAlignment(SwingConstants.LEFT);
+		lblIssueTicketNumberButton.setForeground(Color.WHITE);
+		lblIssueTicketNumberButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+		lblIssueTicketNumberButton.setBounds(95, 14, 178, 33);
+		btnIssueTicketNumber.add(lblIssueTicketNumberButton);
 		
 		
 		
@@ -852,7 +990,7 @@ public class ManagerScreen extends JFrame {
 			}
 		});
 		btnAddCity.setLayout(null);
-		btnAddCity.setBackground(new Color(60, 71, 85));
+		btnAddCity.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnAddCity.setBounds(97, 233, 88, 32);
 		citiesPanel.add(btnAddCity);
 		
@@ -892,25 +1030,169 @@ public class ManagerScreen extends JFrame {
 		lblCity_1.setBounds(10, 163, 35, 20);
 		citiesPanel.add(lblCity_1);
 		
-		travelInfoPanel = new JPanel();
-		travelInfoPanel.setBackground(new Color(255, 255, 255));
-		layeredPane.add(travelInfoPanel, "name_20101062289600");
-		travelInfoPanel.setLayout(null);
+		availableSeatsPanel = new JPanel();
+		availableSeatsPanel.setBackground(new Color(255, 255, 255));
+		layeredPane.add(availableSeatsPanel, "name_20101062289600");
+		availableSeatsPanel.setLayout(null);
 		
-		lblCity = new JLabel("Travel Info");
-		lblCity.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblCity.setBounds(126, 137, 110, 41);
-		travelInfoPanel.add(lblCity);
+		JLabel label_14 = new JLabel("Number of seats left");
+		label_14.setFont(new Font("Candara", Font.PLAIN, 18));
+		label_14.setBounds(10, 11, 168, 41);
+		availableSeatsPanel.add(label_14);
+		
+		JLabel label_17 = new JLabel("A list of the available route added by the manager. Feel free to assign the number of seats left.");
+		label_17.setFont(new Font("Candara", Font.PLAIN, 13));
+		label_17.setBounds(20, 48, 533, 32);
+		availableSeatsPanel.add(label_17);
+		
+		JLabel label_18 = new JLabel("Select a row and adjust the available seats left. ");
+		label_18.setHorizontalAlignment(SwingConstants.CENTER);
+		label_18.setFont(new Font("Candara", Font.PLAIN, 13));
+		label_18.setBounds(20, 323, 637, 32);
+		availableSeatsPanel.add(label_18);
+		
+		JLabel label_19 = new JLabel("ROUTE DESCRIPTION");
+		label_19.setFont(new Font("Candara", Font.PLAIN, 18));
+		label_19.setBounds(30, 366, 168, 41);
+		availableSeatsPanel.add(label_19);
+		
+		lblRouteDescription = new JLabel("Route description");
+		lblRouteDescription.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblRouteDescription.setBounds(40, 403, 267, 32);
+		availableSeatsPanel.add(lblRouteDescription);
+		
+		JLabel label_21 = new JLabel("SCHEDULE ID");
+		label_21.setFont(new Font("Candara", Font.PLAIN, 18));
+		label_21.setBounds(30, 446, 168, 41);
+		availableSeatsPanel.add(label_21);
+		
+		lblScheduleID = new JLabel("Schedule ID");
+		lblScheduleID.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblScheduleID.setBounds(40, 483, 267, 32);
+		availableSeatsPanel.add(lblScheduleID);
+		
+		JLabel label_23 = new JLabel("Assign available seat left");
+		label_23.setFont(new Font("Candara", Font.PLAIN, 13));
+		label_23.setBounds(486, 366, 209, 20);
+		availableSeatsPanel.add(label_23);
+		
+		txtAvailableSeatsLeft = new JTextField();
+		txtAvailableSeatsLeft.setToolTipText("Ticket number");
+		txtAvailableSeatsLeft.setColumns(10);
+		txtAvailableSeatsLeft.setBounds(486, 384, 209, 30);
+		availableSeatsPanel.add(txtAvailableSeatsLeft);
+		
+		btnAvailableSeatsLeft = new JPanel();
+		btnAvailableSeatsLeft.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				updateNumberOfSeatsLeft();
+				displayRouteInTableWithNrOfSeat();
+			}
+		});
+		btnAvailableSeatsLeft.setLayout(null);
+		btnAvailableSeatsLeft.setBackground(new Color(getColorR(), getColorG(), getColorB()));
+		btnAvailableSeatsLeft.setBounds(486, 425, 209, 32);
+		availableSeatsPanel.add(btnAvailableSeatsLeft);
+		
+		JLabel label_24 = new JLabel("ASSIGN SEATS LEFT");
+		label_24.setHorizontalAlignment(SwingConstants.CENTER);
+		label_24.setForeground(Color.WHITE);
+		label_24.setFont(new Font("Candara", Font.BOLD, 14));
+		label_24.setBounds(10, 11, 189, 14);
+		btnAvailableSeatsLeft.add(label_24);
+		
+		JLabel label_25 = new JLabel("");
+		label_25.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_25.setForeground(new Color(204, 0, 0));
+		label_25.setFont(new Font("Candara", Font.PLAIN, 10));
+		label_25.setBounds(520, 483, 175, 20);
+		availableSeatsPanel.add(label_25);
+		
+		JScrollPane scrollPane_6 = new JScrollPane();
+		scrollPane_6.setBounds(30, 91, 731, 228);
+		availableSeatsPanel.add(scrollPane_6);
+		
+		tableTicketNrOfSeat = new JTable();
+		tableTicketNrOfSeat.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				getRouteInfoFromSelectedRow();
+			}
+		});
+		scrollPane_6.setViewportView(tableTicketNrOfSeat);
+		
+		lblErrorNumberSeats = new JLabel("");
+		lblErrorNumberSeats.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblErrorNumberSeats.setForeground(new Color(204, 0, 0));
+		lblErrorNumberSeats.setFont(new Font("Candara", Font.PLAIN, 10));
+		lblErrorNumberSeats.setBounds(520, 467, 175, 20);
+		availableSeatsPanel.add(lblErrorNumberSeats);
 		
 		schedulePanel = new JPanel();
 		schedulePanel.setBackground(new Color(255, 255, 255));
 		layeredPane.add(schedulePanel, "name_20107772105900");
 		schedulePanel.setLayout(null);
 		
-		lblSchedule = new JLabel("Schedule");
-		lblSchedule.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblSchedule.setBounds(166, 144, 110, 41);
+		JLabel lblCreatingNewSchedule = new JLabel("Creating new schedule enables you as a manager to add new routes for booking.");
+		lblCreatingNewSchedule.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblCreatingNewSchedule.setBounds(20, 48, 533, 32);
+		schedulePanel.add(lblCreatingNewSchedule);
+		
+		JLabel lblSchedule = new JLabel("Schedule");
+		lblSchedule.setFont(new Font("Candara", Font.PLAIN, 18));
+		lblSchedule.setBounds(10, 11, 110, 41);
 		schedulePanel.add(lblSchedule);
+		
+		JLabel lblCreateSchedule = new JLabel("Create Schedule");
+		lblCreateSchedule.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblCreateSchedule.setBounds(20, 170, 100, 20);
+		schedulePanel.add(lblCreateSchedule);
+		
+		txtScheduleID = new JTextField();
+		txtScheduleID.setToolTipText("Schedule ID");
+		txtScheduleID.setColumns(10);
+		txtScheduleID.setBounds(20, 199, 173, 30);
+		schedulePanel.add(txtScheduleID);
+		
+		JSeparator separator_4 = new JSeparator();
+		separator_4.setOrientation(SwingConstants.VERTICAL);
+		separator_4.setBounds(264, 170, 22, 316);
+		schedulePanel.add(separator_4);
+		
+		btnAddScheduleID = new JPanel();
+		btnAddScheduleID.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				insertSchedule();
+				getScheduleIDs();
+			}
+		});
+		btnAddScheduleID.setLayout(null);
+		btnAddScheduleID.setBackground(new Color(getColorR(), getColorG(), getColorB()));
+		btnAddScheduleID.setBounds(48, 252, 145, 32);
+		schedulePanel.add(btnAddScheduleID);
+		
+		JLabel lblAddScheduleId = new JLabel("ADD SCHEDULE ID");
+		lblAddScheduleId.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAddScheduleId.setForeground(Color.WHITE);
+		lblAddScheduleId.setFont(new Font("Candara", Font.BOLD, 14));
+		lblAddScheduleId.setBounds(10, 11, 125, 14);
+		btnAddScheduleID.add(lblAddScheduleId);
+		
+		JScrollPane scrollPane_4 = new JScrollPane();
+		scrollPane_4.setBounds(296, 172, 200, 314);
+		schedulePanel.add(scrollPane_4);
+		
+		tableScheduleIDs = new JTable();
+		scrollPane_4.setViewportView(tableScheduleIDs);
+		
+		lblErrorScheduleID = new JLabel("");
+		lblErrorScheduleID.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblErrorScheduleID.setForeground(new Color(204, 0, 0));
+		lblErrorScheduleID.setFont(new Font("Candara", Font.PLAIN, 12));
+		lblErrorScheduleID.setBounds(20, 295, 175, 20);
+		schedulePanel.add(lblErrorScheduleID);
 		
 		settingsPanel = new JPanel();
 		settingsPanel.setBackground(new Color(255, 255, 255));
@@ -928,11 +1210,11 @@ public class ManagerScreen extends JFrame {
 		settingsPanel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		lblNewLabel_4 = new JLabel("THEME COLOR");
-		lblNewLabel_4.setForeground(new Color(61, 70, 85));
-		lblNewLabel_4.setFont(new Font("Candara", Font.BOLD, 16));
-		lblNewLabel_4.setBounds(10, 11, 105, 14);
-		panel_1.add(lblNewLabel_4);
+		lblThemeColorText = new JLabel("THEME COLOR");
+		lblThemeColorText.setForeground(new Color(getColorR(), getColorG(), getColorB()));
+		lblThemeColorText.setFont(new Font("Candara", Font.BOLD, 16));
+		lblThemeColorText.setBounds(10, 11, 105, 14);
+		panel_1.add(lblThemeColorText);
 		
 		lblNewLabel_5 = new JLabel("Change the theme color of the application to your preference");
 		lblNewLabel_5.setFont(new Font("Candara", Font.PLAIN, 13));
@@ -940,21 +1222,96 @@ public class ManagerScreen extends JFrame {
 		panel_1.add(lblNewLabel_5);
 		
 		panel_2 = new JPanel();
+		panel_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateColorTheme(61, 70, 85);
+				btnProfilePanel.setBackground(new Color(getColorR() - 13, getColorG() - 15, getColorB() - 19));
+				
+				changeColorToInSettingPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInAvailableSeatPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInCitiesPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInDriversPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInVehiclePanel(getColorR(), getColorG(), getColorB());
+				changeColorToInHomePanel(getColorR(), getColorG(), getColorB());
+				changeColorToInRoutesPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInSchedulesPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInIssueTicketNumberPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInProfilePanel(getColorR(), getColorG(), getColorB());
+			}
+		});
 		panel_2.setBackground(new Color(61, 70, 85));
 		panel_2.setBounds(632, 11, 20, 20);
 		panel_1.add(panel_2);
 		
-		panel_3 = new JPanel();
-		panel_3.setBackground(new Color(255, 153, 51));
-		panel_3.setBounds(662, 11, 20, 20);
-		panel_1.add(panel_3);
+		btnColorOrange = new JPanel();
+		btnColorOrange.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				updateColorTheme(245, 222, 179);
+				btnProfilePanel.setBackground(new Color(getColorR() - 23, getColorG() - 23, getColorB() - 21));
+				
+				changeColorToInSettingPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInAvailableSeatPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInCitiesPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInHomePanel(getColorR(), getColorG(), getColorB());
+				changeColorToInDriversPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInVehiclePanel(getColorR(), getColorG(), getColorB());
+				changeColorToInRoutesPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInSchedulesPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInIssueTicketNumberPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInProfilePanel(getColorR(), getColorG(), getColorB());
+				
+				
+			}
+		});
+		btnColorOrange.setBackground(new Color(245, 222, 179));
+		btnColorOrange.setBounds(662, 11, 20, 20);
+		panel_1.add(btnColorOrange);
 		
 		panel_4 = new JPanel();
+		panel_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateColorTheme(51, 133, 153);
+				btnProfilePanel.setBackground(new Color(getColorR() - 8, getColorG() - 30, getColorB() - 36));
+				
+				changeColorToInSettingPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInAvailableSeatPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInCitiesPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInDriversPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInVehiclePanel(getColorR(), getColorG(), getColorB());
+				changeColorToInHomePanel(getColorR(), getColorG(), getColorB());
+				changeColorToInRoutesPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInSchedulesPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInIssueTicketNumberPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInProfilePanel(getColorR(), getColorG(), getColorB());
+			}
+		});
 		panel_4.setBackground(new Color(51, 153, 153));
 		panel_4.setBounds(632, 38, 20, 20);
 		panel_1.add(panel_4);
 		
 		panel_7 = new JPanel();
+		panel_7.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateColorTheme(102, 0, 204);
+				btnProfilePanel.setBackground(new Color(getColorR() - 16, getColorG() + 7, getColorB() - 38));
+				
+				changeColorToInSettingPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInAvailableSeatPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInCitiesPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInDriversPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInVehiclePanel(getColorR(), getColorG(), getColorB());
+				changeColorToInHomePanel(getColorR(), getColorG(), getColorB());
+				changeColorToInRoutesPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInSchedulesPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInIssueTicketNumberPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInProfilePanel(getColorR(), getColorG(), getColorB());
+			}
+		});
 		panel_7.setBackground(new Color(102, 0, 204));
 		panel_7.setBounds(662, 38, 20, 20);
 		panel_1.add(panel_7);
@@ -970,24 +1327,24 @@ public class ManagerScreen extends JFrame {
 		panel_8.setBounds(41, 158, 721, 69);
 		settingsPanel.add(panel_8);
 		
-		lblFontSize = new JLabel("Font size");
-		lblFontSize.setForeground(new Color(61, 70, 85));
-		lblFontSize.setFont(new Font("Candara", Font.BOLD, 16));
-		lblFontSize.setBounds(10, 11, 105, 14);
-		panel_8.add(lblFontSize);
+		lblFontSizeText = new JLabel("Font size");
+		lblFontSizeText.setForeground(new Color(getColorR(), getColorG(), getColorB()));
+		lblFontSizeText.setFont(new Font("Candara", Font.BOLD, 16));
+		lblFontSizeText.setBounds(10, 11, 105, 14);
+		panel_8.add(lblFontSizeText);
 		
 		lblChangeTheFont = new JLabel("Change the font size of the application to your preference");
 		lblChangeTheFont.setFont(new Font("Candara", Font.PLAIN, 13));
 		lblChangeTheFont.setBounds(10, 26, 374, 32);
 		panel_8.add(lblChangeTheFont);
 		
-		comboBox = new JComboBox();
-		comboBox.setFont(new Font("Candara", Font.PLAIN, 12));
-		comboBox.setForeground(new Color(255, 255, 255));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"12px", "14px", "16px"}));
-		comboBox.setBackground(new Color(61, 70, 85));
-		comboBox.setBounds(635, 11, 48, 20);
-		panel_8.add(comboBox);
+		cmbFontSize = new JComboBox();
+		cmbFontSize.setFont(new Font("Candara", Font.PLAIN, 12));
+		cmbFontSize.setForeground(new Color(255, 255, 255));
+		cmbFontSize.setModel(new DefaultComboBoxModel(new String[] {"12", "13", "14", "15", "16", "17", "18", "19"}));
+		cmbFontSize.setBackground(new Color(getColorR(), getColorG(), getColorB()));
+		cmbFontSize.setBounds(635, 11, 48, 20);
+		panel_8.add(cmbFontSize);
 		
 		lblBrightness = new JLabel("Brightness");
 		lblBrightness.setFont(new Font("Candara", Font.PLAIN, 18));
@@ -1000,22 +1357,22 @@ public class ManagerScreen extends JFrame {
 		panel_9.setBounds(41, 274, 721, 69);
 		settingsPanel.add(panel_9);
 		
-		lblAdjustBrightness = new JLabel("Adjust brightness");
-		lblAdjustBrightness.setForeground(new Color(61, 70, 85));
-		lblAdjustBrightness.setFont(new Font("Candara", Font.BOLD, 16));
-		lblAdjustBrightness.setBounds(10, 11, 138, 20);
-		panel_9.add(lblAdjustBrightness);
+		lblAdjustBrightnessText = new JLabel("Adjust brightness");
+		lblAdjustBrightnessText.setForeground(new Color(getColorR(), getColorG(), getColorB()));
+		lblAdjustBrightnessText.setFont(new Font("Candara", Font.BOLD, 16));
+		lblAdjustBrightnessText.setBounds(10, 11, 138, 20);
+		panel_9.add(lblAdjustBrightnessText);
 		
 		lblReduceTheBrightness = new JLabel("Reduce the brightness of the application");
 		lblReduceTheBrightness.setFont(new Font("Candara", Font.PLAIN, 13));
 		lblReduceTheBrightness.setBounds(10, 26, 374, 32);
 		panel_9.add(lblReduceTheBrightness);
 		
-		chckbxNewCheckBox = new JCheckBox("");
-		chckbxNewCheckBox.setBackground(new Color(61,70,85));
-		chckbxNewCheckBox.setForeground(new Color(255, 255, 255));
-		chckbxNewCheckBox.setBounds(664, 11, 21, 23);
-		panel_9.add(chckbxNewCheckBox);
+		chkbAdjustBrightness = new JCheckBox("");
+		chkbAdjustBrightness.setBackground(new Color(getColorR(), getColorG(), getColorB()));
+		chkbAdjustBrightness.setForeground(new Color(255, 255, 255));
+		chkbAdjustBrightness.setBounds(664, 11, 21, 23);
+		panel_9.add(chkbAdjustBrightness);
 		
 		panel_10 = new JPanel();
 		panel_10.setLayout(null);
@@ -1023,112 +1380,199 @@ public class ManagerScreen extends JFrame {
 		panel_10.setBounds(41, 390, 721, 69);
 		settingsPanel.add(panel_10);
 		
-		lblLogoutWhenNo = new JLabel("Logout when no interaction");
-		lblLogoutWhenNo.setForeground(new Color(61, 70, 85));
-		lblLogoutWhenNo.setFont(new Font("Candara", Font.BOLD, 16));
-		lblLogoutWhenNo.setBounds(10, 11, 217, 20);
-		panel_10.add(lblLogoutWhenNo);
+		lblLogoutWhenNoText = new JLabel("Logout when no interaction");
+		lblLogoutWhenNoText.setForeground(new Color(getColorR(), getColorG(), getColorB()));
+		lblLogoutWhenNoText.setFont(new Font("Candara", Font.BOLD, 16));
+		lblLogoutWhenNoText.setBounds(10, 11, 217, 20);
+		panel_10.add(lblLogoutWhenNoText);
 		
 		lblLogOutIf = new JLabel("Log out if no interaction within 30 minutes");
 		lblLogOutIf.setFont(new Font("Candara", Font.PLAIN, 13));
 		lblLogOutIf.setBounds(10, 26, 374, 32);
 		panel_10.add(lblLogOutIf);
 		
-		checkBox = new JCheckBox("");
-		checkBox.setForeground(Color.WHITE);
-		checkBox.setBackground(new Color(61, 70, 85));
-		checkBox.setBounds(665, 10, 21, 23);
-		panel_10.add(checkBox);
+		chkbAutoLogout = new JCheckBox("");
+		chkbAutoLogout.setForeground(Color.WHITE);
+		chkbAutoLogout.setBackground(new Color(getColorR(), getColorG(), getColorB()));
+		chkbAutoLogout.setBounds(665, 10, 21, 23);
+		panel_10.add(chkbAutoLogout);
 		
 		lblAutoLogOut = new JLabel("Auto Log out");
 		lblAutoLogOut.setFont(new Font("Candara", Font.PLAIN, 18));
 		lblAutoLogOut.setBounds(10, 354, 110, 41);
 		settingsPanel.add(lblAutoLogOut);
 		
-		panel_11 = new JPanel();
-		panel_11.setBackground(new Color(60,71,85));
-		panel_11.setBounds(674, 566, 88, 32);
-		settingsPanel.add(panel_11);
-		panel_11.setLayout(null);
+		btnSettingsSave = new JPanel();
+		btnSettingsSave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				updateNavigationFontSize();
+				lblHomeButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+				lblAvailableSeatsButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+				lblSchedulesButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+				lblIssueTicketNumberButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+				lblSettingsButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+				lblEmployeeName.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+				
+			}
+		});
+		btnSettingsSave.setBackground(new Color(getColorR(), getColorG(), getColorB()));
+		btnSettingsSave.setBounds(674, 566, 88, 32);
+		settingsPanel.add(btnSettingsSave);
+		btnSettingsSave.setLayout(null);
 		
 		lblNewLabel_8 = new JLabel("SAVE");
 		lblNewLabel_8.setForeground(new Color(255, 255, 255));
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_8.setFont(new Font("Candara", Font.BOLD, 14));
 		lblNewLabel_8.setBounds(10, 11, 68, 14);
-		panel_11.add(lblNewLabel_8);
+		btnSettingsSave.add(lblNewLabel_8);
 		
-		panel_12 = new JPanel();
-		panel_12.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
-		panel_12.setLayout(null);
-		panel_12.setBackground(new Color(255, 255, 255));
-		panel_12.setBounds(576, 566, 88, 32);
-		settingsPanel.add(panel_12);
+		btnSettingsCancel = new JPanel();
+		btnSettingsCancel.setBorder(new CompoundBorder(new LineBorder(new Color(getColorR(), getColorG(), getColorB())), null));
+		btnSettingsCancel.setLayout(null);
+		btnSettingsCancel.setBackground(new Color(255, 255, 255));
+		btnSettingsCancel.setBounds(576, 566, 88, 32);
+		settingsPanel.add(btnSettingsCancel);
 		
-		lblCancel = new JLabel("CANCEL");
-		lblCancel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCancel.setForeground(new Color(61,70,85));
-		lblCancel.setFont(new Font("Candara", Font.BOLD, 14));
-		lblCancel.setBounds(10, 11, 68, 14);
-		panel_12.add(lblCancel);
+		lblCancelButtonText = new JLabel("CANCEL");
+		lblCancelButtonText.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCancelButtonText.setForeground(new Color(getColorR(), getColorG(), getColorB()));
+		lblCancelButtonText.setFont(new Font("Candara", Font.BOLD, 14));
+		lblCancelButtonText.setBounds(10, 11, 68, 14);
+		btnSettingsCancel.add(lblCancelButtonText);
 		
 		profilePanel = new JPanel();
 		profilePanel.setBackground(Color.WHITE);
 		layeredPane.add(profilePanel, "name_255630843630500");
 		profilePanel.setLayout(null);
 		
-		panel_13 = new JPanel();
-		panel_13.setBackground(new Color(86, 97, 115));
-		panel_13.setBounds(0, 0, 790, 110);
-		profilePanel.add(panel_13);
+		profilePanelBar = new JPanel();
+		profilePanelBar.setBackground(new Color(getColorR(), getColorG(), getColorB()));
+		profilePanelBar.setBounds(0, 0, 790, 110);
+		profilePanel.add(profilePanelBar);
 		
-		JPanel panel_14 = new JPanel();
-		panel_14.setBounds(214, 176, 340, 60);
-		profilePanel.add(panel_14);
+		panel_14 = new JPanel();
 		panel_14.setLayout(null);
+		panel_14.setBounds(215, 197, 340, 60);
+		profilePanel.add(panel_14);
 		
-		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_secured_letter_20px.png")));
-		lblNewLabel_3.setBounds(10, 11, 39, 38);
-		panel_14.add(lblNewLabel_3);
-		
-		JLabel lblNewLabel_9 = new JLabel("employeemanager@visitnorth.ac.uk");
-		lblNewLabel_9.setFont(new Font("Candara", Font.PLAIN, 15));
-		lblNewLabel_9.setBounds(70, 23, 241, 14);
-		panel_14.add(lblNewLabel_9);
-		
-		JPanel panel_15 = new JPanel();
-		panel_15.setLayout(null);
-		panel_15.setBounds(214, 247, 340, 60);
-		profilePanel.add(panel_15);
-		
-		JLabel label_7 = new JLabel("");
-		label_7.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_phone_20px.png")));
+		label_7 = new JLabel("");
+		label_7.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_secured_letter_20px.png")));
 		label_7.setHorizontalAlignment(SwingConstants.CENTER);
 		label_7.setBounds(10, 11, 39, 38);
-		panel_15.add(label_7);
+		panel_14.add(label_7);
 		
-		JLabel label_8 = new JLabel("+44 7456 5857 554");
-		label_8.setFont(new Font("Candara", Font.PLAIN, 15));
-		label_8.setBounds(70, 23, 241, 14);
-		panel_15.add(label_8);
+		lblEmailAddress = new JLabel(Login.email);
+		lblEmailAddress.setFont(new Font("Candara", Font.PLAIN, 15));
+		lblEmailAddress.setBounds(70, 23, 241, 14);
+		panel_14.add(lblEmailAddress);
 		
-		JPanel panel_16 = new JPanel();
-		panel_16.setLayout(null);
-		panel_16.setBounds(214, 318, 340, 60);
-		profilePanel.add(panel_16);
+		panel_15 = new JPanel();
+		panel_15.setLayout(null);
+		panel_15.setBounds(215, 268, 340, 60);
+		profilePanel.add(panel_15);
 		
-		JLabel label_9 = new JLabel("");
-		label_9.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_website_20px.png")));
+		label_9 = new JLabel("");
+		label_9.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_phone_20px.png")));
 		label_9.setHorizontalAlignment(SwingConstants.CENTER);
 		label_9.setBounds(10, 11, 39, 38);
-		panel_16.add(label_9);
+		panel_15.add(label_9);
 		
-		JLabel lblWwwvisitnorthacuk = new JLabel("www.visitnorth.ac.uk");
-		lblWwwvisitnorthacuk.setFont(new Font("Candara", Font.PLAIN, 15));
-		lblWwwvisitnorthacuk.setBounds(70, 23, 241, 14);
-		panel_16.add(lblWwwvisitnorthacuk);
+		lblPhoneNumber = new JLabel(Login.phoneNumber);
+		lblPhoneNumber.setFont(new Font("Candara", Font.PLAIN, 15));
+		lblPhoneNumber.setBounds(70, 23, 241, 14);
+		panel_15.add(lblPhoneNumber);
+		
+		panel_16 = new JPanel();
+		panel_16.setLayout(null);
+		panel_16.setBounds(215, 339, 340, 60);
+		profilePanel.add(panel_16);
+		
+		label_22 = new JLabel("");
+		label_22.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_website_20px.png")));
+		label_22.setHorizontalAlignment(SwingConstants.CENTER);
+		label_22.setBounds(10, 11, 39, 38);
+		panel_16.add(label_22);
+		
+		lblWebsite = new JLabel(Login.website);
+		lblWebsite.setFont(new Font("Candara", Font.PLAIN, 15));
+		lblWebsite.setBounds(70, 23, 241, 14);
+		panel_16.add(lblWebsite);
+		
+		issueTicketNumberPanel = new JPanel();
+		issueTicketNumberPanel.setLayout(null);
+		issueTicketNumberPanel.setBackground(Color.WHITE);
+		layeredPane.add(issueTicketNumberPanel, "name_5437684675900");
+		
+		label_10 = new JLabel("Proceed with adding ticket numbers to the following list based on the schedule ID.");
+		label_10.setFont(new Font("Candara", Font.PLAIN, 13));
+		label_10.setBounds(20, 48, 533, 32);
+		issueTicketNumberPanel.add(label_10);
+		
+		label_11 = new JLabel("Issue Ticket Number");
+		label_11.setFont(new Font("Candara", Font.PLAIN, 18));
+		label_11.setBounds(10, 11, 165, 41);
+		issueTicketNumberPanel.add(label_11);
+		
+		cmbIssueTicketScheduleID = new JComboBox<String>();
+		cmbIssueTicketScheduleID.setToolTipText("From and To destination of customer");
+		cmbIssueTicketScheduleID.setBounds(22, 143, 207, 30);
+		issueTicketNumberPanel.add(cmbIssueTicketScheduleID);
+		
+		label_12 = new JLabel("Select Schedule ID");
+		label_12.setFont(new Font("Candara", Font.PLAIN, 13));
+		label_12.setBounds(20, 120, 209, 20);
+		issueTicketNumberPanel.add(label_12);
+		
+		separator_5 = new JSeparator();
+		separator_5.setOrientation(SwingConstants.VERTICAL);
+		separator_5.setBounds(239, 120, 22, 440);
+		issueTicketNumberPanel.add(separator_5);
+		
+		btnProceedIssueTicketNumber = new JPanel();
+		btnProceedIssueTicketNumber.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				updateTicketNumberBasedOnScheduleID();
+			}
+		});
+		btnProceedIssueTicketNumber.setLayout(null);
+		btnProceedIssueTicketNumber.setBackground(new Color(getColorR(), getColorG(), getColorB()));
+		btnProceedIssueTicketNumber.setBounds(119, 319, 110, 32);
+		issueTicketNumberPanel.add(btnProceedIssueTicketNumber);
+		
+		label_13 = new JLabel("PROCEED");
+		label_13.setHorizontalAlignment(SwingConstants.CENTER);
+		label_13.setForeground(Color.WHITE);
+		label_13.setFont(new Font("Candara", Font.BOLD, 14));
+		label_13.setBounds(10, 11, 90, 14);
+		btnProceedIssueTicketNumber.add(label_13);
+		
+		lblErrorIssueTicketNumber = new JLabel("");
+		lblErrorIssueTicketNumber.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblErrorIssueTicketNumber.setForeground(new Color(204, 0, 0));
+		lblErrorIssueTicketNumber.setFont(new Font("Candara", Font.PLAIN, 10));
+		lblErrorIssueTicketNumber.setBounds(54, 258, 175, 20);
+		issueTicketNumberPanel.add(lblErrorIssueTicketNumber);
+		
+		txtTicketNumber = new JTextField();
+		txtTicketNumber.setToolTipText("Ticket number");
+		txtTicketNumber.setColumns(10);
+		txtTicketNumber.setBounds(20, 202, 209, 30);
+		issueTicketNumberPanel.add(txtTicketNumber);
+		
+		label_15 = new JLabel("Ticket number");
+		label_15.setFont(new Font("Candara", Font.PLAIN, 13));
+		label_15.setBounds(20, 184, 122, 20);
+		issueTicketNumberPanel.add(label_15);
+		
+		scrollPane_5 = new JScrollPane();
+		scrollPane_5.setBounds(251, 122, 478, 431);
+		issueTicketNumberPanel.add(scrollPane_5);
+		
+		tableTicket = new JTable();
+		scrollPane_5.setViewportView(tableTicket);
 		
 		
 		
@@ -1244,6 +1688,55 @@ public class ManagerScreen extends JFrame {
 				System.out.println("error: " + e);
 			}
 		}
+	
+	public void insertSchedule() {
+		if (!(txtScheduleID.getText().isEmpty())) {
+			try {
+				String query = "select * from schedule where scheduleCode=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setString(1, txtScheduleID.getText());
+				resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()) {
+					lblErrorScheduleID.setText(txtScheduleID.getText() + " already exists!");
+				}else {
+					String insertDataQueryString = "insert into schedule (scheduleCode) values(?)";
+					preparedStatement = conn.prepareStatement(insertDataQueryString);
+					preparedStatement.setString(1, txtScheduleID.getText());
+					
+					preparedStatement.execute();
+					
+					txtScheduleID.setText("");
+					lblErrorScheduleID.setText("");
+				}
+			} catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+		}else {
+			lblErrorScheduleID.setText("Please, provide schedule id...");
+		}
+	}
+	
+	public void getScheduleIDs() {
+			
+			DefaultTableModel model = new DefaultTableModel();
+			model.addColumn("SCHEDULE ID");
+	        try {
+	        	String query = "select * from schedule";
+	            preparedStatement = conn.prepareStatement(query);
+	            resultSet = preparedStatement.executeQuery();
+	            
+	            while(resultSet.next()) {
+	            	model.addRow(new Object[] {
+	            			resultSet.getString("scheduleCode"),
+	            	});
+	            }
+	            
+	            tableScheduleIDs.setModel(model);
+	            
+	        }catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+		}
 
 	public void insertVehicle() {
 		if (!(txtLicencePlate.getText().isEmpty())) {
@@ -1334,7 +1827,7 @@ public class ManagerScreen extends JFrame {
 								lblErrorRoute.setText("This route already exists!");
 								System.out.println("This route already exists!");
 							}else {
-								String insertRouteData = "insert into route (description,departureDate,departureTime,rID,price,scheduleCode) values(?,?,?,?,?,?)";
+								String insertRouteData = "insert into route (description,departureDate,departureTime,rID,price,scheduleCode,numberOfSeatLeft) values(?,?,?,?,?,?,?)";
 								preparedStatement = conn.prepareStatement(insertRouteData);
 								preparedStatement.setString(1, cmbFromCity.getSelectedItem().toString() + " - " + cmbToCity.getSelectedItem().toString());
 								preparedStatement.setString(2, txtDepartureDate.getText());
@@ -1342,6 +1835,7 @@ public class ManagerScreen extends JFrame {
 								preparedStatement.setString(4, String.valueOf(cFrom) + String.valueOf(cTo));
 								preparedStatement.setString(5, txtPrice.getText());		
 								preparedStatement.setString(6, cmbSchedule.getSelectedItem().toString());		
+								preparedStatement.setInt(7, 0);		
 								
 								preparedStatement.execute();
 								
@@ -1417,7 +1911,7 @@ public class ManagerScreen extends JFrame {
 	
 	public void getScheduleToComboBox() {
 		try {
-			String query = "select * from schedule";
+			String query = "select distinct scheduleCode from schedule";
 			preparedStatement = conn.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
 			
@@ -1444,4 +1938,454 @@ public class ManagerScreen extends JFrame {
         }
         return scheduleID;
     }
+	
+	public void getScheduleIDFromSoldTicket() {
+		try {
+			String query = "select distinct scheduleID from ticket";
+			preparedStatement = conn.prepareStatement(query);
+			resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				cmbIssueTicketScheduleID.setSelectedIndex(-1);
+				cmbIssueTicketScheduleID.addItem(resultSet.getString("scheduleID"));
+			}
+		} catch (Exception e) {
+			System.out.println("error: " + e);
+		}
+	}
+	
+	public void displayRouteInTableManager() {
+		
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("ID");
+		model.addColumn("DESCRIPTION");
+		model.addColumn("DATE");
+		model.addColumn("TIME");
+        try {
+        	String query = "select * from route";
+            preparedStatement = conn.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+            
+            while(resultSet.next()) {
+            	model.addRow(new Object[] {
+            			resultSet.getString("routeID"),
+            			resultSet.getString("description"),
+            			resultSet.getString("departureDate"),
+            			resultSet.getString("departureTime")
+            	});
+            }
+            
+            tableRoute.setModel(model);
+            
+        }catch (Exception e) {
+			System.out.println("error: " + e);
+		}
+	}
+	
+	public void updateTicketNumberBasedOnScheduleID() {
+		if (!(txtTicketNumber.getText().isEmpty())) {
+			try {
+				String query = "update ticket set ticketNumber=? where scheduleID=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setString(1, txtTicketNumber.getText());
+				preparedStatement.setString(2, cmbIssueTicketScheduleID.getSelectedItem().toString());
+				preparedStatement.executeUpdate();
+				
+				txtTicketNumber.setText("");
+			} catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+		}else {
+			lblErrorIssueTicketNumber.setText("Provide ticket number!");
+		}
+	}
+	
+	public void displayTicketInTable() {
+		
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("TICKET NUMBER");
+		model.addColumn("TRANSACTION TIME");
+		model.addColumn("SCHEDULE ID");
+		model.addColumn("PRICE");
+        try {
+        	String query = "select * from ticket";
+            preparedStatement = conn.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+            
+            while(resultSet.next()) {
+            	model.addRow(new Object[] {
+            			resultSet.getString("ticketNumber"),
+            			resultSet.getString("transactionTime"),
+            			resultSet.getString("scheduleID"),
+            			resultSet.getString("price")
+            	});
+            }
+            
+            tableTicket.setModel(model);
+            
+        }catch (Exception e) {
+			System.out.println("error: " + e);
+		}
+	}
+	
+public void displayRouteInTableWithNrOfSeat() {
+		
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("SCHEDULE ID");
+		model.addColumn("ROUTE ID");
+		model.addColumn("DESCRIPTION");
+		model.addColumn("DATE");
+		model.addColumn("TIME");
+		model.addColumn("PRICE");
+		model.addColumn("SEATS LEFT");
+        try {
+        	String query = "select * from route";
+            preparedStatement = conn.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+            
+            while(resultSet.next()) {
+            	model.addRow(new Object[] {
+            			resultSet.getString("scheduleCode"),
+            			resultSet.getString("rID"),
+            			resultSet.getString("description"),
+            			resultSet.getString("departureDate"),
+            			resultSet.getString("departureTime"),
+            			resultSet.getString("price"),
+            			resultSet.getString("numberOfSeatLeft")
+            	});
+            }
+            
+            tableTicketNrOfSeat.setModel(model);
+            
+        }catch (Exception e) {
+			System.out.println("error: " + e);
+		}
+	}
+	
+	public void	getRouteInfoFromSelectedRow() {
+		btnAvailableSeatsLeft.setVisible(true);
+		
+		try {
+			int row = tableTicketNrOfSeat.getSelectedRow();
+			String routeDescription = (tableTicketNrOfSeat.getModel().getValueAt(row, 2)).toString();
+			String scheduleIDCode = (tableTicketNrOfSeat.getModel().getValueAt(row, 0)).toString();
+			
+			String query = "select * from route where description=? and scheduleCode=?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, routeDescription);
+            preparedStatement.setString(2, scheduleIDCode);
+            
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+            	lblRouteDescription.setText(resultSet.getString("description"));
+            	lblScheduleID.setText(resultSet.getString("scheduleCode"));
+            }
+            
+		} catch (Exception e) {
+			System.out.println("error: " + e);
+		}
+	}
+	
+	public void updateNumberOfSeatsLeft() {
+		
+		if (!(txtAvailableSeatsLeft.getText().isEmpty())) {
+			try {
+				String query = "update route set numberOfSeatLeft=? where description=? and scheduleCode=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setString(1, txtAvailableSeatsLeft.getText());
+				preparedStatement.setString(2, lblRouteDescription.getText());
+				preparedStatement.setString(3, lblScheduleID.getText());
+				preparedStatement.executeUpdate();
+				
+				txtAvailableSeatsLeft.setText("");
+				lblErrorNumberSeats.setText("");
+			} catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+		}else {
+			lblErrorNumberSeats.setText("Provide number of available seats!");
+		}
+	}
+	public void changeColorToInSettingPanel(int r, int g, int b) {
+		sidePanel.setBackground(new Color(r, g, b));
+		btnHomePanel.setBackground(new Color(r, g, b));
+		btnAvailableSeats.setBackground(new Color(r, g, b));
+		btnCitiesPanel.setBackground(new Color(r, g, b));
+		btnDriversPanel.setBackground(new Color(r, g, b));
+		btnVehiclesPanel.setBackground(new Color(r, g, b));
+		btnRoutesPanel.setBackground(new Color(r, g, b));
+		btnSchedulePanel.setBackground(new Color(r, g, b));
+		btnIssueTicketNumber.setBackground(new Color(r, g, b));
+		btnSettingsPanel.setBackground(new Color(r, g, b));
+		//btnProfilePanel.setBackground(new Color(r - 23, g - 23, b - 21));
+		
+		btnSettingsSave.setBackground(new Color(r, g, b));
+		btnSettingsCancel.setBorder(new CompoundBorder(new LineBorder(new Color(r,g, b)), null));
+		lblCancelButtonText.setForeground(new Color(r, g, b));
+		
+		cmbFontSize.setBackground(new Color(r, g, b));
+		chkbAdjustBrightness.setBackground(new Color(r, g, b));
+		chkbAutoLogout.setBackground(new Color(r, g, b));
+		
+		lblThemeColorText.setForeground(new Color(r, g, b));
+		lblFontSizeText.setForeground(new Color(r, g, b));
+		lblAdjustBrightnessText.setForeground(new Color(r, g, b));
+		lblLogoutWhenNoText.setForeground(new Color(r, g, b));
+	}
+	
+	public void changeColorToInAvailableSeatPanel(int r, int g, int b){
+		btnAvailableSeatsLeft.setBackground(new Color(r, g, b));
+	}
+	public void changeColorToInCitiesPanel(int r, int g, int b){
+		btnAddCity.setBackground(new Color(r, g, b));
+	}
+	public void changeColorToInDriversPanel(int r, int g, int b){
+		btnAddDriver.setBackground(new Color(r, g, b));
+	}
+	public void changeColorToInVehiclePanel(int r, int g, int b){
+		btnAddVehicle.setBackground(new Color(r, g, b));
+	}
+	public void changeColorToInHomePanel(int r, int g, int b){
+		btnAddEmployee.setBackground(new Color(r, g, b));
+	}
+	public void changeColorToInRoutesPanel(int r, int g, int b){
+		btnAddRoute.setBackground(new Color(r, g, b));
+	}
+	public void changeColorToInSchedulesPanel(int r, int g, int b){
+		btnAddScheduleID.setBackground(new Color(r, g, b));
+	}
+	public void changeColorToInIssueTicketNumberPanel(int r, int g, int b){
+		btnProceedIssueTicketNumber.setBackground(new Color(r, g, b));
+	}
+	public void changeColorToInProfilePanel(int r, int g, int b){
+		profilePanelBar.setBackground(new Color(r, g, b));
+	}
+	
+	private int getColorR(){
+		int colorR = 0;
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+        try {
+            String query = "select * from employeesettings where username=? and name=?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, employeeUsername);
+            preparedStatement.setString(2, employeeName);
+            
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+            	colorR = resultSet.getInt("colorR");
+            }
+        }catch (SQLException e) {
+        	System.out.println("error: " + e);
+        }
+        return colorR;
+    }
+	
+	
+	private int getColorG(){
+		int colorG = 0;
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+        try {
+            String query = "select * from employeesettings where username=? and name=?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, employeeUsername);
+            preparedStatement.setString(2, employeeName);
+            
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+            	colorG = resultSet.getInt("colorG");
+            }
+        }catch (SQLException e) {
+        	System.out.println("error: " + e);
+        }
+        return colorG;
+    }
+	
+	private int getColorB(){
+		int colorB = 0;
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+        try {
+            String query = "select * from employeesettings where username=? and name=?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, employeeUsername);
+            preparedStatement.setString(2, employeeName);
+            
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+            	colorB = resultSet.getInt("colorB");
+            }
+        }catch (SQLException e) {
+        	System.out.println("error: " + e);
+        }
+        return colorB;
+    }
+	
+	
+	
+	public void updateColorTheme(int r, int g, int b) {
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+		try {
+				String query = "update employeesettings set colorR=?, colorG=?, colorB=? where username=? and name=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setInt(1, r);
+				preparedStatement.setInt(2, g);
+				preparedStatement.setInt(3, b);
+				preparedStatement.setString(4, employeeUsername);
+				preparedStatement.setString(5, employeeName);
+				
+				
+				preparedStatement.executeUpdate();
+				
+			} catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+	}
+	
+	private int getFontSizeNavigation(){
+		int fontsize = 0;
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+        try {
+            String query = "select * from employeesettings where username=? and name=?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, employeeUsername);
+            preparedStatement.setString(2, employeeName);
+            
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+            	fontsize = resultSet.getInt("fontSize");
+            }
+        }catch (SQLException e) {
+        	System.out.println("error: " + e);
+        }
+        return fontsize;
+    }
+		
+	public void updateNavigationFontSize() {
+		String fontSizeComboBox = cmbFontSize.getSelectedItem().toString();
+		int fontSize = Integer.valueOf(fontSizeComboBox);
+		
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+		try {
+				String query = "update employeesettings set fontSize=? where username=? and name=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setInt(1, fontSize);
+				preparedStatement.setString(2, employeeUsername);
+				preparedStatement.setString(3, employeeName);
+				
+				
+				preparedStatement.executeUpdate();
+				
+			} catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+		
+	}
+	public void addNewEmployee() {
+		String name = txtName.getText();
+		String roleEmployee = cmbRole.getSelectedItem().toString();
+		
+		if (!(txtName.getText().isEmpty())) {
+			try {
+				String query = "select * from employee where username=? and name=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setString(1, name.toLowerCase());
+				preparedStatement.setString(2, name);
+				resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()) {
+					lblErrorHome.setText(name + " already exists!");
+					System.out.println(name + " already exists!");
+				}else {
+					String insertDataQueryString = "insert into employee (username,password,name,role,email,phoneNumber,website) values(?,?,?,?,?,?,?)";
+					preparedStatement = conn.prepareStatement(insertDataQueryString);
+					preparedStatement.setString(1, name.toLowerCase());
+					preparedStatement.setString(2, "123");
+					preparedStatement.setString(3, name);
+					preparedStatement.setString(4, roleEmployee);
+					preparedStatement.setString(5, name.toLowerCase() + roleEmployee.toLowerCase() + "@visitnorth.ac.uk");
+					preparedStatement.setString(6, "+44 7258 645 456");
+					preparedStatement.setString(7, "www.visitnorth.ac.uk");
+					preparedStatement.execute();
+					
+					
+					lblErrorHome.setText("");
+				}
+			} catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+		}else {
+			lblErrorHome.setText("Please, provide employee info...");
+		}
+		
+	}
+	
+	public void addNewEmployeeSettings() {
+		String name = txtName.getText();
+		
+			try {
+				String query = "select * from employeesettings where username=? and name=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setString(1, name.toLowerCase());
+				preparedStatement.setString(2, name);
+				resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()) {
+					lblErrorHome.setText(name + " already exists!");
+					System.out.println(name + " already exists!");
+				}else {
+					String insertDataQueryString = "insert into employeesettings (username,name,fontSize,colorR,colorG,colorB) values(?,?,?,?,?,?)";
+					preparedStatement = conn.prepareStatement(insertDataQueryString);
+					preparedStatement.setString(1, name.toLowerCase());
+					preparedStatement.setString(2, name);
+					preparedStatement.setInt(3, 19);
+					preparedStatement.setInt(4, 61);
+					preparedStatement.setInt(5, 70);
+					preparedStatement.setInt(6, 85);
+					preparedStatement.execute();
+					
+					txtName.setText("");
+					lblErrorHome.setText("");
+				}
+			} catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+		
+		
+	}
+	
+	public void displayEmployeeInTable() {
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("NAME");
+		model.addColumn("ROLE");
+		model.addColumn("EMAIL");
+		model.addColumn("PHONE NR");
+        try {
+        	String query = "select * from employee";
+            preparedStatement = conn.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+            
+            while(resultSet.next()) {
+            	model.addRow(new Object[] {
+            			resultSet.getString("name"),
+            			resultSet.getString("role"),
+            			resultSet.getString("email"),
+            			resultSet.getString("phoneNumber")
+            	});
+            }
+            
+            tableEmployees.setModel(model);
+            
+        }catch (Exception e) {
+			System.out.println("error: " + e);
+		}
+	}
 }

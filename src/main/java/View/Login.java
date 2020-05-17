@@ -35,6 +35,11 @@ public class Login extends JFrame {
 	private JPasswordField txtPassword;
 	private JLabel lblError;
 	public static String empName = "";
+	public static String email = "";
+	public static String phoneNumber = "";
+	public static String website = "";
+	public static String username = "";
+	
 	
 	Connection conn = DatabaseConnection.connectDB();
     PreparedStatement preparedStatement = null;
@@ -131,6 +136,10 @@ public class Login extends JFrame {
 
                     if (resultSet.next()){
                     	empName = resultSet.getString("name");
+                    	email = resultSet.getString("email");
+                    	phoneNumber = resultSet.getString("phoneNumber");
+                    	website = resultSet.getString("website");
+                    	username = resultSet.getString("username");
                         System.out.println("logged in");
                         frameLogin.dispose();
                         
@@ -142,6 +151,10 @@ public class Login extends JFrame {
                             ManagerScreen managerScreen = new ManagerScreen();
                             managerScreen.setUndecorated(true);
                             managerScreen.setVisible(true);
+                        }else if (getEmployeeRole().equals("Clerk")){
+                            ClerkScreen clerkScreen = new ClerkScreen();
+                            clerkScreen.setUndecorated(true);
+                            clerkScreen.setVisible(true);
                         }
                     }else {
                     	lblError.setVisible(true);

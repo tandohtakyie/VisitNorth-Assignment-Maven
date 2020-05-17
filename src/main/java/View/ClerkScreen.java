@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -29,6 +31,10 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 import com.toedter.calendar.JCalendar;
 
@@ -39,28 +45,24 @@ import javax.swing.JLayeredPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class AgentScreen extends JFrame {
+public class ClerkScreen extends JFrame {
 	
 	
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	Connection conn = DatabaseConnection.connectDB();
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 	
 	int xx,xy;
 	
-	private static AgentScreen agentScreenFrame;
+	private static ClerkScreen clerkScreenFrame;
 	
 	private JPanel contentPane;
 	private JLayeredPane layeredPane;
 	
 	private JPanel citiesPanel;
-	private JPanel sellTicketPanel;
-	private JPanel schedulePanel;
+	private JPanel issueTicketNumberPanel;
+	private JPanel availableSeatsPanel;
 	private JPanel settingsPanel;
 	private JTextField txtCity;
 	private JTable tableCity;
@@ -72,7 +74,7 @@ public class AgentScreen extends JFrame {
 	JPanel btnHomePanel;
 	JLabel lblNewLabel;
 	JLabel lblNewLabel_1;
-	JPanel btnSellTicket;
+	JPanel btnIssueTicketNumber;
 	JLabel label;
 	JLabel lblCities;
 	JLabel lblVehicle;
@@ -84,6 +86,7 @@ public class AgentScreen extends JFrame {
 	JPanel btnAddCity;
 	JPanel btnAddDriver;
 	JLabel label_2;
+	JLabel lblWelcomeName;
 	JLabel lblSchedules;
 	JLabel lblReduceTheBrightness;
 	JPanel btnSettingsPanel;
@@ -108,7 +111,6 @@ public class AgentScreen extends JFrame {
 	JLabel lblVehicleLicensePlate;
 	final JPanel routesPanel;
 	JPanel panel_1;
-	JLabel lblSchedule;
 	JLabel lblCancel;
 	JLabel lblAdjustBrightness;
 	JLabel lblBrightness;
@@ -119,6 +121,7 @@ public class AgentScreen extends JFrame {
 	JLabel lblFrom;
 	JPanel panel_11;
 	JComboBox<String> cmbFromCity;
+	JLabel lblErrorIssueTicketNumber;
 	JLabel lblFirstname;
 	JPanel panel_12;
 	JLabel lblNewLabel_4;
@@ -137,6 +140,7 @@ public class AgentScreen extends JFrame {
 	JLabel lblChangeTheFont;
 	JLabel lblFont;
 	JPanel panel_4;
+	JPanel btnAvailableSeatsLeft;
 	JLabel lblSettings_1;
 	JPanel panel_2;
 	JLabel lblAListOf_1;
@@ -166,17 +170,32 @@ public class AgentScreen extends JFrame {
 	private JTextField txtDepartureTime;
 	JComboBox<String> cmbToCity;
 	private JLabel lblDepartureTime;
+	JPanel btnProceedIssueTicketNumber;
 	private JLabel lblErrorRoute;
 	private JTable tableRoute;
 	JScrollPane scrollPane_3;
 	private JLabel lblNewLabel_10;
-	private JComboBox<String> cmbFromTo;
+	private JComboBox<String> cmbIssueTicketScheduleID;
 	private JLabel lblDestination;
-	private JLabel lblDate;
-	private JComboBox<String> cmbDateTravel;
-	private JLabel lblTime;
-	private JComboBox<String> cmbTimeTravel;
 	private JTable tableTicket;
+	private JTextField txtTicketNumber;
+	private JTable tableTicketNrOfSeat;
+	private JLabel lblSelectARow;
+	private JLabel lblRouteDescriptionLable;
+	private JLabel lblRouteDescription;
+	private JLabel lblScheduleIdLabel;
+	private JLabel lblScheduleID;
+	private JTextField txtAvailableSeatsLeft;
+	private JLabel lblErrorNumberSeats;
+	private JPanel panel_14;
+	private JLabel label_1;
+	private JLabel lblEmailAddress;
+	private JPanel panel_15;
+	private JLabel label_5;
+	private JLabel lblPhoneNumber;
+	private JPanel panel_16;
+	private JLabel label_7;
+	private JLabel lblWebsite;
 
 	/**
 	 * Launch the application.
@@ -197,7 +216,7 @@ public class AgentScreen extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AgentScreen() {
+	public ClerkScreen() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1077, 755);
 		contentPane = new JPanel();
@@ -214,7 +233,7 @@ public class AgentScreen extends JFrame {
 			public void mouseDragged(MouseEvent arg0) {
 				int x = arg0.getXOnScreen();
 				int y = arg0.getYOnScreen();
-				AgentScreen.this.setLocation(x - xx, y - xy);
+				ClerkScreen.this.setLocation(x - xx, y - xy);
 			}
 		});
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -275,41 +294,44 @@ public class AgentScreen extends JFrame {
 		lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 19));
 		btnHomePanel.add(lblNewLabel_1);
 		
-		btnSellTicket = new JPanel();
-		btnSellTicket.setLayout(null);
-		btnSellTicket.setBackground(new Color(61, 70, 85));
-		btnSellTicket.setBounds(0, 164, 283, 58);
-		btnSellTicket.addMouseListener(new MouseAdapter() {
+		btnIssueTicketNumber = new JPanel();
+		btnIssueTicketNumber.setLayout(null);
+		btnIssueTicketNumber.setBackground(new Color(61, 70, 85));
+		btnIssueTicketNumber.setBounds(0, 164, 283, 58);
+		btnIssueTicketNumber.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				switchPanel(sellTicketPanel);
-				getFromTo();
+				switchPanel(issueTicketNumberPanel);
+				getScheduleIDFromSoldTicket();
 				displayTicketInTable();
 			}
 		});
-		sidePanel.add(btnSellTicket);
+		sidePanel.add(btnIssueTicketNumber);
 		
 		label = new JLabel("");
 		label.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_tour_bus_20px.png")));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setBounds(22, 11, 40, 33);
-		btnSellTicket.add(label);
+		btnIssueTicketNumber.add(label);
 		
-		lblCities = new JLabel("Sell Ticket");
+		lblCities = new JLabel("Issue Ticket Numbers");
 		lblCities.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCities.setForeground(Color.WHITE);
 		lblCities.setFont(new Font("Candara", Font.BOLD, 19));
-		lblCities.setBounds(95, 14, 137, 33);
-		btnSellTicket.add(lblCities);
+		lblCities.setBounds(95, 14, 178, 33);
+		btnIssueTicketNumber.add(lblCities);
 		
 		btnSchedulePanel = new JPanel();
 		btnSchedulePanel.setLayout(null);
 		btnSchedulePanel.setBackground(new Color(61, 70, 85));
-		btnSchedulePanel.setBounds(0, 224, 283, 58);
+		btnSchedulePanel.setBounds(0, 223, 283, 58);
 		btnSchedulePanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				switchPanel(schedulePanel);
+				switchPanel(availableSeatsPanel);
+				displayRouteInTableWithNrOfSeat();
+				btnAvailableSeatsLeft.setVisible(false);
+				
 			}
 		});
 		sidePanel.add(btnSchedulePanel);
@@ -320,17 +342,17 @@ public class AgentScreen extends JFrame {
 		label_2.setBounds(22, 11, 40, 33);
 		btnSchedulePanel.add(label_2);
 		
-		lblSchedules = new JLabel("Schedules");
+		lblSchedules = new JLabel("Available Seats");
 		lblSchedules.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSchedules.setForeground(Color.WHITE);
 		lblSchedules.setFont(new Font("Candara", Font.BOLD, 19));
-		lblSchedules.setBounds(95, 14, 97, 33);
+		lblSchedules.setBounds(95, 14, 143, 33);
 		btnSchedulePanel.add(lblSchedules);
 		
 		btnSettingsPanel = new JPanel();
 		btnSettingsPanel.setLayout(null);
 		btnSettingsPanel.setBackground(new Color(61, 70, 85));
-		btnSettingsPanel.setBounds(0, 283, 283, 58);
+		btnSettingsPanel.setBounds(0, 282, 283, 58);
 		btnSettingsPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -370,10 +392,10 @@ public class AgentScreen extends JFrame {
 		lblLogout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				agentScreenFrame.dispose();
-				Login loginScreen = new Login();
-				loginScreen.setUndecorated(true);
-				loginScreen.setVisible(true);
+//				clerkScreenFrame.dispose();
+//				Login loginScreen = new Login();
+//				loginScreen.setUndecorated(true);
+//				loginScreen.setVisible(true);
 			}
 		});
 		lblLogout.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_sign_out_20px.png")));
@@ -406,7 +428,7 @@ public class AgentScreen extends JFrame {
 		lblCities_1.setBounds(10, 0, 110, 41);
 		homePanel.add(lblCities_1);
 		
-		JLabel lblWelcomeName = new JLabel("Welcome " + Login.empName);
+		lblWelcomeName = new JLabel("Welcome " + Login.empName);
 		lblWelcomeName.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblWelcomeName.setFont(new Font("Candara", Font.PLAIN, 18));
 		lblWelcomeName.setBounds(591, 0, 131, 41);
@@ -764,92 +786,184 @@ public class AgentScreen extends JFrame {
 		lblCity_1.setBounds(10, 163, 35, 20);
 		citiesPanel.add(lblCity_1);
 		
-		sellTicketPanel = new JPanel();
-		sellTicketPanel.setBackground(new Color(255, 255, 255));
-		layeredPane.add(sellTicketPanel, "name_20101062289600");
-		sellTicketPanel.setLayout(null);
+		issueTicketNumberPanel = new JPanel();
+		issueTicketNumberPanel.setBackground(new Color(255, 255, 255));
+		layeredPane.add(issueTicketNumberPanel, "name_20101062289600");
+		issueTicketNumberPanel.setLayout(null);
 		
-		JLabel lblProceedWithSelling = new JLabel("Proceed with selling tickets");
+		JLabel lblProceedWithSelling = new JLabel("Proceed with adding ticket numbers to the following list based on the schedule ID.");
 		lblProceedWithSelling.setFont(new Font("Candara", Font.PLAIN, 13));
 		lblProceedWithSelling.setBounds(20, 48, 533, 32);
-		sellTicketPanel.add(lblProceedWithSelling);
+		issueTicketNumberPanel.add(lblProceedWithSelling);
 		
-		JLabel lblSellTicket = new JLabel("Sell Ticket");
+		JLabel lblSellTicket = new JLabel("Issue Ticket Number");
 		lblSellTicket.setFont(new Font("Candara", Font.PLAIN, 18));
-		lblSellTicket.setBounds(10, 11, 110, 41);
-		sellTicketPanel.add(lblSellTicket);
+		lblSellTicket.setBounds(10, 11, 165, 41);
+		issueTicketNumberPanel.add(lblSellTicket);
 		
-		cmbFromTo = new JComboBox<String>();
-		cmbFromTo.setToolTipText("From and To destination of customer");
-		cmbFromTo.setBounds(22, 143, 207, 30);
-		sellTicketPanel.add(cmbFromTo);
+		cmbIssueTicketScheduleID = new JComboBox<String>();
+		cmbIssueTicketScheduleID.setToolTipText("From and To destination of customer");
+		cmbIssueTicketScheduleID.setBounds(22, 143, 207, 30);
+		issueTicketNumberPanel.add(cmbIssueTicketScheduleID);
 		
-		lblDestination = new JLabel("From & To");
+		lblDestination = new JLabel("Select Schedule ID");
 		lblDestination.setFont(new Font("Candara", Font.PLAIN, 13));
 		lblDestination.setBounds(20, 120, 209, 20);
-		sellTicketPanel.add(lblDestination);
-		
-		lblDate = new JLabel("Date");
-		lblDate.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblDate.setBounds(20, 184, 209, 20);
-		sellTicketPanel.add(lblDate);
-		
-		cmbDateTravel = new JComboBox<String>();
-		cmbDateTravel.setToolTipText("date customer wants to travel");
-		cmbDateTravel.setBounds(22, 207, 207, 30);
-		sellTicketPanel.add(cmbDateTravel);
-		
-		lblTime = new JLabel("Time");
-		lblTime.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblTime.setBounds(20, 248, 209, 20);
-		sellTicketPanel.add(lblTime);
-		
-		cmbTimeTravel = new JComboBox<String>();
-		cmbTimeTravel.setToolTipText("time customer wants to travel");
-		cmbTimeTravel.setBounds(22, 271, 207, 30);
-		sellTicketPanel.add(cmbTimeTravel);
+		issueTicketNumberPanel.add(lblDestination);
 		
 		JSeparator separator_4 = new JSeparator();
 		separator_4.setOrientation(SwingConstants.VERTICAL);
-		separator_4.setBounds(239, 120, 22, 246);
-		sellTicketPanel.add(separator_4);
+		separator_4.setBounds(239, 120, 22, 440);
+		issueTicketNumberPanel.add(separator_4);
 		
 		JScrollPane scrollPane_4 = new JScrollPane();
-		scrollPane_4.setBounds(250, 120, 514, 231);
-		sellTicketPanel.add(scrollPane_4);
+		scrollPane_4.setBounds(250, 120, 514, 440);
+		issueTicketNumberPanel.add(scrollPane_4);
 		
 		tableTicket = new JTable();
 		scrollPane_4.setViewportView(tableTicket);
 		
-		JPanel btnProceedBuyTicket = new JPanel();
-		btnProceedBuyTicket.addMouseListener(new MouseAdapter() {
+		btnProceedIssueTicketNumber = new JPanel();
+		btnProceedIssueTicketNumber.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				insertTicket();
+				updateTicketNumberBasedOnScheduleID();
 				displayTicketInTable();
 			}
 		});
-		btnProceedBuyTicket.setLayout(null);
-		btnProceedBuyTicket.setBackground(new Color(60, 71, 85));
-		btnProceedBuyTicket.setBounds(119, 319, 110, 32);
-		sellTicketPanel.add(btnProceedBuyTicket);
+		btnProceedIssueTicketNumber.setLayout(null);
+		btnProceedIssueTicketNumber.setBackground(new Color(60, 71, 85));
+		btnProceedIssueTicketNumber.setBounds(119, 319, 110, 32);
+		issueTicketNumberPanel.add(btnProceedIssueTicketNumber);
 		
 		JLabel lblProceed = new JLabel("PROCEED");
 		lblProceed.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProceed.setForeground(Color.WHITE);
 		lblProceed.setFont(new Font("Candara", Font.BOLD, 14));
 		lblProceed.setBounds(10, 11, 90, 14);
-		btnProceedBuyTicket.add(lblProceed);
+		btnProceedIssueTicketNumber.add(lblProceed);
 		
-		schedulePanel = new JPanel();
-		schedulePanel.setBackground(new Color(255, 255, 255));
-		layeredPane.add(schedulePanel, "name_20107772105900");
-		schedulePanel.setLayout(null);
+		lblErrorIssueTicketNumber = new JLabel("");
+		lblErrorIssueTicketNumber.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblErrorIssueTicketNumber.setForeground(new Color(204, 0, 0));
+		lblErrorIssueTicketNumber.setFont(new Font("Candara", Font.PLAIN, 10));
+		lblErrorIssueTicketNumber.setBounds(54, 258, 175, 20);
+		issueTicketNumberPanel.add(lblErrorIssueTicketNumber);
 		
-		lblSchedule = new JLabel("Schedule");
-		lblSchedule.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblSchedule.setBounds(166, 144, 110, 41);
-		schedulePanel.add(lblSchedule);
+		txtTicketNumber = new JTextField();
+		txtTicketNumber.setToolTipText("Ticket number");
+		txtTicketNumber.setColumns(10);
+		txtTicketNumber.setBounds(20, 202, 209, 30);
+		issueTicketNumberPanel.add(txtTicketNumber);
+		
+		JLabel lblTicketNumber = new JLabel("Ticket number");
+		lblTicketNumber.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblTicketNumber.setBounds(20, 184, 122, 20);
+		issueTicketNumberPanel.add(lblTicketNumber);
+		
+		availableSeatsPanel = new JPanel();
+		availableSeatsPanel.setBackground(new Color(255, 255, 255));
+		layeredPane.add(availableSeatsPanel, "name_20107772105900");
+		availableSeatsPanel.setLayout(null);
+		
+		JLabel lblNumberOfSeats = new JLabel("Number of seats left");
+		lblNumberOfSeats.setFont(new Font("Candara", Font.PLAIN, 18));
+		lblNumberOfSeats.setBounds(10, 11, 168, 41);
+		availableSeatsPanel.add(lblNumberOfSeats);
+		
+		JLabel lblAListOf_3 = new JLabel("A list of the available route added by the manager. Feel free to assign the number of seats left.");
+		lblAListOf_3.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblAListOf_3.setBounds(20, 48, 533, 32);
+		availableSeatsPanel.add(lblAListOf_3);
+		
+		JScrollPane scrollPane_5 = new JScrollPane();
+		scrollPane_5.setBounds(30, 91, 726, 221);
+		availableSeatsPanel.add(scrollPane_5);
+		
+		tableTicketNrOfSeat = new JTable();
+		tableTicketNrOfSeat.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				getRouteInfoFromSelectedRow();
+			}
+		});
+		scrollPane_5.setViewportView(tableTicketNrOfSeat);
+		
+		lblSelectARow = new JLabel("Select a row and adjust the available seats left. ");
+		lblSelectARow.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSelectARow.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblSelectARow.setBounds(20, 323, 637, 32);
+		availableSeatsPanel.add(lblSelectARow);
+		
+		lblRouteDescriptionLable = new JLabel("ROUTE DESCRIPTION");
+		lblRouteDescriptionLable.setFont(new Font("Candara", Font.PLAIN, 18));
+		lblRouteDescriptionLable.setBounds(30, 366, 168, 41);
+		availableSeatsPanel.add(lblRouteDescriptionLable);
+		
+		lblRouteDescription = new JLabel("Route description");
+		lblRouteDescription.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblRouteDescription.setBounds(40, 403, 267, 32);
+		availableSeatsPanel.add(lblRouteDescription);
+		
+		lblScheduleIdLabel = new JLabel("SCHEDULE ID");
+		lblScheduleIdLabel.setFont(new Font("Candara", Font.PLAIN, 18));
+		lblScheduleIdLabel.setBounds(30, 446, 168, 41);
+		availableSeatsPanel.add(lblScheduleIdLabel);
+		
+		lblScheduleID = new JLabel("Schedule ID");
+		lblScheduleID.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblScheduleID.setBounds(40, 483, 267, 32);
+		availableSeatsPanel.add(lblScheduleID);
+		
+		JLabel lblAssignAvailableSeat = new JLabel("Assign available seat left");
+		lblAssignAvailableSeat.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblAssignAvailableSeat.setBounds(486, 366, 209, 20);
+		availableSeatsPanel.add(lblAssignAvailableSeat);
+		
+		txtAvailableSeatsLeft = new JTextField();
+		((AbstractDocument)txtAvailableSeatsLeft.getDocument()).setDocumentFilter(new DocumentFilter() {
+			Pattern regEx = Pattern.compile("\\d*");
+
+	        @Override
+	        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {          
+	            Matcher matcher = regEx.matcher(text);
+	            if(!matcher.matches()){
+	                return;
+	            }
+	            super.replace(fb, offset, length, text, attrs);
+	        }
+		});
+		txtAvailableSeatsLeft.setToolTipText("Ticket number");
+		txtAvailableSeatsLeft.setColumns(10);
+		txtAvailableSeatsLeft.setBounds(486, 384, 209, 30);
+		availableSeatsPanel.add(txtAvailableSeatsLeft);
+		
+		btnAvailableSeatsLeft = new JPanel();
+		btnAvailableSeatsLeft.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				updateNumberOfSeatsLeft();
+				displayRouteInTableWithNrOfSeat();
+			}
+		});
+		btnAvailableSeatsLeft.setLayout(null);
+		btnAvailableSeatsLeft.setBackground(new Color(60, 71, 85));
+		btnAvailableSeatsLeft.setBounds(486, 425, 209, 32);
+		availableSeatsPanel.add(btnAvailableSeatsLeft);
+		
+		JLabel lblAssignSeatsLeft = new JLabel("ASSIGN SEATS LEFT");
+		lblAssignSeatsLeft.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAssignSeatsLeft.setForeground(Color.WHITE);
+		lblAssignSeatsLeft.setFont(new Font("Candara", Font.BOLD, 14));
+		lblAssignSeatsLeft.setBounds(10, 11, 189, 14);
+		btnAvailableSeatsLeft.add(lblAssignSeatsLeft);
+		
+		lblErrorNumberSeats = new JLabel("");
+		lblErrorNumberSeats.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblErrorNumberSeats.setForeground(new Color(204, 0, 0));
+		lblErrorNumberSeats.setFont(new Font("Candara", Font.PLAIN, 10));
+		lblErrorNumberSeats.setBounds(520, 483, 175, 20);
+		availableSeatsPanel.add(lblErrorNumberSeats);
 		
 		settingsPanel = new JPanel();
 		settingsPanel.setBackground(new Color(255, 255, 255));
@@ -1021,50 +1135,50 @@ public class AgentScreen extends JFrame {
 		panel_13.setBounds(0, 0, 790, 110);
 		profilePanel.add(panel_13);
 		
-		JPanel panel_14 = new JPanel();
-		panel_14.setBounds(214, 176, 340, 60);
-		profilePanel.add(panel_14);
+		panel_14 = new JPanel();
 		panel_14.setLayout(null);
+		panel_14.setBounds(210, 192, 340, 60);
+		profilePanel.add(panel_14);
 		
-		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_secured_letter_20px.png")));
-		lblNewLabel_3.setBounds(10, 11, 39, 38);
-		panel_14.add(lblNewLabel_3);
+		label_1 = new JLabel("");
+		label_1.setIcon(new ImageIcon(ClerkScreen.class.getResource("/Images/icons8_secured_letter_20px.png")));
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setBounds(10, 11, 39, 38);
+		panel_14.add(label_1);
 		
-		JLabel lblEmailAddress = new JLabel(Login.email);
+		lblEmailAddress = new JLabel(Login.email);
 		lblEmailAddress.setFont(new Font("Candara", Font.PLAIN, 15));
 		lblEmailAddress.setBounds(70, 23, 241, 14);
 		panel_14.add(lblEmailAddress);
 		
-		JPanel panel_15 = new JPanel();
+		panel_15 = new JPanel();
 		panel_15.setLayout(null);
-		panel_15.setBounds(214, 247, 340, 60);
+		panel_15.setBounds(210, 263, 340, 60);
 		profilePanel.add(panel_15);
 		
-		JLabel label_7 = new JLabel("");
-		label_7.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_phone_20px.png")));
-		label_7.setHorizontalAlignment(SwingConstants.CENTER);
-		label_7.setBounds(10, 11, 39, 38);
-		panel_15.add(label_7);
+		label_5 = new JLabel("");
+		label_5.setIcon(new ImageIcon(ClerkScreen.class.getResource("/Images/icons8_phone_20px.png")));
+		label_5.setHorizontalAlignment(SwingConstants.CENTER);
+		label_5.setBounds(10, 11, 39, 38);
+		panel_15.add(label_5);
 		
-		JLabel lblPhoneNumber = new JLabel(Login.phoneNumber);
+		lblPhoneNumber = new JLabel(Login.phoneNumber);
 		lblPhoneNumber.setFont(new Font("Candara", Font.PLAIN, 15));
 		lblPhoneNumber.setBounds(70, 23, 241, 14);
 		panel_15.add(lblPhoneNumber);
 		
-		JPanel panel_16 = new JPanel();
+		panel_16 = new JPanel();
 		panel_16.setLayout(null);
-		panel_16.setBounds(214, 318, 340, 60);
+		panel_16.setBounds(210, 334, 340, 60);
 		profilePanel.add(panel_16);
 		
-		JLabel label_9 = new JLabel("");
-		label_9.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_website_20px.png")));
-		label_9.setHorizontalAlignment(SwingConstants.CENTER);
-		label_9.setBounds(10, 11, 39, 38);
-		panel_16.add(label_9);
+		label_7 = new JLabel("");
+		label_7.setIcon(new ImageIcon(ClerkScreen.class.getResource("/Images/icons8_website_20px.png")));
+		label_7.setHorizontalAlignment(SwingConstants.CENTER);
+		label_7.setBounds(10, 11, 39, 38);
+		panel_16.add(label_7);
 		
-		JLabel lblWebsite = new JLabel(Login.website);
+		lblWebsite = new JLabel(Login.website);
 		lblWebsite.setFont(new Font("Candara", Font.PLAIN, 15));
 		lblWebsite.setBounds(70, 23, 241, 14);
 		panel_16.add(lblWebsite);
@@ -1303,19 +1417,15 @@ public class AgentScreen extends JFrame {
 	}
 	
 	
-	public void getFromTo() {
+	public void getScheduleIDFromSoldTicket() {
 		try {
-			String query = "select distinct * from route where numberOfSeatLeft > 0";
+			String query = "select distinct scheduleID from ticket";
 			preparedStatement = conn.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
 			
 			while(resultSet.next()) {
-				cmbFromTo.setSelectedIndex(-1);
-				cmbFromTo.addItem(resultSet.getString("description"));
-				cmbDateTravel.setSelectedIndex(-1);
-				cmbDateTravel.addItem(resultSet.getString("departureDate"));
-				cmbTimeTravel.setSelectedIndex(-1);
-				cmbTimeTravel.addItem(resultSet.getString("departureTime"));
+				cmbIssueTicketScheduleID.setSelectedIndex(-1);
+				cmbIssueTicketScheduleID.addItem(resultSet.getString("scheduleID"));
 			}
 		} catch (Exception e) {
 			System.out.println("error: " + e);
@@ -1328,7 +1438,7 @@ public class AgentScreen extends JFrame {
 		try {
 			String query = "select * from route where description=?";
 			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, cmbFromTo.getSelectedItem().toString());
+			preparedStatement.setString(1, cmbIssueTicketScheduleID.getSelectedItem().toString());
 			resultSet = preparedStatement.executeQuery();
 			
 			if(resultSet.next()) {
@@ -1346,7 +1456,7 @@ public class AgentScreen extends JFrame {
 		try {
 			String query = "select * from route where description=?";
 			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, cmbFromTo.getSelectedItem().toString());
+			preparedStatement.setString(1, cmbIssueTicketScheduleID.getSelectedItem().toString());
 			resultSet = preparedStatement.executeQuery();
 			
 			if(resultSet.next()) {
@@ -1368,8 +1478,6 @@ public class AgentScreen extends JFrame {
 			preparedStatement = conn.prepareStatement(insertDataQueryString);
 			preparedStatement.setString(1, timeStamp);
 			preparedStatement.setString(2, scheduleID);
-			preparedStatement.setString(3, cmbDateTravel.getSelectedItem().toString());
-			preparedStatement.setString(4, cmbTimeTravel.getSelectedItem().toString());
 			preparedStatement.setDouble(5, price);
 			preparedStatement.execute();
 			
@@ -1380,30 +1488,31 @@ public class AgentScreen extends JFrame {
 	
 	
 	
-	public void updateTicketwithScheduleID() {
-//		try {
-//			String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
-//			
-//			String insertDataQueryString = "Update ticket set scheduleID=?, price=?  WHERE id = 1;";
-//			preparedStatement = conn.prepareStatement(insertDataQueryString);
-//			preparedStatement.setString(1, timeStamp);
-//			preparedStatement.setString(2, getScheduleID());
-//			preparedStatement.setDouble(3, getPrice());
-//			preparedStatement.execute();
-//			
-//		} catch (Exception e) {
-//			System.out.println("error: " + e);
-//		}
+	public void updateTicketNumberBasedOnScheduleID() {
+		if (!(txtTicketNumber.getText().isEmpty())) {
+			try {
+				String query = "update ticket set ticketNumber=? where scheduleID=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setString(1, txtTicketNumber.getText());
+				preparedStatement.setString(2, cmbIssueTicketScheduleID.getSelectedItem().toString());
+				preparedStatement.executeUpdate();
+				
+				txtTicketNumber.setText("");
+			} catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+		}else {
+			lblErrorIssueTicketNumber.setText("Provide ticket number!");
+		}
 	}
 	
 
-public void displayTicketInTable() {
+	public void displayTicketInTable() {
 		
 		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("TICKET NUMBER");
 		model.addColumn("TRANSACTION TIME");
 		model.addColumn("SCHEDULE ID");
-		model.addColumn("DATE");
-		model.addColumn("TIME");
 		model.addColumn("PRICE");
         try {
         	String query = "select * from ticket";
@@ -1412,10 +1521,9 @@ public void displayTicketInTable() {
             
             while(resultSet.next()) {
             	model.addRow(new Object[] {
+            			resultSet.getString("ticketNumber"),
             			resultSet.getString("transactionTime"),
             			resultSet.getString("scheduleID"),
-            			resultSet.getString("date"),
-            			resultSet.getString("time"),
             			resultSet.getString("price")
             	});
             }
@@ -1424,6 +1532,85 @@ public void displayTicketInTable() {
             
         }catch (Exception e) {
 			System.out.println("error: " + e);
+		}
+	}
+	
+	public void displayRouteInTableWithNrOfSeat() {
+		
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("SCHEDULE ID");
+		model.addColumn("ROUTE ID");
+		model.addColumn("DESCRIPTION");
+		model.addColumn("DATE");
+		model.addColumn("TIME");
+		model.addColumn("PRICE");
+		model.addColumn("SEATS LEFT");
+        try {
+        	String query = "select * from route";
+            preparedStatement = conn.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+            
+            while(resultSet.next()) {
+            	model.addRow(new Object[] {
+            			resultSet.getString("scheduleCode"),
+            			resultSet.getString("rID"),
+            			resultSet.getString("description"),
+            			resultSet.getString("departureDate"),
+            			resultSet.getString("departureTime"),
+            			resultSet.getString("price"),
+            			resultSet.getString("numberOfSeatLeft")
+            	});
+            }
+            
+            tableTicketNrOfSeat.setModel(model);
+            
+        }catch (Exception e) {
+			System.out.println("error: " + e);
+		}
+	}
+	
+	public void	getRouteInfoFromSelectedRow() {
+		btnAvailableSeatsLeft.setVisible(true);
+		
+		try {
+			int row = tableTicketNrOfSeat.getSelectedRow();
+			String routeDescription = (tableTicketNrOfSeat.getModel().getValueAt(row, 2)).toString();
+			String scheduleIDCode = (tableTicketNrOfSeat.getModel().getValueAt(row, 0)).toString();
+			
+			String query = "select * from route where description=? and scheduleCode=?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, routeDescription);
+            preparedStatement.setString(2, scheduleIDCode);
+            
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+            	lblRouteDescription.setText(resultSet.getString("description"));
+            	lblScheduleID.setText(resultSet.getString("scheduleCode"));
+            }
+            
+		} catch (Exception e) {
+			System.out.println("error: " + e);
+		}
+	}
+	
+	public void updateNumberOfSeatsLeft() {
+		
+		if (!(txtAvailableSeatsLeft.getText().isEmpty())) {
+			try {
+				String query = "update route set numberOfSeatLeft=? where description=? and scheduleCode=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setString(1, txtAvailableSeatsLeft.getText());
+				preparedStatement.setString(2, lblRouteDescription.getText());
+				preparedStatement.setString(3, lblScheduleID.getText());
+				preparedStatement.executeUpdate();
+				
+				txtAvailableSeatsLeft.setText("");
+				lblErrorNumberSeats.setText("");
+			} catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+		}else {
+			lblErrorNumberSeats.setText("Provide number of available seats!");
 		}
 	}
 }
