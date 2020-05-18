@@ -251,7 +251,7 @@ public class ClerkScreen extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				switchPanel(issueTicketNumberPanel);
-				getScheduleIDFromSoldTicket();
+				getScheduleIDFromTicket();
 				displayTicketInTable();
 			}
 		});
@@ -563,6 +563,7 @@ public class ClerkScreen extends JFrame {
 		lblAssignAvailableSeat.setBounds(486, 366, 209, 20);
 		availableSeatsPanel.add(lblAssignAvailableSeat);
 		
+		// allowing numbers only
 		txtAvailableSeatsLeft = new JTextField();
 		((AbstractDocument)txtAvailableSeatsLeft.getDocument()).setDocumentFilter(new DocumentFilter() {
 			Pattern regEx = Pattern.compile("\\d*");
@@ -895,8 +896,11 @@ public class ClerkScreen extends JFrame {
 	
 
 	
-	
-	public void getScheduleIDFromSoldTicket() {
+	/*
+	 * Retrieve ticket from completed sales list
+	 * 
+	 */
+	public void getScheduleIDFromTicket() {
 		try {
 			String query = "select distinct scheduleID from ticket";
 			preparedStatement = conn.prepareStatement(query);
@@ -912,6 +916,10 @@ public class ClerkScreen extends JFrame {
 	}
 	
 	
+	/*
+	 * Retrieve price
+	 * 
+	 */
 	public double getPrice() {
 		double price = 0;
 		try {
@@ -929,7 +937,10 @@ public class ClerkScreen extends JFrame {
 		return price;
 	}
 	
-	
+	/*
+	 * Retrieve schedule ids
+	 * 
+	 */
 	public String getScheduleID() {
 		String scheduleCode = "";
 		try {
@@ -947,6 +958,10 @@ public class ClerkScreen extends JFrame {
 		return scheduleCode;
 	}
 	
+	/*
+	 * Issue ticket  
+	 * 
+	 */
 	public void insertTicket() {
 		try {
 			String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
@@ -966,7 +981,10 @@ public class ClerkScreen extends JFrame {
 	}
 	
 	
-	
+	/*
+	 * Issue ticket number based on schedule id 
+	 * 
+	 */
 	public void updateTicketNumberBasedOnScheduleID() {
 		if (!(txtTicketNumber.getText().isEmpty())) {
 			try {
@@ -986,6 +1004,10 @@ public class ClerkScreen extends JFrame {
 	}
 	
 
+	/*
+	 * Display tickets into table 
+	 * 
+	 */
 	public void displayTicketInTable() {
 		
 		DefaultTableModel model = new DefaultTableModel();
@@ -1014,6 +1036,9 @@ public class ClerkScreen extends JFrame {
 		}
 	}
 	
+	/*
+	 * Display route into table for future updates
+	 */
 	public void displayRouteInTableWithNrOfSeat() {
 		
 		DefaultTableModel model = new DefaultTableModel();
@@ -1048,6 +1073,10 @@ public class ClerkScreen extends JFrame {
 		}
 	}
 	
+	/*
+	 * Retrieve route information when a row from the table is clicked
+	 * 
+	 */
 	public void	getRouteInfoFromSelectedRow() {
 		btnAvailableSeatsLeft.setVisible(true);
 		
@@ -1072,6 +1101,10 @@ public class ClerkScreen extends JFrame {
 		}
 	}
 	
+	/*
+	 * Assign available seat to schedule
+	 * 
+	 */
 	public void updateNumberOfSeatsLeft() {
 		
 		if (!(txtAvailableSeatsLeft.getText().isEmpty())) {
@@ -1093,6 +1126,10 @@ public class ClerkScreen extends JFrame {
 		}
 	}
 	
+	/*
+	 * change color based on the user's preference
+	 * 
+	 */
 	public void changeColorToInSettingPanel(int r, int g, int b) {
 		sidePanel.setBackground(new Color(r, g, b));
 		btnHomePanel.setBackground(new Color(r, g, b));
@@ -1214,6 +1251,10 @@ public class ClerkScreen extends JFrame {
 			}
 	}
 	
+	/*
+	 * change font size based on the user's preference
+	 * 
+	 */
 	private int getFontSizeNavigation(){
 		int fontsize = 0;
 		String employeeUsername = Login.username;
@@ -1234,7 +1275,11 @@ public class ClerkScreen extends JFrame {
         }
         return fontsize;
     }
-		
+	
+	/*
+	 * change font size based on the user's preference
+	 * 
+	 */
 	public void updateNavigationFontSize() {
 		String fontSizeComboBox = cmbFontSize.getSelectedItem().toString();
 		int fontSize = Integer.valueOf(fontSizeComboBox);

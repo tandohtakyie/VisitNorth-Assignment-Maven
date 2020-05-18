@@ -17,6 +17,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -138,6 +140,7 @@ public class ManagerScreen extends JFrame {
 	JComboBox<String> cmbFromCity;
 	JLabel lblAssignRouteTo;
 	JLabel lblFirstname;
+	JDateChooser txtDepartureDate;
 	JPanel btnSettingsCancel;
 	JLabel lblRoutes;
 	JLabel lblThemeColorText;
@@ -186,7 +189,6 @@ public class ManagerScreen extends JFrame {
 	private JPanel profilePanel;
 	private JPanel profilePanelBar;
 	JPanel btnAddRoute;
-	private JTextField txtDepartureDate;
 	private JCalendar departureDate;
 	private JTextField txtDepartureTime;
 	JComboBox<String> cmbToCity;
@@ -762,16 +764,6 @@ public class ManagerScreen extends JFrame {
 		lblTo.setBounds(10, 223, 35, 20);
 		routesPanel.add(lblTo);
 		
-//		departureDate = new JCalendar();
-//		departureDate.setBounds(10, 304, 122, 20);
-//		routesPanel.add(departureDate);
-		
-		txtDepartureDate = new JTextField();
-		txtDepartureDate.setToolTipText("Departure Date");
-		txtDepartureDate.setColumns(10);
-		txtDepartureDate.setBounds(10, 303, 175, 30);
-		routesPanel.add(txtDepartureDate);
-		
 		lblDepartureDate = new JLabel("Departure Date");
 		lblDepartureDate.setFont(new Font("Candara", Font.PLAIN, 13));
 		lblDepartureDate.setBounds(10, 282, 122, 20);
@@ -823,9 +815,9 @@ public class ManagerScreen extends JFrame {
 		lblAssignRouteTo.setBounds(10, 465, 159, 20);
 		routesPanel.add(lblAssignRouteTo);
 		
-		JDateChooser txtDateChooser = new JDateChooser();
-		txtDateChooser.setBounds(276, 120, 91, 20);
-		routesPanel.add(txtDateChooser);
+		txtDepartureDate = new JDateChooser();
+		txtDepartureDate.setBounds(10, 300, 175, 33);
+		routesPanel.add(txtDepartureDate);
 		
 		btnCitiesPanel = new JPanel();
 		btnCitiesPanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
@@ -941,7 +933,7 @@ public class ManagerScreen extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				switchPanel(issueTicketNumberPanel);
-				getScheduleIDFromSoldTicket();
+				getScheduleIDFromTicket();
 				displayRouteInTableManager();
 				displayTicketInTable();
 			}
@@ -1660,6 +1652,11 @@ public class ManagerScreen extends JFrame {
 		layeredPane.revalidate();
 	}
 	
+	
+	/*
+	 * Insert city into database
+	 * 
+	 */
 	public void insertCity() {
 		if (!(txtCity.getText().isEmpty())) {
 			try {
@@ -1686,6 +1683,11 @@ public class ManagerScreen extends JFrame {
 		}
 	}
 	
+	
+	/*
+	 * Retrieve cities from database
+	 * Display in table
+	 */
 	public void getcities() {
 		
 		DefaultTableModel model = new DefaultTableModel();
@@ -1709,6 +1711,11 @@ public class ManagerScreen extends JFrame {
 		}
 	}
 	
+	/*
+	 * Insert driver into database
+	 * check if fields are not empty
+	 * 
+	 */
 	public void insertDriver() {
 		if (!(txtFirstnameDriver.getText().isEmpty() || txtLastnameDriver.getText().isEmpty())) {
 			try {
@@ -1738,6 +1745,11 @@ public class ManagerScreen extends JFrame {
 		}
 	}
 	
+	
+	/*
+	 * Retrieve drivers from the database 
+	 * Display them in a table
+	 */
 	public void getDrivers() {
 			
 			DefaultTableModel model = new DefaultTableModel();
@@ -1764,6 +1776,11 @@ public class ManagerScreen extends JFrame {
 			}
 		}
 	
+	
+	/*
+	 * Insert schedule into database 
+	 * check if fields are not empty
+	 */
 	public void insertSchedule() {
 		if (!(txtScheduleID.getText().isEmpty())) {
 			try {
@@ -1791,6 +1808,10 @@ public class ManagerScreen extends JFrame {
 		}
 	}
 	
+	/*
+	 *  Retrieve schedule ids from database
+	 * 
+	 */
 	public void getScheduleIDs() {
 			
 			DefaultTableModel model = new DefaultTableModel();
@@ -1813,6 +1834,10 @@ public class ManagerScreen extends JFrame {
 			}
 		}
 
+	/*
+	 * Insert vehicle into database 
+	 * 
+	 */
 	public void insertVehicle() {
 		if (!(txtLicencePlate.getText().isEmpty())) {
 			try {
@@ -1840,6 +1865,11 @@ public class ManagerScreen extends JFrame {
 		}
 	}
 	
+	
+	/*
+	 * Retrieve vehicles
+	 * 
+	 */
 	public void getVehicles() {
 			
 			DefaultTableModel model = new DefaultTableModel();
@@ -1866,22 +1896,36 @@ public class ManagerScreen extends JFrame {
 			}
 	}
 	
+	
+	/*
+	 * return true if both comboBox are of the same value
+	 * 
+	 */
 	public boolean checkComboBoxValues() {
 		return cmbFromCity.getSelectedItem().toString().equals(cmbToCity.getSelectedItem().toString());
 	}
 	
+	/*
+	 * Insert route into database
+	 * The from city and the to city cannot be the same
+	 */
 	public void insertRoute() {
 		String from = cmbFromCity.getSelectedItem().toString();
 		String to = cmbToCity.getSelectedItem().toString();
 		
 		char cFrom = from.charAt(0);
 		char cTo = to.charAt(0);
+		
+		Date date = txtDepartureDate.getDate();
+		
+		String departureDate = DateFormat.getDateInstance().format(date);
 	
 		
 		
-		if (!(txtDepartureDate.getText().isEmpty() || txtDepartureTime.getText().isEmpty() || txtPrice.getText().isEmpty())) {
+		if (!(departureDate.isEmpty() || txtDepartureTime.getText().isEmpty() || txtPrice.getText().isEmpty())) {
 			try {
-				if(!(checkComboBoxValues())) {
+				if(!(checkComboBoxValues())) { // check if they are not the same
+					
 					String querySchedule = "select * from route where scheduleCode=?";
 					preparedStatement = conn.prepareStatement(querySchedule);
 					preparedStatement.setString(1, cmbSchedule.getSelectedItem().toString());
@@ -1896,7 +1940,7 @@ public class ManagerScreen extends JFrame {
 							String query = "select * from route where description=? and departureDate=?";
 							preparedStatement = conn.prepareStatement(query);
 							preparedStatement.setString(1, cmbFromCity.getSelectedItem().toString() + " - " + cmbToCity.getSelectedItem().toString());
-							preparedStatement.setString(2, txtDepartureDate.getText());
+							preparedStatement.setString(2, departureDate);
 							resultSet = preparedStatement.executeQuery();
 							if (resultSet.next()) {
 								lblErrorRoute.setText("This route already exists!");
@@ -1905,16 +1949,16 @@ public class ManagerScreen extends JFrame {
 								String insertRouteData = "insert into route (description,departureDate,departureTime,rID,price,scheduleCode,numberOfSeatLeft) values(?,?,?,?,?,?,?)";
 								preparedStatement = conn.prepareStatement(insertRouteData);
 								preparedStatement.setString(1, cmbFromCity.getSelectedItem().toString() + " - " + cmbToCity.getSelectedItem().toString());
-								preparedStatement.setString(2, txtDepartureDate.getText());
+								preparedStatement.setString(2, departureDate);
 								preparedStatement.setString(3, txtDepartureTime.getText());
 								preparedStatement.setString(4, String.valueOf(cFrom) + String.valueOf(cTo));
 								preparedStatement.setString(5, txtPrice.getText());		
 								preparedStatement.setString(6, cmbSchedule.getSelectedItem().toString());		
-								preparedStatement.setInt(7, 0);		
+								preparedStatement.setInt(7, 50);		
 								
 								preparedStatement.execute();
 								
-								txtDepartureDate.setText("");
+								//txtDepartureDate.setText("");
 								txtDepartureTime.setText("");
 								txtPrice.setText("");
 								lblErrorRoute.setText("");
@@ -1936,6 +1980,10 @@ public class ManagerScreen extends JFrame {
 		}
 	}
 	
+	/*
+	 * Display route into table 
+	 * 
+	 */
 	public void displayRouteInTable() {
 		
 		DefaultTableModel model = new DefaultTableModel();
@@ -1969,6 +2017,10 @@ public class ManagerScreen extends JFrame {
 	}
 	
 	
+	/*
+	 * Populate cities to combobox
+	 * 
+	 */
 	public void getCitiesToComboBox() {
 		try {
 			String query = "select * from city";
@@ -1984,6 +2036,10 @@ public class ManagerScreen extends JFrame {
 		}
 	}
 	
+	/*
+	 * Populate schedule ids to combobox
+	 * 
+	 */
 	public void getScheduleToComboBox() {
 		try {
 			String query = "select distinct scheduleCode from schedule";
@@ -2014,7 +2070,12 @@ public class ManagerScreen extends JFrame {
         return scheduleID;
     }
 	
-	public void getScheduleIDFromSoldTicket() {
+	
+	/*
+	 * Get schedule ids from ticket from sales list
+	 * Populate them to combobox
+	 */
+	public void getScheduleIDFromTicket() {
 		try {
 			String query = "select distinct * from ticket";
 			preparedStatement = conn.prepareStatement(query);
@@ -2029,6 +2090,11 @@ public class ManagerScreen extends JFrame {
 		}
 	}
 	
+	
+	/*
+	 * Display route into table 
+	 * 
+	 */
 	public void displayRouteInTableManager() {
 		
 		DefaultTableModel model = new DefaultTableModel();
@@ -2057,6 +2123,10 @@ public class ManagerScreen extends JFrame {
 		}
 	}
 	
+	/*
+	 * Issue ticket number based on schedule id 
+	 * 
+	 */
 	public void updateTicketNumberBasedOnScheduleID() {
 		if (!(txtTicketNumber.getText().isEmpty())) {
 			try {
@@ -2075,6 +2145,10 @@ public class ManagerScreen extends JFrame {
 		}
 	}
 	
+	/*
+	 * Display tickets into table 
+	 * 
+	 */
 	public void displayTicketInTable() {
 		
 		DefaultTableModel model = new DefaultTableModel();
@@ -2103,7 +2177,10 @@ public class ManagerScreen extends JFrame {
 		}
 	}
 	
-public void displayRouteInTableWithNrOfSeat() {
+	/*
+	 * Display route into table for future updates
+	 */
+	public void displayRouteInTableWithNrOfSeat() {
 		
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("SCHEDULE ID");
@@ -2141,6 +2218,11 @@ public void displayRouteInTableWithNrOfSeat() {
 		}
 	}
 	
+	
+	/*
+	 * Retrieve route information when a row from the table is clicked
+	 * 
+	 */
 	public void	getRouteInfoFromSelectedRow() {
 		btnAvailableSeatsLeft.setVisible(true);
 		btnAssignDriverVehicle.setVisible(true);
@@ -2166,6 +2248,11 @@ public void displayRouteInTableWithNrOfSeat() {
 		}
 	}
 	
+	
+	/*
+	 * Assign available seat to schedule
+	 * 
+	 */
 	public void updateNumberOfSeatsLeft() {
 		
 		if (!(txtAvailableSeatsLeft.getText().isEmpty())) {
@@ -2187,6 +2274,10 @@ public void displayRouteInTableWithNrOfSeat() {
 		}
 	}
 	
+	/*
+	 * change color based on the user's preference
+	 * 
+	 */
 	public void changeColorToInSettingPanel(int r, int g, int b) {
 		sidePanel.setBackground(new Color(r, g, b));
 		btnHomePanel.setBackground(new Color(r, g, b));
@@ -2308,7 +2399,10 @@ public void displayRouteInTableWithNrOfSeat() {
     }
 	
 	
-	
+	/*
+	 * change color based on the user's preference
+	 * 
+	 */
 	public void updateColorTheme(int r, int g, int b) {
 		String employeeUsername = Login.username;
 		String employeeName = Login.empName;
@@ -2330,6 +2424,10 @@ public void displayRouteInTableWithNrOfSeat() {
 			}
 	}
 	
+	/*
+	 * change font size based on the user's preference
+	 * 
+	 */
 	private int getFontSizeNavigation(){
 		int fontsize = 0;
 		String employeeUsername = Login.username;
@@ -2350,7 +2448,11 @@ public void displayRouteInTableWithNrOfSeat() {
         }
         return fontsize;
     }
-		
+	
+	/*
+	 * change font size based on the user's preference
+	 * 
+	 */
 	public void updateNavigationFontSize() {
 		String fontSizeComboBox = cmbFontSize.getSelectedItem().toString();
 		int fontSize = Integer.valueOf(fontSizeComboBox);
@@ -2374,6 +2476,10 @@ public void displayRouteInTableWithNrOfSeat() {
 		
 	}
 	
+	/*
+	 * Add new employee
+	 * 
+	 */
 	public void addNewEmployee() {
 		String name = txtName.getText();
 		String roleEmployee = cmbRole.getSelectedItem().toString();
@@ -2412,6 +2518,11 @@ public void displayRouteInTableWithNrOfSeat() {
 		
 	}
 	
+	
+	/*
+	 * Assign default settings for new employee
+	 * 
+	 */
 	public void addNewEmployeeSettings() {
 		String name = txtName.getText();
 		
@@ -2445,6 +2556,10 @@ public void displayRouteInTableWithNrOfSeat() {
 		
 	}
 	
+	/*
+	 * Display employees in table
+	 * 
+	 */
 	public void displayEmployeeInTable() {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("NAME");
@@ -2472,6 +2587,10 @@ public void displayRouteInTableWithNrOfSeat() {
 		}
 	}
 	
+	/*
+	 * Populate drivers into combobox
+	 * 
+	 */
 	public void populateAllDriversToComboBox() {
 		try {
 			String query = "select distinct * from driver";
@@ -2486,6 +2605,10 @@ public void displayRouteInTableWithNrOfSeat() {
 		}
 	}
 	
+	/*
+	 * Populate vehicles into combobox
+	 * 
+	 */
 	public void populateAllVehiclesToComboBox() {
 		try {
 			String query = "select distinct * from vehicle";
@@ -2500,6 +2623,10 @@ public void displayRouteInTableWithNrOfSeat() {
 		}
 	}
 	
+	/*
+	 * Assign driver and vehicle to existing schedule
+	 * 
+	 */
 public void updateAssignDriverVehicle() {
 		
 		if (!(lblRouteDescription.getText().isEmpty() || lblScheduleID.getText().isEmpty())) {

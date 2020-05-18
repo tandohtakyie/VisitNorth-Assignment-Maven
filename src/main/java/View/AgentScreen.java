@@ -768,6 +768,10 @@ public class AgentScreen extends JFrame {
 	}
 	
 	
+	/*
+	 * get route cities
+	 * populate them to combobox
+	 */
 	public void getFromTo() {
 		try {
 			//String query = "select distinct * from route where numberOfSeatLeft > 0";
@@ -788,7 +792,10 @@ public class AgentScreen extends JFrame {
 		}
 	}
 	
-	
+	/*
+	 * retrieve price
+	 * 
+	 */
 	public double getPrice() {
 		double price = 0;
 		try {
@@ -806,7 +813,10 @@ public class AgentScreen extends JFrame {
 		return price;
 	}
 	
-	
+	/*
+	 * retrieve schedule id
+	 * 
+	 */
 	public String getScheduleID() {
 		String scheduleCode = "";
 		try {
@@ -824,6 +834,10 @@ public class AgentScreen extends JFrame {
 		return scheduleCode;
 	}
 	
+	/*
+	 * insert ticket
+	 * 
+	 */
 	public void insertTicket() {
 		try {
 			String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
@@ -863,7 +877,11 @@ public class AgentScreen extends JFrame {
 	}
 	
 
-public void displayTicketInTable() {
+	/*
+	 * Display ticket in table
+	 * 
+	 */
+	public void displayTicketInTable() {
 		
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("TRANSACTION TIME");
@@ -893,6 +911,10 @@ public void displayTicketInTable() {
 		}
 	}
 
+	/*
+	 * change color based on the user's preference
+	 * 
+	 */
 	public void changeColorToInSettingPanel(int r, int g, int b) {
 		sidePanel.setBackground(new Color(r, g, b));
 		btnHomePanel.setBackground(new Color(r, g, b));
@@ -1010,6 +1032,10 @@ public void displayTicketInTable() {
 			}
 	}
 	
+	/*
+	 * change font size based on the user's preference
+	 * 
+	 */
 	private int getFontSizeNavigation(){
 		int fontsize = 0;
 		String employeeUsername = Login.username;
@@ -1031,6 +1057,10 @@ public void displayTicketInTable() {
         return fontsize;
     }
 		
+	/*
+	 * change font size based on the user's preference
+	 * 
+	 */
 	public void updateNavigationFontSize() {
 		String fontSizeComboBox = cmbFontSize.getSelectedItem().toString();
 		int fontSize = Integer.valueOf(fontSizeComboBox);
