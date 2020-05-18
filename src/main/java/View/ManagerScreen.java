@@ -143,14 +143,14 @@ public class ManagerScreen extends JFrame {
 	JLabel lblLogOutIf;
 	JLabel lblErrorCity;
 	JLabel lblNewLabel_5;
-	JPanel btnColorOrange;
+	JPanel btnBeigeColor;
 	JLabel lblAutoLogOut;
 	JLabel lblAListOf_2;
 	JLabel lblChangeTheFont;
 	JLabel lblFont;
-	JPanel panel_4;
+	JPanel btnGreenishColor;
 	JLabel lblSettings_1;
-	JPanel panel_2;
+	JPanel btnBlueishColor;
 	JLabel lblAListOf_1;
 	JLabel lblDriver;
 	JCheckBox chkbAutoLogout;
@@ -158,7 +158,7 @@ public class ManagerScreen extends JFrame {
 	JLabel lblFontSizeText;
 	JComboBox cmbFontSize;
 	JScrollPane scrollPane_1;
-	JPanel panel_7;
+	JPanel btnPurpleColor;
 	private JLabel lblAListOf;
 	private JLabel lblCity_1;
 	JSeparator separator_2;
@@ -1221,8 +1221,8 @@ public class ManagerScreen extends JFrame {
 		lblNewLabel_5.setBounds(10, 26, 374, 32);
 		panel_1.add(lblNewLabel_5);
 		
-		panel_2 = new JPanel();
-		panel_2.addMouseListener(new MouseAdapter() {
+		btnBlueishColor = new JPanel();
+		btnBlueishColor.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				updateColorTheme(61, 70, 85);
@@ -1240,12 +1240,12 @@ public class ManagerScreen extends JFrame {
 				changeColorToInProfilePanel(getColorR(), getColorG(), getColorB());
 			}
 		});
-		panel_2.setBackground(new Color(61, 70, 85));
-		panel_2.setBounds(632, 11, 20, 20);
-		panel_1.add(panel_2);
+		btnBlueishColor.setBackground(new Color(61, 70, 85));
+		btnBlueishColor.setBounds(632, 11, 20, 20);
+		panel_1.add(btnBlueishColor);
 		
-		btnColorOrange = new JPanel();
-		btnColorOrange.addMouseListener(new MouseAdapter() {
+		btnBeigeColor = new JPanel();
+		btnBeigeColor.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
@@ -1266,12 +1266,12 @@ public class ManagerScreen extends JFrame {
 				
 			}
 		});
-		btnColorOrange.setBackground(new Color(245, 222, 179));
-		btnColorOrange.setBounds(662, 11, 20, 20);
-		panel_1.add(btnColorOrange);
+		btnBeigeColor.setBackground(new Color(245, 222, 179));
+		btnBeigeColor.setBounds(662, 11, 20, 20);
+		panel_1.add(btnBeigeColor);
 		
-		panel_4 = new JPanel();
-		panel_4.addMouseListener(new MouseAdapter() {
+		btnGreenishColor = new JPanel();
+		btnGreenishColor.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				updateColorTheme(51, 133, 153);
@@ -1289,12 +1289,12 @@ public class ManagerScreen extends JFrame {
 				changeColorToInProfilePanel(getColorR(), getColorG(), getColorB());
 			}
 		});
-		panel_4.setBackground(new Color(51, 153, 153));
-		panel_4.setBounds(632, 38, 20, 20);
-		panel_1.add(panel_4);
+		btnGreenishColor.setBackground(new Color(51, 153, 153));
+		btnGreenishColor.setBounds(632, 38, 20, 20);
+		panel_1.add(btnGreenishColor);
 		
-		panel_7 = new JPanel();
-		panel_7.addMouseListener(new MouseAdapter() {
+		btnPurpleColor = new JPanel();
+		btnPurpleColor.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				updateColorTheme(102, 0, 204);
@@ -1312,9 +1312,9 @@ public class ManagerScreen extends JFrame {
 				changeColorToInProfilePanel(getColorR(), getColorG(), getColorB());
 			}
 		});
-		panel_7.setBackground(new Color(102, 0, 204));
-		panel_7.setBounds(662, 38, 20, 20);
-		panel_1.add(panel_7);
+		btnPurpleColor.setBackground(new Color(102, 0, 204));
+		btnPurpleColor.setBounds(662, 38, 20, 20);
+		panel_1.add(btnPurpleColor);
 		
 		lblFont = new JLabel("Font");
 		lblFont.setFont(new Font("Candara", Font.PLAIN, 18));

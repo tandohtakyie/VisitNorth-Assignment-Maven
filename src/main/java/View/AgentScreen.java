@@ -71,10 +71,10 @@ public class AgentScreen extends JFrame {
 	final JPanel homePanel;
 	JPanel btnHomePanel;
 	JLabel lblNewLabel;
-	JLabel lblNewLabel_1;
+	JLabel lblHomeButton;
 	JPanel btnSellTicket;
 	JLabel label;
-	JLabel lblCities;
+	JLabel lblSellTicketButton;
 	JLabel lblVehicle;
 	JSeparator separator;
 	JPanel panel_9;
@@ -84,20 +84,20 @@ public class AgentScreen extends JFrame {
 	JPanel btnAddCity;
 	JPanel btnAddDriver;
 	JLabel label_2;
-	JLabel lblSchedules;
+	JLabel lblSchedulesButton;
 	JLabel lblReduceTheBrightness;
 	JPanel btnSettingsPanel;
 	JLabel label_4;
 	JLabel lblType;
 	JPanel btnAddVehicle;
-	JLabel lblSettings;
-	JPanel panel_5;
+	JLabel lblSettingsButton;
+	JPanel btnProfilePanel;
 	JLabel lblLogout;
 	JPanel panel_10;
 	JComboBox<String> cmbType;
 	JLabel lblAllThePossible;
 	JLabel lblEmployeeName;
-	JLabel lblLogoutWhenNo;
+	JLabel lblLogoutWhenNoText;
 	JLabel lblVisitNorth;
 	JPanel panel_6;
 	JLabel lblCities_1;
@@ -109,19 +109,19 @@ public class AgentScreen extends JFrame {
 	final JPanel routesPanel;
 	JPanel panel_1;
 	JLabel lblSchedule;
-	JLabel lblCancel;
-	JLabel lblAdjustBrightness;
+	JLabel lblCancelButtonText;
+	JLabel lblAdjustBrightnessText;
 	JLabel lblBrightness;
 	JLabel lblAddDriver;
 	JSeparator separator_1;
 	JLabel lblRoute;
-	JCheckBox chckbxNewCheckBox;
+	JCheckBox chkbAdjustBrightness;
 	JLabel lblFrom;
-	JPanel panel_11;
+	JPanel btnSettingsSave;
 	JComboBox<String> cmbFromCity;
 	JLabel lblFirstname;
-	JPanel panel_12;
-	JLabel lblNewLabel_4;
+	JPanel btnSettingsCancel;
+	JLabel lblThemeColorText;
 	JLabel lblNewLabel_7;
 	JScrollPane scrollPane_2;
 	JLabel lblNewLabel_2;
@@ -131,21 +131,21 @@ public class AgentScreen extends JFrame {
 	JLabel lblLogOutIf;
 	JLabel lblErrorCity;
 	JLabel lblNewLabel_5;
-	JPanel panel_3;
+	JPanel btnBeigeColor;
 	JLabel lblAutoLogOut;
 	JLabel lblAListOf_2;
 	JLabel lblChangeTheFont;
 	JLabel lblFont;
-	JPanel panel_4;
+	JPanel btnGreenishColor;
 	JLabel lblSettings_1;
-	JPanel panel_2;
+	JPanel btnBlueishColor;
 	JLabel lblAListOf_1;
 	JLabel lblDriver;
-	JCheckBox checkBox;
-	JLabel lblFontSize;
-	JComboBox comboBox;
+	JCheckBox chkbAutoLogout;
+	JLabel lblFontSizeText;
+	JComboBox cmbFontSize;
 	JScrollPane scrollPane_1;
-	JPanel panel_7;
+	JPanel btnPurpleColor;
 	private JLabel lblAListOf;
 	private JLabel lblCity_1;
 	JSeparator separator_2;
@@ -268,12 +268,12 @@ public class AgentScreen extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_home_20px.png")));
 		btnHomePanel.add(lblNewLabel);
 		
-		lblNewLabel_1 = new JLabel("Home");
-		lblNewLabel_1.setBounds(95, 14, 78, 33);
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 19));
-		btnHomePanel.add(lblNewLabel_1);
+		lblHomeButton = new JLabel("Home");
+		lblHomeButton.setBounds(95, 14, 78, 33);
+		lblHomeButton.setForeground(new Color(255, 255, 255));
+		lblHomeButton.setHorizontalAlignment(SwingConstants.LEFT);
+		lblHomeButton.setFont(new Font("Candara", Font.BOLD, 19));
+		btnHomePanel.add(lblHomeButton);
 		
 		btnSellTicket = new JPanel();
 		btnSellTicket.setLayout(null);
@@ -295,12 +295,12 @@ public class AgentScreen extends JFrame {
 		label.setBounds(22, 11, 40, 33);
 		btnSellTicket.add(label);
 		
-		lblCities = new JLabel("Sell Ticket");
-		lblCities.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCities.setForeground(Color.WHITE);
-		lblCities.setFont(new Font("Candara", Font.BOLD, 19));
-		lblCities.setBounds(95, 14, 137, 33);
-		btnSellTicket.add(lblCities);
+		lblSellTicketButton = new JLabel("Sell Ticket");
+		lblSellTicketButton.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSellTicketButton.setForeground(Color.WHITE);
+		lblSellTicketButton.setFont(new Font("Candara", Font.BOLD, 19));
+		lblSellTicketButton.setBounds(95, 14, 137, 33);
+		btnSellTicket.add(lblSellTicketButton);
 		
 		btnSchedulePanel = new JPanel();
 		btnSchedulePanel.setLayout(null);
@@ -320,12 +320,12 @@ public class AgentScreen extends JFrame {
 		label_2.setBounds(22, 11, 40, 33);
 		btnSchedulePanel.add(label_2);
 		
-		lblSchedules = new JLabel("Schedules");
-		lblSchedules.setHorizontalAlignment(SwingConstants.LEFT);
-		lblSchedules.setForeground(Color.WHITE);
-		lblSchedules.setFont(new Font("Candara", Font.BOLD, 19));
-		lblSchedules.setBounds(95, 14, 97, 33);
-		btnSchedulePanel.add(lblSchedules);
+		lblSchedulesButton = new JLabel("Schedules");
+		lblSchedulesButton.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSchedulesButton.setForeground(Color.WHITE);
+		lblSchedulesButton.setFont(new Font("Candara", Font.BOLD, 19));
+		lblSchedulesButton.setBounds(95, 14, 97, 33);
+		btnSchedulePanel.add(lblSchedulesButton);
 		
 		btnSettingsPanel = new JPanel();
 		btnSettingsPanel.setLayout(null);
@@ -345,48 +345,49 @@ public class AgentScreen extends JFrame {
 		label_4.setBounds(22, 11, 40, 33);
 		btnSettingsPanel.add(label_4);
 		
-		lblSettings = new JLabel("Settings");
-		lblSettings.setHorizontalAlignment(SwingConstants.LEFT);
-		lblSettings.setForeground(Color.WHITE);
-		lblSettings.setFont(new Font("Candara", Font.BOLD, 19));
-		lblSettings.setBounds(95, 14, 78, 33);
-		btnSettingsPanel.add(lblSettings);
+		lblSettingsButton = new JLabel("Settings");
+		lblSettingsButton.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSettingsButton.setForeground(Color.WHITE);
+		lblSettingsButton.setFont(new Font("Candara", Font.BOLD, 19));
+		lblSettingsButton.setBounds(95, 14, 78, 33);
+		btnSettingsPanel.add(lblSettingsButton);
 		
-		panel_5 = new JPanel();
-		panel_5.setToolTipText("Profile");
-		panel_5.addMouseListener(new MouseAdapter() {
+		btnProfilePanel = new JPanel();
+		btnProfilePanel.setToolTipText("Profile");
+		btnProfilePanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				switchPanel(profilePanel);
 			}
 		});
-		panel_5.setLayout(null);
-		panel_5.setBackground(new Color(48, 55, 66));
-		panel_5.setBounds(0, 702, 283, 58);
-		sidePanel.add(panel_5);
+		btnProfilePanel.setLayout(null);
+		btnProfilePanel.setBackground(new Color(48, 55, 66));
+		btnProfilePanel.setBounds(0, 702, 283, 58);
+		sidePanel.add(btnProfilePanel);
 		
 		lblLogout = new JLabel("");
 		lblLogout.setToolTipText("Sign out");
 		lblLogout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				agentScreenFrame.dispose();
-				Login loginScreen = new Login();
-				loginScreen.setUndecorated(true);
-				loginScreen.setVisible(true);
+				System.exit(0);
+//				agentScreenFrame.dispose();
+//				Login loginScreen = new Login();
+//				loginScreen.setUndecorated(true);
+//				loginScreen.setVisible(true);
 			}
 		});
 		lblLogout.setIcon(new ImageIcon(ManagerScreen.class.getResource("/Images/icons8_sign_out_20px.png")));
 		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogout.setBounds(22, 11, 40, 33);
-		panel_5.add(lblLogout);
+		btnProfilePanel.add(lblLogout);
 		
 		lblEmployeeName = new JLabel(Login.empName);
 		lblEmployeeName.setHorizontalAlignment(SwingConstants.LEFT);
 		lblEmployeeName.setForeground(Color.WHITE);
 		lblEmployeeName.setFont(new Font("Candara", Font.BOLD, 19));
 		lblEmployeeName.setBounds(95, 14, 78, 33);
-		panel_5.add(lblEmployeeName);
+		btnProfilePanel.add(lblEmployeeName);
 		
 		lblVisitNorth = new JLabel("Visit North");
 		lblVisitNorth.setBounds(39, 39, 111, 33);
@@ -867,36 +868,36 @@ public class AgentScreen extends JFrame {
 		settingsPanel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		lblNewLabel_4 = new JLabel("THEME COLOR");
-		lblNewLabel_4.setForeground(new Color(61, 70, 85));
-		lblNewLabel_4.setFont(new Font("Candara", Font.BOLD, 16));
-		lblNewLabel_4.setBounds(10, 11, 105, 14);
-		panel_1.add(lblNewLabel_4);
+		lblThemeColorText = new JLabel("THEME COLOR");
+		lblThemeColorText.setForeground(new Color(61, 70, 85));
+		lblThemeColorText.setFont(new Font("Candara", Font.BOLD, 16));
+		lblThemeColorText.setBounds(10, 11, 105, 14);
+		panel_1.add(lblThemeColorText);
 		
 		lblNewLabel_5 = new JLabel("Change the theme color of the application to your preference");
 		lblNewLabel_5.setFont(new Font("Candara", Font.PLAIN, 13));
 		lblNewLabel_5.setBounds(10, 26, 374, 32);
 		panel_1.add(lblNewLabel_5);
 		
-		panel_2 = new JPanel();
-		panel_2.setBackground(new Color(61, 70, 85));
-		panel_2.setBounds(632, 11, 20, 20);
-		panel_1.add(panel_2);
+		btnBlueishColor = new JPanel();
+		btnBlueishColor.setBackground(new Color(61, 70, 85));
+		btnBlueishColor.setBounds(632, 11, 20, 20);
+		panel_1.add(btnBlueishColor);
 		
-		panel_3 = new JPanel();
-		panel_3.setBackground(new Color(255, 153, 51));
-		panel_3.setBounds(662, 11, 20, 20);
-		panel_1.add(panel_3);
+		btnBeigeColor = new JPanel();
+		btnBeigeColor.setBackground(new Color(245, 222, 179));
+		btnBeigeColor.setBounds(662, 11, 20, 20);
+		panel_1.add(btnBeigeColor);
 		
-		panel_4 = new JPanel();
-		panel_4.setBackground(new Color(51, 153, 153));
-		panel_4.setBounds(632, 38, 20, 20);
-		panel_1.add(panel_4);
+		btnGreenishColor = new JPanel();
+		btnGreenishColor.setBackground(new Color(51, 153, 153));
+		btnGreenishColor.setBounds(632, 38, 20, 20);
+		panel_1.add(btnGreenishColor);
 		
-		panel_7 = new JPanel();
-		panel_7.setBackground(new Color(102, 0, 204));
-		panel_7.setBounds(662, 38, 20, 20);
-		panel_1.add(panel_7);
+		btnPurpleColor = new JPanel();
+		btnPurpleColor.setBackground(new Color(102, 0, 204));
+		btnPurpleColor.setBounds(662, 38, 20, 20);
+		panel_1.add(btnPurpleColor);
 		
 		lblFont = new JLabel("Font");
 		lblFont.setFont(new Font("Candara", Font.PLAIN, 18));
@@ -909,24 +910,24 @@ public class AgentScreen extends JFrame {
 		panel_8.setBounds(41, 158, 721, 69);
 		settingsPanel.add(panel_8);
 		
-		lblFontSize = new JLabel("Font size");
-		lblFontSize.setForeground(new Color(61, 70, 85));
-		lblFontSize.setFont(new Font("Candara", Font.BOLD, 16));
-		lblFontSize.setBounds(10, 11, 105, 14);
-		panel_8.add(lblFontSize);
+		lblFontSizeText = new JLabel("Font size");
+		lblFontSizeText.setForeground(new Color(61, 70, 85));
+		lblFontSizeText.setFont(new Font("Candara", Font.BOLD, 16));
+		lblFontSizeText.setBounds(10, 11, 105, 14);
+		panel_8.add(lblFontSizeText);
 		
 		lblChangeTheFont = new JLabel("Change the font size of the application to your preference");
 		lblChangeTheFont.setFont(new Font("Candara", Font.PLAIN, 13));
 		lblChangeTheFont.setBounds(10, 26, 374, 32);
 		panel_8.add(lblChangeTheFont);
 		
-		comboBox = new JComboBox();
-		comboBox.setFont(new Font("Candara", Font.PLAIN, 12));
-		comboBox.setForeground(new Color(255, 255, 255));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"12px", "14px", "16px"}));
-		comboBox.setBackground(new Color(61, 70, 85));
-		comboBox.setBounds(635, 11, 48, 20);
-		panel_8.add(comboBox);
+		cmbFontSize = new JComboBox();
+		cmbFontSize.setFont(new Font("Candara", Font.PLAIN, 12));
+		cmbFontSize.setForeground(new Color(255, 255, 255));
+		cmbFontSize.setModel(new DefaultComboBoxModel(new String[] {"12", "13", "14", "15", "16", "17", "18", "19"}));
+		cmbFontSize.setBackground(new Color(61, 70, 85));
+		cmbFontSize.setBounds(635, 11, 48, 20);
+		panel_8.add(cmbFontSize);
 		
 		lblBrightness = new JLabel("Brightness");
 		lblBrightness.setFont(new Font("Candara", Font.PLAIN, 18));
@@ -939,22 +940,22 @@ public class AgentScreen extends JFrame {
 		panel_9.setBounds(41, 274, 721, 69);
 		settingsPanel.add(panel_9);
 		
-		lblAdjustBrightness = new JLabel("Adjust brightness");
-		lblAdjustBrightness.setForeground(new Color(61, 70, 85));
-		lblAdjustBrightness.setFont(new Font("Candara", Font.BOLD, 16));
-		lblAdjustBrightness.setBounds(10, 11, 138, 20);
-		panel_9.add(lblAdjustBrightness);
+		lblAdjustBrightnessText = new JLabel("Adjust brightness");
+		lblAdjustBrightnessText.setForeground(new Color(61, 70, 85));
+		lblAdjustBrightnessText.setFont(new Font("Candara", Font.BOLD, 16));
+		lblAdjustBrightnessText.setBounds(10, 11, 138, 20);
+		panel_9.add(lblAdjustBrightnessText);
 		
 		lblReduceTheBrightness = new JLabel("Reduce the brightness of the application");
 		lblReduceTheBrightness.setFont(new Font("Candara", Font.PLAIN, 13));
 		lblReduceTheBrightness.setBounds(10, 26, 374, 32);
 		panel_9.add(lblReduceTheBrightness);
 		
-		chckbxNewCheckBox = new JCheckBox("");
-		chckbxNewCheckBox.setBackground(new Color(61,70,85));
-		chckbxNewCheckBox.setForeground(new Color(255, 255, 255));
-		chckbxNewCheckBox.setBounds(664, 11, 21, 23);
-		panel_9.add(chckbxNewCheckBox);
+		chkbAdjustBrightness = new JCheckBox("");
+		chkbAdjustBrightness.setBackground(new Color(61,70,85));
+		chkbAdjustBrightness.setForeground(new Color(255, 255, 255));
+		chkbAdjustBrightness.setBounds(664, 11, 21, 23);
+		panel_9.add(chkbAdjustBrightness);
 		
 		panel_10 = new JPanel();
 		panel_10.setLayout(null);
@@ -962,54 +963,54 @@ public class AgentScreen extends JFrame {
 		panel_10.setBounds(41, 390, 721, 69);
 		settingsPanel.add(panel_10);
 		
-		lblLogoutWhenNo = new JLabel("Logout when no interaction");
-		lblLogoutWhenNo.setForeground(new Color(61, 70, 85));
-		lblLogoutWhenNo.setFont(new Font("Candara", Font.BOLD, 16));
-		lblLogoutWhenNo.setBounds(10, 11, 217, 20);
-		panel_10.add(lblLogoutWhenNo);
+		lblLogoutWhenNoText = new JLabel("Logout when no interaction");
+		lblLogoutWhenNoText.setForeground(new Color(61, 70, 85));
+		lblLogoutWhenNoText.setFont(new Font("Candara", Font.BOLD, 16));
+		lblLogoutWhenNoText.setBounds(10, 11, 217, 20);
+		panel_10.add(lblLogoutWhenNoText);
 		
 		lblLogOutIf = new JLabel("Log out if no interaction within 30 minutes");
 		lblLogOutIf.setFont(new Font("Candara", Font.PLAIN, 13));
 		lblLogOutIf.setBounds(10, 26, 374, 32);
 		panel_10.add(lblLogOutIf);
 		
-		checkBox = new JCheckBox("");
-		checkBox.setForeground(Color.WHITE);
-		checkBox.setBackground(new Color(61, 70, 85));
-		checkBox.setBounds(665, 10, 21, 23);
-		panel_10.add(checkBox);
+		chkbAutoLogout = new JCheckBox("");
+		chkbAutoLogout.setForeground(Color.WHITE);
+		chkbAutoLogout.setBackground(new Color(61, 70, 85));
+		chkbAutoLogout.setBounds(665, 10, 21, 23);
+		panel_10.add(chkbAutoLogout);
 		
 		lblAutoLogOut = new JLabel("Auto Log out");
 		lblAutoLogOut.setFont(new Font("Candara", Font.PLAIN, 18));
 		lblAutoLogOut.setBounds(10, 354, 110, 41);
 		settingsPanel.add(lblAutoLogOut);
 		
-		panel_11 = new JPanel();
-		panel_11.setBackground(new Color(60,71,85));
-		panel_11.setBounds(674, 566, 88, 32);
-		settingsPanel.add(panel_11);
-		panel_11.setLayout(null);
+		btnSettingsSave = new JPanel();
+		btnSettingsSave.setBackground(new Color(60,71,85));
+		btnSettingsSave.setBounds(674, 566, 88, 32);
+		settingsPanel.add(btnSettingsSave);
+		btnSettingsSave.setLayout(null);
 		
 		lblNewLabel_8 = new JLabel("SAVE");
 		lblNewLabel_8.setForeground(new Color(255, 255, 255));
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_8.setFont(new Font("Candara", Font.BOLD, 14));
 		lblNewLabel_8.setBounds(10, 11, 68, 14);
-		panel_11.add(lblNewLabel_8);
+		btnSettingsSave.add(lblNewLabel_8);
 		
-		panel_12 = new JPanel();
-		panel_12.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
-		panel_12.setLayout(null);
-		panel_12.setBackground(new Color(255, 255, 255));
-		panel_12.setBounds(576, 566, 88, 32);
-		settingsPanel.add(panel_12);
+		btnSettingsCancel = new JPanel();
+		btnSettingsCancel.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
+		btnSettingsCancel.setLayout(null);
+		btnSettingsCancel.setBackground(new Color(255, 255, 255));
+		btnSettingsCancel.setBounds(576, 566, 88, 32);
+		settingsPanel.add(btnSettingsCancel);
 		
-		lblCancel = new JLabel("CANCEL");
-		lblCancel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCancel.setForeground(new Color(61,70,85));
-		lblCancel.setFont(new Font("Candara", Font.BOLD, 14));
-		lblCancel.setBounds(10, 11, 68, 14);
-		panel_12.add(lblCancel);
+		lblCancelButtonText = new JLabel("CANCEL");
+		lblCancelButtonText.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCancelButtonText.setForeground(new Color(61,70,85));
+		lblCancelButtonText.setFont(new Font("Candara", Font.BOLD, 14));
+		lblCancelButtonText.setBounds(10, 11, 68, 14);
+		btnSettingsCancel.add(lblCancelButtonText);
 		
 		profilePanel = new JPanel();
 		profilePanel.setBackground(Color.WHITE);
