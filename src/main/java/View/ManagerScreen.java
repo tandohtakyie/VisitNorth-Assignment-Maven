@@ -65,6 +65,7 @@ public class ManagerScreen extends JFrame {
 	JLabel lblHomeButton;
 	JPanel btnAvailableSeatsLeft;
 	JPanel btnAvailableSeats;
+	JLabel lblErrorAssignDriverVehicle;
 	JLabel label;
 	JLabel lblAvailableSeatsButton;
 	JLabel lblVehicle;
@@ -105,6 +106,7 @@ public class ManagerScreen extends JFrame {
 	JPanel btnCitiesPanel;
 	JLabel lblNewLabel_6;
 	JLabel lblCancelButtonText;
+	JComboBox<String> cmbVehicle;
 	JLabel lblVehicles;
 	JLabel label_1;
 	JLabel lblAdjustBrightnessText;
@@ -158,6 +160,7 @@ public class ManagerScreen extends JFrame {
 	JLabel lblFontSizeText;
 	JComboBox cmbFontSize;
 	JScrollPane scrollPane_1;
+	JPanel btnAssignDriverVehicle;
 	JPanel btnPurpleColor;
 	private JLabel lblAListOf;
 	private JLabel lblCity_1;
@@ -188,6 +191,7 @@ public class ManagerScreen extends JFrame {
 	private JTextField txtScheduleID;
 	private JTable tableScheduleIDs;
 	private JLabel lblErrorScheduleID;
+	JComboBox<String> cmbDriver;
 	private JPanel issueTicketNumberPanel;
 	JLabel lblAddEmployee;
 	private JLabel label_10;
@@ -335,6 +339,12 @@ public class ManagerScreen extends JFrame {
 				switchPanel(availableSeatsPanel);
 				displayRouteInTableWithNrOfSeat();
 				btnAvailableSeatsLeft.setVisible(false);
+				
+				
+				populateAllDriversToComboBox();
+				populateAllVehiclesToComboBox();
+				
+				btnAssignDriverVehicle.setVisible(false);
 			}
 		});
 		sidePanel.add(btnAvailableSeats);
@@ -1047,39 +1057,39 @@ public class ManagerScreen extends JFrame {
 		
 		JLabel label_18 = new JLabel("Select a row and adjust the available seats left. ");
 		label_18.setHorizontalAlignment(SwingConstants.CENTER);
-		label_18.setFont(new Font("Candara", Font.PLAIN, 13));
-		label_18.setBounds(20, 323, 637, 32);
+		label_18.setFont(new Font("Candara", Font.BOLD, 15));
+		label_18.setBounds(20, 323, 749, 32);
 		availableSeatsPanel.add(label_18);
 		
 		JLabel label_19 = new JLabel("ROUTE DESCRIPTION");
 		label_19.setFont(new Font("Candara", Font.PLAIN, 18));
-		label_19.setBounds(30, 366, 168, 41);
+		label_19.setBounds(10, 366, 168, 41);
 		availableSeatsPanel.add(label_19);
 		
-		lblRouteDescription = new JLabel("Route description");
-		lblRouteDescription.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblRouteDescription.setBounds(40, 403, 267, 32);
+		lblRouteDescription = new JLabel("");
+		lblRouteDescription.setFont(new Font("Candara", Font.PLAIN, 14));
+		lblRouteDescription.setBounds(20, 403, 198, 32);
 		availableSeatsPanel.add(lblRouteDescription);
 		
 		JLabel label_21 = new JLabel("SCHEDULE ID");
 		label_21.setFont(new Font("Candara", Font.PLAIN, 18));
-		label_21.setBounds(30, 446, 168, 41);
+		label_21.setBounds(10, 446, 168, 41);
 		availableSeatsPanel.add(label_21);
 		
-		lblScheduleID = new JLabel("Schedule ID");
-		lblScheduleID.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblScheduleID.setBounds(40, 483, 267, 32);
+		lblScheduleID = new JLabel("");
+		lblScheduleID.setFont(new Font("Candara", Font.PLAIN, 14));
+		lblScheduleID.setBounds(20, 483, 158, 32);
 		availableSeatsPanel.add(lblScheduleID);
 		
 		JLabel label_23 = new JLabel("Assign available seat left");
-		label_23.setFont(new Font("Candara", Font.PLAIN, 13));
-		label_23.setBounds(486, 366, 209, 20);
+		label_23.setFont(new Font("Candara", Font.PLAIN, 16));
+		label_23.setBounds(228, 366, 175, 31);
 		availableSeatsPanel.add(label_23);
 		
 		txtAvailableSeatsLeft = new JTextField();
 		txtAvailableSeatsLeft.setToolTipText("Ticket number");
 		txtAvailableSeatsLeft.setColumns(10);
-		txtAvailableSeatsLeft.setBounds(486, 384, 209, 30);
+		txtAvailableSeatsLeft.setBounds(228, 395, 168, 30);
 		availableSeatsPanel.add(txtAvailableSeatsLeft);
 		
 		btnAvailableSeatsLeft = new JPanel();
@@ -1092,25 +1102,25 @@ public class ManagerScreen extends JFrame {
 		});
 		btnAvailableSeatsLeft.setLayout(null);
 		btnAvailableSeatsLeft.setBackground(new Color(getColorR(), getColorG(), getColorB()));
-		btnAvailableSeatsLeft.setBounds(486, 425, 209, 32);
+		btnAvailableSeatsLeft.setBounds(228, 436, 168, 32);
 		availableSeatsPanel.add(btnAvailableSeatsLeft);
 		
 		JLabel label_24 = new JLabel("ASSIGN SEATS LEFT");
 		label_24.setHorizontalAlignment(SwingConstants.CENTER);
 		label_24.setForeground(Color.WHITE);
 		label_24.setFont(new Font("Candara", Font.BOLD, 14));
-		label_24.setBounds(10, 11, 189, 14);
+		label_24.setBounds(10, 11, 148, 14);
 		btnAvailableSeatsLeft.add(label_24);
 		
-		JLabel label_25 = new JLabel("");
-		label_25.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_25.setForeground(new Color(204, 0, 0));
-		label_25.setFont(new Font("Candara", Font.PLAIN, 10));
-		label_25.setBounds(520, 483, 175, 20);
-		availableSeatsPanel.add(label_25);
+		lblErrorAssignDriverVehicle = new JLabel("");
+		lblErrorAssignDriverVehicle.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblErrorAssignDriverVehicle.setForeground(new Color(204, 0, 0));
+		lblErrorAssignDriverVehicle.setFont(new Font("Candara", Font.PLAIN, 10));
+		lblErrorAssignDriverVehicle.setBounds(520, 551, 168, 20);
+		availableSeatsPanel.add(lblErrorAssignDriverVehicle);
 		
 		JScrollPane scrollPane_6 = new JScrollPane();
-		scrollPane_6.setBounds(30, 91, 731, 228);
+		scrollPane_6.setBounds(10, 91, 759, 228);
 		availableSeatsPanel.add(scrollPane_6);
 		
 		tableTicketNrOfSeat = new JTable();
@@ -1126,8 +1136,48 @@ public class ManagerScreen extends JFrame {
 		lblErrorNumberSeats.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblErrorNumberSeats.setForeground(new Color(204, 0, 0));
 		lblErrorNumberSeats.setFont(new Font("Candara", Font.PLAIN, 10));
-		lblErrorNumberSeats.setBounds(520, 467, 175, 20);
+		lblErrorNumberSeats.setBounds(228, 483, 168, 20);
 		availableSeatsPanel.add(lblErrorNumberSeats);
+		
+		cmbDriver = new JComboBox<String>();
+		cmbDriver.setToolTipText("type of vehicle");
+		cmbDriver.setBounds(510, 389, 175, 30);
+		availableSeatsPanel.add(cmbDriver);
+		
+		JLabel lblAssignDriver = new JLabel("Assign driver");
+		lblAssignDriver.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblAssignDriver.setBounds(508, 366, 83, 20);
+		availableSeatsPanel.add(lblAssignDriver);
+		
+		cmbVehicle = new JComboBox<String>();
+		cmbVehicle.setToolTipText("type of vehicle");
+		cmbVehicle.setBounds(512, 453, 175, 30);
+		availableSeatsPanel.add(cmbVehicle);
+		
+		JLabel lblAssignVehicle = new JLabel("Assign vehicle");
+		lblAssignVehicle.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblAssignVehicle.setBounds(510, 430, 83, 20);
+		availableSeatsPanel.add(lblAssignVehicle);
+		
+		btnAssignDriverVehicle = new JPanel();
+		btnAssignDriverVehicle.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				updateAssignDriverVehicle();
+				displayRouteInTableWithNrOfSeat();
+			}
+		});
+		btnAssignDriverVehicle.setLayout(null);
+		btnAssignDriverVehicle.setBackground(new Color(getColorR(), getColorG(), getColorB()));
+		btnAssignDriverVehicle.setBounds(510, 494, 178, 32);
+		availableSeatsPanel.add(btnAssignDriverVehicle);
+		
+		JLabel lblAssignToSchedule = new JLabel("ASSIGN TO SCHEDULE");
+		lblAssignToSchedule.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAssignToSchedule.setForeground(Color.WHITE);
+		lblAssignToSchedule.setFont(new Font("Candara", Font.BOLD, 14));
+		lblAssignToSchedule.setBounds(10, 11, 158, 14);
+		btnAssignDriverVehicle.add(lblAssignToSchedule);
 		
 		schedulePanel = new JPanel();
 		schedulePanel.setBackground(new Color(255, 255, 255));
@@ -1941,7 +1991,7 @@ public class ManagerScreen extends JFrame {
 	
 	public void getScheduleIDFromSoldTicket() {
 		try {
-			String query = "select distinct scheduleID from ticket";
+			String query = "select distinct * from ticket";
 			preparedStatement = conn.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
 			
@@ -2038,6 +2088,8 @@ public void displayRouteInTableWithNrOfSeat() {
 		model.addColumn("TIME");
 		model.addColumn("PRICE");
 		model.addColumn("SEATS LEFT");
+		model.addColumn("DRIVER");
+		model.addColumn("VEHICLE");
         try {
         	String query = "select * from route";
             preparedStatement = conn.prepareStatement(query);
@@ -2051,7 +2103,9 @@ public void displayRouteInTableWithNrOfSeat() {
             			resultSet.getString("departureDate"),
             			resultSet.getString("departureTime"),
             			resultSet.getString("price"),
-            			resultSet.getString("numberOfSeatLeft")
+            			resultSet.getString("numberOfSeatLeft"),
+            			resultSet.getString("driver"),
+            			resultSet.getString("vehicle")
             	});
             }
             
@@ -2064,6 +2118,7 @@ public void displayRouteInTableWithNrOfSeat() {
 	
 	public void	getRouteInfoFromSelectedRow() {
 		btnAvailableSeatsLeft.setVisible(true);
+		btnAssignDriverVehicle.setVisible(true);
 		
 		try {
 			int row = tableTicketNrOfSeat.getSelectedRow();
@@ -2136,6 +2191,7 @@ public void displayRouteInTableWithNrOfSeat() {
 	
 	public void changeColorToInAvailableSeatPanel(int r, int g, int b){
 		btnAvailableSeatsLeft.setBackground(new Color(r, g, b));
+		btnAssignDriverVehicle.setBackground(new Color(r, g, b));
 	}
 	public void changeColorToInCitiesPanel(int r, int g, int b){
 		btnAddCity.setBackground(new Color(r, g, b));
@@ -2388,6 +2444,56 @@ public void displayRouteInTableWithNrOfSeat() {
             
         }catch (Exception e) {
 			System.out.println("error: " + e);
+		}
+	}
+	
+	public void populateAllDriversToComboBox() {
+		try {
+			String query = "select distinct * from driver";
+			preparedStatement = conn.prepareStatement(query);
+			resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				cmbDriver.addItem(resultSet.getString("firstname") + " " + resultSet.getString("lastname"));
+			}
+		} catch (Exception e) {
+			System.out.println("error: " + e);
+		}
+	}
+	
+	public void populateAllVehiclesToComboBox() {
+		try {
+			String query = "select distinct * from vehicle";
+			preparedStatement = conn.prepareStatement(query);
+			resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				cmbVehicle.addItem(resultSet.getString("vehicleType") + " - " + resultSet.getString("vehicleLicensePlate"));
+			}
+		} catch (Exception e) {
+			System.out.println("error: " + e);
+		}
+	}
+	
+public void updateAssignDriverVehicle() {
+		
+		if (!(lblRouteDescription.getText().isEmpty() || lblScheduleID.getText().isEmpty())) {
+			try {
+				String query = "update route set driver=?, vehicle=? where description=? and scheduleCode=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setString(1, cmbDriver.getSelectedItem().toString());
+				preparedStatement.setString(2, cmbVehicle.getSelectedItem().toString());
+				preparedStatement.setString(3, lblRouteDescription.getText());
+				preparedStatement.setString(4, lblScheduleID.getText());
+				preparedStatement.executeUpdate();
+				
+				txtAvailableSeatsLeft.setText("");
+				lblErrorAssignDriverVehicle.setText("");
+			} catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+		}else {
+			lblErrorAssignDriverVehicle.setText("Select schedule to assign to!");
 		}
 	}
 }
