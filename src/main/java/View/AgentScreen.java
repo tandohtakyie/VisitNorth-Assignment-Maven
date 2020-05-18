@@ -57,14 +57,9 @@ public class AgentScreen extends JFrame {
 	
 	private JPanel contentPane;
 	private JLayeredPane layeredPane;
-	
-	private JPanel citiesPanel;
 	private JPanel sellTicketPanel;
 	private JPanel schedulePanel;
 	private JPanel settingsPanel;
-	private JTextField txtCity;
-	private JTable tableCity;
-	private JScrollPane scrollPane;
 	JPanel panelBG;
 	JPanel sidePanel;
 	JPanel panel;
@@ -75,100 +70,52 @@ public class AgentScreen extends JFrame {
 	JPanel btnSellTicket;
 	JLabel label;
 	JLabel lblSellTicketButton;
-	JLabel lblVehicle;
-	JSeparator separator;
 	JPanel panel_9;
-	JLabel lblLastname;
 	JLabel lblNewLabel_8;
 	JPanel btnSchedulePanel;
-	JPanel btnAddCity;
-	JPanel btnAddDriver;
 	JLabel label_2;
 	JLabel lblSchedulesButton;
 	JLabel lblReduceTheBrightness;
 	JPanel btnSettingsPanel;
 	JLabel label_4;
-	JLabel lblType;
-	JPanel btnAddVehicle;
 	JLabel lblSettingsButton;
 	JPanel btnProfilePanel;
 	JLabel lblLogout;
 	JPanel panel_10;
-	JComboBox<String> cmbType;
-	JLabel lblAllThePossible;
 	JLabel lblEmployeeName;
 	JLabel lblLogoutWhenNoText;
 	JLabel lblVisitNorth;
 	JPanel panel_6;
 	JLabel lblCities_1;
-	final JPanel driversPanel;
 	JPanel panel_8;
-	JSeparator separator_3;
-	final JPanel vehiclesPanel;
-	JLabel lblVehicleLicensePlate;
-	final JPanel routesPanel;
 	JPanel panel_1;
 	JLabel lblSchedule;
 	JLabel lblCancelButtonText;
 	JLabel lblAdjustBrightnessText;
 	JLabel lblBrightness;
-	JLabel lblAddDriver;
-	JSeparator separator_1;
-	JLabel lblRoute;
 	JCheckBox chkbAdjustBrightness;
-	JLabel lblFrom;
 	JPanel btnSettingsSave;
-	JComboBox<String> cmbFromCity;
-	JLabel lblFirstname;
 	JPanel btnSettingsCancel;
 	JLabel lblThemeColorText;
 	JLabel lblNewLabel_7;
-	JScrollPane scrollPane_2;
 	JLabel lblNewLabel_2;
-	JLabel lblAddCity;
 	JLabel lblClose;
-	JLabel lblCities_2;
 	JLabel lblLogOutIf;
-	JLabel lblErrorCity;
 	JLabel lblNewLabel_5;
 	JPanel btnBeigeColor;
 	JLabel lblAutoLogOut;
-	JLabel lblAListOf_2;
 	JLabel lblChangeTheFont;
 	JLabel lblFont;
 	JPanel btnGreenishColor;
 	JLabel lblSettings_1;
 	JPanel btnBlueishColor;
-	JLabel lblAListOf_1;
-	JLabel lblDriver;
 	JCheckBox chkbAutoLogout;
 	JLabel lblFontSizeText;
 	JComboBox cmbFontSize;
-	JScrollPane scrollPane_1;
 	JPanel btnPurpleColor;
-	private JLabel lblAListOf;
-	private JLabel lblCity_1;
-	JSeparator separator_2;
-	JLabel lblAddRoute;
-	private JTextField txtFirstnameDriver;
-	JLabel lblAddVehicle;
-	private JTextField txtLastnameDriver;
-	private JTable tableDrivers;
-	private JLabel lblErrorDriver;
-	private JTextField txtLicencePlate;
-	private JTable tableVehicle;
-	private JLabel lblErrorVehicle;
 	private JPanel profilePanel;
 	private JPanel panel_13;
-	JPanel btnAddRoute;
-	private JTextField txtDepartureDate;
 	private JCalendar departureDate;
-	private JTextField txtDepartureTime;
-	JComboBox<String> cmbToCity;
-	private JLabel lblDepartureTime;
-	private JLabel lblErrorRoute;
-	private JTable tableRoute;
-	JScrollPane scrollPane_3;
 	private JLabel lblNewLabel_10;
 	private JComboBox<String> cmbFromTo;
 	private JLabel lblDestination;
@@ -419,257 +366,6 @@ public class AgentScreen extends JFrame {
 		lblNewLabel_10.setBounds(495, 0, 40, 41);
 		homePanel.add(lblNewLabel_10);
 		
-		driversPanel = new JPanel();
-		driversPanel.setBackground(new Color(255, 255, 255));
-		layeredPane.add(driversPanel, "name_42887129278700");
-		driversPanel.setLayout(null);
-		
-		btnAddDriver = new JPanel();
-		btnAddDriver.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				insertDriver();
-				getDrivers();
-			}
-		});
-		btnAddDriver.setLayout(null);
-		btnAddDriver.setBackground(new Color(60, 71, 85));
-		btnAddDriver.setBounds(83, 306, 110, 32);
-		driversPanel.add(btnAddDriver);
-		
-		lblAddDriver = new JLabel("ADD DRIVER");
-		lblAddDriver.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAddDriver.setForeground(Color.WHITE);
-		lblAddDriver.setFont(new Font("Candara", Font.BOLD, 14));
-		lblAddDriver.setBounds(10, 11, 90, 14);
-		btnAddDriver.add(lblAddDriver);
-		
-		lblAListOf_1 = new JLabel("A list of the coach drivers. Feel free to add more drivers to it. ");
-		lblAListOf_1.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblAListOf_1.setBounds(20, 48, 533, 32);
-		driversPanel.add(lblAListOf_1);
-		
-		lblDriver = new JLabel("Drivers");
-		lblDriver.setFont(new Font("Candara", Font.PLAIN, 18));
-		lblDriver.setBounds(10, 11, 110, 41);
-		driversPanel.add(lblDriver);
-		
-		separator_1 = new JSeparator();
-		separator_1.setOrientation(SwingConstants.VERTICAL);
-		separator_1.setBounds(264, 170, 22, 316);
-		driversPanel.add(separator_1);
-		
-		lblFirstname = new JLabel("Firstname");
-		lblFirstname.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblFirstname.setBounds(20, 170, 65, 20);
-		driversPanel.add(lblFirstname);
-		
-		txtFirstnameDriver = new JTextField();
-		txtFirstnameDriver.setToolTipText("Driver's firstname");
-		txtFirstnameDriver.setColumns(10);
-		txtFirstnameDriver.setBounds(20, 199, 175, 30);
-		driversPanel.add(txtFirstnameDriver);
-		
-		lblLastname = new JLabel("Lastname");
-		lblLastname.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblLastname.setBounds(18, 236, 67, 20);
-		driversPanel.add(lblLastname);
-		
-		txtLastnameDriver = new JTextField();
-		txtLastnameDriver.setToolTipText("Driver's lastname");
-		txtLastnameDriver.setColumns(10);
-		txtLastnameDriver.setBounds(18, 265, 175, 30);
-		driversPanel.add(txtLastnameDriver);
-		
-		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(298, 172, 255, 293);
-		driversPanel.add(scrollPane_1);
-		
-		tableDrivers = new JTable();
-		scrollPane_1.setViewportView(tableDrivers);
-		
-		lblErrorDriver = new JLabel("");
-		lblErrorDriver.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblErrorDriver.setForeground(new Color(204, 0, 0));
-		lblErrorDriver.setFont(new Font("Candara", Font.PLAIN, 12));
-		lblErrorDriver.setBounds(20, 349, 175, 20);
-		driversPanel.add(lblErrorDriver);
-		
-		vehiclesPanel = new JPanel();
-		vehiclesPanel.setBackground(new Color(255, 255, 255));
-		layeredPane.add(vehiclesPanel, "name_42931343579900");
-		vehiclesPanel.setLayout(null);
-		
-		lblVehicle = new JLabel("Vehicle");
-		lblVehicle.setFont(new Font("Candara", Font.PLAIN, 18));
-		lblVehicle.setBounds(10, 11, 110, 41);
-		vehiclesPanel.add(lblVehicle);
-		
-		lblAListOf_2 = new JLabel("A list of the coaches/buses.  Feel free to add more to it. ");
-		lblAListOf_2.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblAListOf_2.setBounds(20, 48, 533, 32);
-		vehiclesPanel.add(lblAListOf_2);
-		
-		lblVehicleLicensePlate = new JLabel("Vehicle License Plate");
-		lblVehicleLicensePlate.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblVehicleLicensePlate.setBounds(20, 170, 122, 20);
-		vehiclesPanel.add(lblVehicleLicensePlate);
-		
-		txtLicencePlate = new JTextField();
-		txtLicencePlate.setToolTipText("Vehicle license plate");
-		txtLicencePlate.setColumns(10);
-		txtLicencePlate.setBounds(20, 199, 175, 30);
-		vehiclesPanel.add(txtLicencePlate);
-		
-		lblType = new JLabel("Type");
-		lblType.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblType.setBounds(18, 236, 67, 20);
-		vehiclesPanel.add(lblType);
-		
-		btnAddVehicle = new JPanel();
-		btnAddVehicle.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				insertVehicle();
-			}
-		});
-		btnAddVehicle.setLayout(null);
-		btnAddVehicle.setBackground(new Color(60, 71, 85));
-		btnAddVehicle.setBounds(83, 306, 110, 32);
-		vehiclesPanel.add(btnAddVehicle);
-		
-		lblAddVehicle = new JLabel("ADD VEHICLE");
-		lblAddVehicle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAddVehicle.setForeground(Color.WHITE);
-		lblAddVehicle.setFont(new Font("Candara", Font.BOLD, 14));
-		lblAddVehicle.setBounds(10, 11, 90, 14);
-		btnAddVehicle.add(lblAddVehicle);
-		
-		separator_2 = new JSeparator();
-		separator_2.setOrientation(SwingConstants.VERTICAL);
-		separator_2.setBounds(220, 170, 22, 316);
-		vehiclesPanel.add(separator_2);
-		
-		scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(252, 172, 361, 316);
-		vehiclesPanel.add(scrollPane_2);
-		
-		tableVehicle = new JTable();
-		scrollPane_2.setViewportView(tableVehicle);
-		
-		cmbType = new JComboBox<String>();
-		cmbType.setToolTipText("type of vehicle");
-		cmbType.setModel(new DefaultComboBoxModel<String>(new String[] {"Coach", "Bus"}));
-		cmbType.setBounds(20, 259, 175, 30);
-		vehiclesPanel.add(cmbType);
-		
-		lblErrorVehicle = new JLabel("");
-		lblErrorVehicle.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblErrorVehicle.setForeground(new Color(204, 0, 0));
-		lblErrorVehicle.setFont(new Font("Candara", Font.PLAIN, 12));
-		lblErrorVehicle.setBounds(20, 349, 175, 20);
-		vehiclesPanel.add(lblErrorVehicle);
-		
-		routesPanel = new JPanel();
-		routesPanel.setBackground(new Color(255, 255, 255));
-		layeredPane.add(routesPanel, "name_42936498807100");
-		routesPanel.setLayout(null);
-		
-		separator_3 = new JSeparator();
-		separator_3.setOrientation(SwingConstants.VERTICAL);
-		separator_3.setBounds(264, 170, 22, 354);
-		routesPanel.add(separator_3);
-		
-		btnAddRoute = new JPanel();
-		btnAddRoute.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				insertRoute();
-				displayRouteInTable();
-			}
-		});
-		btnAddRoute.setLayout(null);
-		btnAddRoute.setBackground(new Color(60, 71, 85));
-		btnAddRoute.setBounds(75, 454, 110, 32);
-		routesPanel.add(btnAddRoute);
-		
-		lblAddRoute = new JLabel("ADD ROUTE");
-		lblAddRoute.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAddRoute.setForeground(Color.WHITE);
-		lblAddRoute.setFont(new Font("Candara", Font.BOLD, 14));
-		lblAddRoute.setBounds(10, 11, 90, 14);
-		btnAddRoute.add(lblAddRoute);
-		
-		lblFrom = new JLabel("From");
-		lblFrom.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblFrom.setBounds(10, 163, 35, 20);
-		routesPanel.add(lblFrom);
-		
-		lblAllThePossible = new JLabel("All the possible routes. Feel free to add more to the list.");
-		lblAllThePossible.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblAllThePossible.setBounds(20, 48, 533, 32);
-		routesPanel.add(lblAllThePossible);
-		
-		lblRoute = new JLabel("Route");
-		lblRoute.setFont(new Font("Candara", Font.PLAIN, 18));
-		lblRoute.setBounds(10, 11, 110, 41);
-		routesPanel.add(lblRoute);
-		
-		cmbFromCity = new JComboBox();
-		cmbFromCity.setToolTipText("from which city");
-		cmbFromCity.setBounds(10, 192, 175, 30);
-		routesPanel.add(cmbFromCity);
-		
-		cmbToCity = new JComboBox();
-		cmbToCity.setToolTipText("to which city");
-		cmbToCity.setBounds(10, 263, 175, 30);
-		routesPanel.add(cmbToCity);
-		
-		JLabel lblTo = new JLabel("To");
-		lblTo.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblTo.setBounds(10, 234, 35, 20);
-		routesPanel.add(lblTo);
-		
-//		departureDate = new JCalendar();
-//		departureDate.setBounds(10, 304, 122, 20);
-//		routesPanel.add(departureDate);
-		
-		txtDepartureDate = new JTextField();
-		txtDepartureDate.setToolTipText("Departure Date");
-		txtDepartureDate.setColumns(10);
-		txtDepartureDate.setBounds(10, 333, 175, 30);
-		routesPanel.add(txtDepartureDate);
-		
-		JLabel lblDepartureDate = new JLabel("Departure Date");
-		lblDepartureDate.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblDepartureDate.setBounds(10, 304, 122, 20);
-		routesPanel.add(lblDepartureDate);
-		
-		txtDepartureTime = new JTextField();
-		txtDepartureTime.setToolTipText("Departure Time");
-		txtDepartureTime.setColumns(10);
-		txtDepartureTime.setBounds(10, 407, 175, 30);
-		routesPanel.add(txtDepartureTime);
-		
-		lblDepartureTime = new JLabel("Departure Time");
-		lblDepartureTime.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblDepartureTime.setBounds(10, 378, 122, 20);
-		routesPanel.add(lblDepartureTime);
-		
-		lblErrorRoute = new JLabel("");
-		lblErrorRoute.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblErrorRoute.setForeground(new Color(204, 0, 0));
-		lblErrorRoute.setFont(new Font("Candara", Font.PLAIN, 10));
-		lblErrorRoute.setBounds(10, 504, 175, 20);
-		routesPanel.add(lblErrorRoute);
-		
-		scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(296, 170, 448, 316);
-		routesPanel.add(scrollPane_3);
-		
-		tableRoute = new JTable();
-		scrollPane_3.setViewportView(tableRoute);
-		
 		lblNewLabel_7 = new JLabel("v. 1.0.0.1");
 		lblNewLabel_7.setForeground(new Color(255, 255, 255));
 		lblNewLabel_7.setFont(new Font("Candara", Font.PLAIN, 12));
@@ -696,74 +392,6 @@ public class AgentScreen extends JFrame {
 			}
 		});
 		panel.add(lblClose);
-		
-		
-		
-		
-		citiesPanel = new JPanel();
-		citiesPanel.setBackground(new Color(255, 255, 255));
-		layeredPane.add(citiesPanel, "name_20092475988800");
-		citiesPanel.setLayout(null);
-		
-		lblCities_2 = new JLabel("Cities");
-		lblCities_2.setFont(new Font("Candara", Font.PLAIN, 18));
-		lblCities_2.setBounds(10, 11, 110, 41);
-		citiesPanel.add(lblCities_2);
-		
-		txtCity = new JTextField();
-		txtCity.setToolTipText("Add new city");
-		txtCity.setBounds(10, 192, 175, 30);
-		citiesPanel.add(txtCity);
-		txtCity.setColumns(10);
-		
-		btnAddCity = new JPanel();
-		btnAddCity.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				insertCity();
-				getcities();
-			}
-		});
-		btnAddCity.setLayout(null);
-		btnAddCity.setBackground(new Color(60, 71, 85));
-		btnAddCity.setBounds(97, 233, 88, 32);
-		citiesPanel.add(btnAddCity);
-		
-		lblAddCity = new JLabel("ADD CITY");
-		lblAddCity.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAddCity.setForeground(Color.WHITE);
-		lblAddCity.setFont(new Font("Candara", Font.BOLD, 14));
-		lblAddCity.setBounds(10, 11, 68, 14);
-		btnAddCity.add(lblAddCity);
-		
-		separator = new JSeparator();
-		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBounds(264, 170, 22, 316);
-		citiesPanel.add(separator);
-		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(319, 170, 234, 316);
-		citiesPanel.add(scrollPane);
-		
-		tableCity = new JTable();
-		scrollPane.setViewportView(tableCity);
-		
-		lblErrorCity = new JLabel("");
-		lblErrorCity.setFont(new Font("Candara", Font.PLAIN, 12));
-		lblErrorCity.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblErrorCity.setForeground(new Color(204, 0, 0));
-		lblErrorCity.setBounds(10, 270, 175, 20);
-		citiesPanel.add(lblErrorCity);
-		
-		lblAListOf = new JLabel("A list of the cities where tourists can visit. Feel free to add more cities to it. ");
-		lblAListOf.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblAListOf.setBounds(20, 48, 533, 32);
-		citiesPanel.add(lblAListOf);
-		
-		lblCity_1 = new JLabel("City");
-		lblCity_1.setFont(new Font("Candara", Font.PLAIN, 13));
-		lblCity_1.setBounds(10, 163, 35, 20);
-		citiesPanel.add(lblCity_1);
 		
 		sellTicketPanel = new JPanel();
 		sellTicketPanel.setBackground(new Color(255, 255, 255));
@@ -1076,231 +704,6 @@ public class AgentScreen extends JFrame {
 		layeredPane.add(panel);
 		layeredPane.repaint();
 		layeredPane.revalidate();
-	}
-	
-	public void insertCity() {
-		if (!(txtCity.getText().isEmpty())) {
-			try {
-				String query = "select * from city where cityName=?";
-				preparedStatement = conn.prepareStatement(query);
-				preparedStatement.setString(1, txtCity.getText());
-				resultSet = preparedStatement.executeQuery();
-				if (resultSet.next()) {
-					lblErrorCity.setText(txtCity.getText() + " already exists!");
-					System.out.println(txtCity.getText() + " already exists!");
-				}else {
-					String insertDataQueryString = "insert into city (cityName) values(?)";
-					preparedStatement = conn.prepareStatement(insertDataQueryString);
-					preparedStatement.setString(1, txtCity.getText());
-					preparedStatement.execute();
-					txtCity.setText("");
-					lblErrorCity.setText("");
-				}
-			} catch (Exception e) {
-				System.out.println("error: " + e);
-			}
-		}else {
-			lblErrorCity.setText("Please, provide city...");
-		}
-	}
-	
-	public void getcities() {
-		
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("ID");
-		model.addColumn("City");
-        try {
-        	String query = "select * from city";
-            preparedStatement = conn.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
-            
-            while(resultSet.next()) {
-            	model.addRow(new Object[] {
-            			resultSet.getString("cityID"),
-            			resultSet.getString("cityName")
-            	});
-            }
-            
-            tableCity.setModel(model);
-        }catch (Exception e) {
-			System.out.println("error: " + e);
-		}
-	}
-	
-	public void insertDriver() {
-		if (!(txtFirstnameDriver.getText().isEmpty() || txtLastnameDriver.getText().isEmpty())) {
-			try {
-				String query = "select * from driver where firstname=? and lastname=?";
-				preparedStatement = conn.prepareStatement(query);
-				preparedStatement.setString(1, txtFirstnameDriver.getText());
-				preparedStatement.setString(2, txtLastnameDriver.getText());
-				resultSet = preparedStatement.executeQuery();
-				if (resultSet.next()) {
-					lblErrorDriver.setText(txtFirstnameDriver.getText() + " " + txtLastnameDriver.getText() + " already exists!");
-					System.out.println(txtFirstnameDriver.getText() + " " + txtLastnameDriver.getText() + " already exists!");
-				}else {
-					String insertDataQueryString = "insert into driver (firstname,lastname) values(?,?)";
-					preparedStatement = conn.prepareStatement(insertDataQueryString);
-					preparedStatement.setString(1, txtFirstnameDriver.getText());
-					preparedStatement.setString(2, txtLastnameDriver.getText());
-					preparedStatement.execute();
-					txtFirstnameDriver.setText("");
-					txtLastnameDriver.setText("");
-					lblErrorDriver.setText("");
-				}
-			} catch (Exception e) {
-				System.out.println("error: " + e);
-			}
-		}else {
-			lblErrorCity.setText("Please, provide city...");
-		}
-	}
-	
-	public void getDrivers() {
-			
-			DefaultTableModel model = new DefaultTableModel();
-			model.addColumn("ID");
-			model.addColumn("FIRSTNAME");
-			model.addColumn("LASTNAME");
-	        try {
-	        	String query = "select * from driver";
-	            preparedStatement = conn.prepareStatement(query);
-	            resultSet = preparedStatement.executeQuery();
-	            
-	            while(resultSet.next()) {
-	            	model.addRow(new Object[] {
-	            			resultSet.getString("driverID"),
-	            			resultSet.getString("firstname"),
-	            			resultSet.getString("lastname")
-	            	});
-	            }
-	            
-	            tableDrivers.setModel(model);
-	            
-	        }catch (Exception e) {
-				System.out.println("error: " + e);
-			}
-		}
-
-	public void insertVehicle() {
-		if (!(txtLicencePlate.getText().isEmpty())) {
-			try {
-				String query = "select * from vehicle where vehicleLicensePlate=?";
-				preparedStatement = conn.prepareStatement(query);
-				preparedStatement.setString(1, txtLicencePlate.getText());
-				resultSet = preparedStatement.executeQuery();
-				if (resultSet.next()) {
-					lblErrorVehicle.setText(txtLicencePlate.getText() + " already exists!");
-					System.out.println(txtLicencePlate.getText() + " already exists!");
-				}else {
-					String insertDataQueryString = "insert into vehicle (vehicleType,vehicleLicensePlate) values(?,?)";
-					preparedStatement = conn.prepareStatement(insertDataQueryString);
-					preparedStatement.setString(1, cmbType.getSelectedItem().toString());
-					preparedStatement.setString(2, txtLicencePlate.getText());
-					preparedStatement.execute();
-					txtLicencePlate.setText("");
-					lblErrorVehicle.setText("");
-				}
-			} catch (Exception e) {
-				System.out.println("error: " + e);
-			}
-		}else {
-			lblErrorCity.setText("Please, provide vehicle...");
-		}
-	}
-	
-	public void getVehicles() {
-			
-			DefaultTableModel model = new DefaultTableModel();
-			model.addColumn("ID");
-			model.addColumn("VEHICLE TYPE");
-			model.addColumn("LICENSE PLATE");
-	        try {
-	        	String query = "select * from vehicle";
-	            preparedStatement = conn.prepareStatement(query);
-	            resultSet = preparedStatement.executeQuery();
-	            
-	            while(resultSet.next()) {
-	            	model.addRow(new Object[] {
-	            			resultSet.getString("vehicleID"),
-	            			resultSet.getString("vehicleType"),
-	            			resultSet.getString("vehicleLicensePlate")
-	            	});
-	            }
-	            
-	            tableVehicle.setModel(model);
-	            
-	        }catch (Exception e) {
-				System.out.println("error: " + e);
-			}
-	}
-	
-	public boolean checkComboBoxValues() {
-		return cmbFromCity.getSelectedItem().toString().equals(cmbToCity.getSelectedItem().toString());
-	}
-	
-	public void insertRoute() {
-		if (!(txtDepartureDate.getText().isEmpty() || txtDepartureTime.getText().isEmpty())) {
-			if (!(checkComboBoxValues())) {
-				try {
-					String query = "select * from route where description=? and departureDate=?";
-					preparedStatement = conn.prepareStatement(query);
-					preparedStatement.setString(1, cmbFromCity.getSelectedItem().toString() + " - " + cmbToCity.getSelectedItem().toString());
-					preparedStatement.setString(2, txtDepartureDate.getText());
-					resultSet = preparedStatement.executeQuery();
-					if (resultSet.next()) {
-						lblErrorRoute.setText("This route already exists!");
-						System.out.println("This route already exists!");
-					}else {
-						String insertRouteData = "insert into route (description,departureDate,departureTime) values(?,?,?)";
-						preparedStatement = conn.prepareStatement(insertRouteData);
-						preparedStatement.setString(1, cmbFromCity.getSelectedItem().toString() + " - " + cmbToCity.getSelectedItem().toString());
-						preparedStatement.setString(2, txtDepartureDate.getText());
-						preparedStatement.setString(3, txtDepartureTime.getText());
-						preparedStatement.execute();
-						txtDepartureDate.setText("");
-						txtDepartureTime.setText("");
-						lblErrorRoute.setText("");
-					}
-				} catch (Exception e) {
-					System.out.println("error: " + e);
-				}
-			}else {
-				lblErrorRoute.setText("From and To can't be the same");
-			}
-			
-
-		}else {
-			lblErrorRoute.setText("Invalid date or time...");
-		}
-	}
-	
-	public void displayRouteInTable() {
-		
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("ID");
-		model.addColumn("DESCRIPTION");
-		model.addColumn("DATE");
-		model.addColumn("TIME");
-        try {
-        	String query = "select * from route";
-            preparedStatement = conn.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
-            
-            while(resultSet.next()) {
-            	model.addRow(new Object[] {
-            			resultSet.getString("routeID"),
-            			resultSet.getString("description"),
-            			resultSet.getString("departureDate"),
-            			resultSet.getString("departureTime")
-            	});
-            }
-            
-            tableRoute.setModel(model);
-            
-        }catch (Exception e) {
-			System.out.println("error: " + e);
-		}
 	}
 	
 	
