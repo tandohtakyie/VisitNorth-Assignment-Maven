@@ -11,6 +11,7 @@ import java.awt.event.MouseMotionAdapter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -68,6 +69,7 @@ public class AgentScreen extends JFrame {
 	JLabel lblNewLabel;
 	JLabel lblHomeButton;
 	JPanel btnSellTicket;
+	JPanel btnProceedBuyTicket;
 	JLabel label;
 	JLabel lblSellTicketButton;
 	JPanel panel_9;
@@ -89,7 +91,6 @@ public class AgentScreen extends JFrame {
 	JLabel lblCities_1;
 	JPanel panel_8;
 	JPanel panel_1;
-	JLabel lblSchedule;
 	JLabel lblCancelButtonText;
 	JLabel lblAdjustBrightnessText;
 	JLabel lblBrightness;
@@ -114,7 +115,7 @@ public class AgentScreen extends JFrame {
 	JComboBox cmbFontSize;
 	JPanel btnPurpleColor;
 	private JPanel profilePanel;
-	private JPanel panel_13;
+	private JPanel profilePanelBar;
 	private JCalendar departureDate;
 	private JLabel lblNewLabel_10;
 	private JComboBox<String> cmbFromTo;
@@ -175,7 +176,7 @@ public class AgentScreen extends JFrame {
 		panelBG.setLayout(null);
 		
 		sidePanel = new JPanel();
-		sidePanel.setBackground(new Color(61, 70, 85));
+		sidePanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		sidePanel.setBounds(0, 0, 283, 760);
 		panelBG.add(sidePanel);
 		sidePanel.setLayout(null);
@@ -204,7 +205,7 @@ public class AgentScreen extends JFrame {
 				switchPanel(homePanel);
 			}
 		});
-		btnHomePanel.setBackground(new Color(61, 70, 85));
+		btnHomePanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnHomePanel.setBounds(0, 105, 283, 58);
 		sidePanel.add(btnHomePanel);
 		btnHomePanel.setLayout(null);
@@ -219,12 +220,12 @@ public class AgentScreen extends JFrame {
 		lblHomeButton.setBounds(95, 14, 78, 33);
 		lblHomeButton.setForeground(new Color(255, 255, 255));
 		lblHomeButton.setHorizontalAlignment(SwingConstants.LEFT);
-		lblHomeButton.setFont(new Font("Candara", Font.BOLD, 19));
+		lblHomeButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
 		btnHomePanel.add(lblHomeButton);
 		
 		btnSellTicket = new JPanel();
 		btnSellTicket.setLayout(null);
-		btnSellTicket.setBackground(new Color(61, 70, 85));
+		btnSellTicket.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnSellTicket.setBounds(0, 164, 283, 58);
 		btnSellTicket.addMouseListener(new MouseAdapter() {
 			@Override
@@ -245,13 +246,13 @@ public class AgentScreen extends JFrame {
 		lblSellTicketButton = new JLabel("Sell Ticket");
 		lblSellTicketButton.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSellTicketButton.setForeground(Color.WHITE);
-		lblSellTicketButton.setFont(new Font("Candara", Font.BOLD, 19));
+		lblSellTicketButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
 		lblSellTicketButton.setBounds(95, 14, 137, 33);
 		btnSellTicket.add(lblSellTicketButton);
 		
 		btnSchedulePanel = new JPanel();
 		btnSchedulePanel.setLayout(null);
-		btnSchedulePanel.setBackground(new Color(61, 70, 85));
+		btnSchedulePanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnSchedulePanel.setBounds(0, 224, 283, 58);
 		btnSchedulePanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -270,13 +271,13 @@ public class AgentScreen extends JFrame {
 		lblSchedulesButton = new JLabel("Schedules");
 		lblSchedulesButton.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSchedulesButton.setForeground(Color.WHITE);
-		lblSchedulesButton.setFont(new Font("Candara", Font.BOLD, 19));
+		lblSchedulesButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
 		lblSchedulesButton.setBounds(95, 14, 97, 33);
 		btnSchedulePanel.add(lblSchedulesButton);
 		
 		btnSettingsPanel = new JPanel();
 		btnSettingsPanel.setLayout(null);
-		btnSettingsPanel.setBackground(new Color(61, 70, 85));
+		btnSettingsPanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnSettingsPanel.setBounds(0, 283, 283, 58);
 		btnSettingsPanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -295,7 +296,7 @@ public class AgentScreen extends JFrame {
 		lblSettingsButton = new JLabel("Settings");
 		lblSettingsButton.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSettingsButton.setForeground(Color.WHITE);
-		lblSettingsButton.setFont(new Font("Candara", Font.BOLD, 19));
+		lblSettingsButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
 		lblSettingsButton.setBounds(95, 14, 78, 33);
 		btnSettingsPanel.add(lblSettingsButton);
 		
@@ -308,7 +309,7 @@ public class AgentScreen extends JFrame {
 			}
 		});
 		btnProfilePanel.setLayout(null);
-		btnProfilePanel.setBackground(new Color(48, 55, 66));
+		btnProfilePanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnProfilePanel.setBounds(0, 702, 283, 58);
 		sidePanel.add(btnProfilePanel);
 		
@@ -450,7 +451,7 @@ public class AgentScreen extends JFrame {
 		tableTicket = new JTable();
 		scrollPane_4.setViewportView(tableTicket);
 		
-		JPanel btnProceedBuyTicket = new JPanel();
+		btnProceedBuyTicket = new JPanel();
 		btnProceedBuyTicket.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -459,7 +460,7 @@ public class AgentScreen extends JFrame {
 			}
 		});
 		btnProceedBuyTicket.setLayout(null);
-		btnProceedBuyTicket.setBackground(new Color(60, 71, 85));
+		btnProceedBuyTicket.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnProceedBuyTicket.setBounds(119, 319, 110, 32);
 		sellTicketPanel.add(btnProceedBuyTicket);
 		
@@ -475,10 +476,15 @@ public class AgentScreen extends JFrame {
 		layeredPane.add(schedulePanel, "name_20107772105900");
 		schedulePanel.setLayout(null);
 		
-		lblSchedule = new JLabel("Schedule");
-		lblSchedule.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblSchedule.setBounds(166, 144, 110, 41);
-		schedulePanel.add(lblSchedule);
+		JLabel lblScheduleForAgent = new JLabel("Schedule for Agent");
+		lblScheduleForAgent.setFont(new Font("Candara", Font.PLAIN, 18));
+		lblScheduleForAgent.setBounds(10, 11, 176, 41);
+		schedulePanel.add(lblScheduleForAgent);
+		
+		JLabel lblTheFollowingSchedule = new JLabel("The following schedule will appear as soon as it is done. It is currently in developing mode.");
+		lblTheFollowingSchedule.setFont(new Font("Candara", Font.PLAIN, 13));
+		lblTheFollowingSchedule.setBounds(20, 48, 533, 32);
+		schedulePanel.add(lblTheFollowingSchedule);
 		
 		settingsPanel = new JPanel();
 		settingsPanel.setBackground(new Color(255, 255, 255));
@@ -497,7 +503,7 @@ public class AgentScreen extends JFrame {
 		panel_1.setLayout(null);
 		
 		lblThemeColorText = new JLabel("THEME COLOR");
-		lblThemeColorText.setForeground(new Color(61, 70, 85));
+		lblThemeColorText.setForeground(new Color(getColorR(), getColorG(), getColorB()));
 		lblThemeColorText.setFont(new Font("Candara", Font.BOLD, 16));
 		lblThemeColorText.setBounds(10, 11, 105, 14);
 		panel_1.add(lblThemeColorText);
@@ -508,21 +514,65 @@ public class AgentScreen extends JFrame {
 		panel_1.add(lblNewLabel_5);
 		
 		btnBlueishColor = new JPanel();
+		btnBlueishColor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateColorTheme(61, 70, 85);
+				btnProfilePanel.setBackground(new Color(getColorR() - 13, getColorG() - 15, getColorB() - 19));
+				
+				changeColorToInSettingPanel(getColorR(), getColorG(), getColorB());
+				changeColorToSellTicketPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInProfilePanel(getColorR(), getColorG(), getColorB());
+			}
+		});
 		btnBlueishColor.setBackground(new Color(61, 70, 85));
 		btnBlueishColor.setBounds(632, 11, 20, 20);
 		panel_1.add(btnBlueishColor);
 		
 		btnBeigeColor = new JPanel();
+		btnBeigeColor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateColorTheme(245, 222, 179);
+				btnProfilePanel.setBackground(new Color(getColorR() - 23, getColorG() - 23, getColorB() - 21));
+				
+				changeColorToInSettingPanel(getColorR(), getColorG(), getColorB());
+				changeColorToSellTicketPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInProfilePanel(getColorR(), getColorG(), getColorB());
+			}
+		});
 		btnBeigeColor.setBackground(new Color(245, 222, 179));
 		btnBeigeColor.setBounds(662, 11, 20, 20);
 		panel_1.add(btnBeigeColor);
 		
 		btnGreenishColor = new JPanel();
+		btnGreenishColor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateColorTheme(51, 133, 153);
+				btnProfilePanel.setBackground(new Color(getColorR() - 8, getColorG() - 30, getColorB() - 36));
+				
+				changeColorToInSettingPanel(getColorR(), getColorG(), getColorB());
+				changeColorToSellTicketPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInProfilePanel(getColorR(), getColorG(), getColorB());
+			}
+		});
 		btnGreenishColor.setBackground(new Color(51, 153, 153));
 		btnGreenishColor.setBounds(632, 38, 20, 20);
 		panel_1.add(btnGreenishColor);
 		
 		btnPurpleColor = new JPanel();
+		btnPurpleColor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateColorTheme(102, 0, 204);
+				btnProfilePanel.setBackground(new Color(getColorR() - 16, getColorG() + 7, getColorB() - 38));
+				
+				changeColorToInSettingPanel(getColorR(), getColorG(), getColorB());
+				changeColorToSellTicketPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInProfilePanel(getColorR(), getColorG(), getColorB());
+			}
+		});
 		btnPurpleColor.setBackground(new Color(102, 0, 204));
 		btnPurpleColor.setBounds(662, 38, 20, 20);
 		panel_1.add(btnPurpleColor);
@@ -539,7 +589,7 @@ public class AgentScreen extends JFrame {
 		settingsPanel.add(panel_8);
 		
 		lblFontSizeText = new JLabel("Font size");
-		lblFontSizeText.setForeground(new Color(61, 70, 85));
+		lblFontSizeText.setForeground(new Color(getColorR(), getColorG(), getColorB()));
 		lblFontSizeText.setFont(new Font("Candara", Font.BOLD, 16));
 		lblFontSizeText.setBounds(10, 11, 105, 14);
 		panel_8.add(lblFontSizeText);
@@ -553,7 +603,7 @@ public class AgentScreen extends JFrame {
 		cmbFontSize.setFont(new Font("Candara", Font.PLAIN, 12));
 		cmbFontSize.setForeground(new Color(255, 255, 255));
 		cmbFontSize.setModel(new DefaultComboBoxModel(new String[] {"12", "13", "14", "15", "16", "17", "18", "19"}));
-		cmbFontSize.setBackground(new Color(61, 70, 85));
+		cmbFontSize.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		cmbFontSize.setBounds(635, 11, 48, 20);
 		panel_8.add(cmbFontSize);
 		
@@ -569,7 +619,7 @@ public class AgentScreen extends JFrame {
 		settingsPanel.add(panel_9);
 		
 		lblAdjustBrightnessText = new JLabel("Adjust brightness");
-		lblAdjustBrightnessText.setForeground(new Color(61, 70, 85));
+		lblAdjustBrightnessText.setForeground(new Color(getColorR(), getColorG(), getColorB()));
 		lblAdjustBrightnessText.setFont(new Font("Candara", Font.BOLD, 16));
 		lblAdjustBrightnessText.setBounds(10, 11, 138, 20);
 		panel_9.add(lblAdjustBrightnessText);
@@ -580,7 +630,7 @@ public class AgentScreen extends JFrame {
 		panel_9.add(lblReduceTheBrightness);
 		
 		chkbAdjustBrightness = new JCheckBox("");
-		chkbAdjustBrightness.setBackground(new Color(61,70,85));
+		chkbAdjustBrightness.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		chkbAdjustBrightness.setForeground(new Color(255, 255, 255));
 		chkbAdjustBrightness.setBounds(664, 11, 21, 23);
 		panel_9.add(chkbAdjustBrightness);
@@ -592,7 +642,7 @@ public class AgentScreen extends JFrame {
 		settingsPanel.add(panel_10);
 		
 		lblLogoutWhenNoText = new JLabel("Logout when no interaction");
-		lblLogoutWhenNoText.setForeground(new Color(61, 70, 85));
+		lblLogoutWhenNoText.setForeground(new Color(getColorR(), getColorG(), getColorB()));
 		lblLogoutWhenNoText.setFont(new Font("Candara", Font.BOLD, 16));
 		lblLogoutWhenNoText.setBounds(10, 11, 217, 20);
 		panel_10.add(lblLogoutWhenNoText);
@@ -604,7 +654,7 @@ public class AgentScreen extends JFrame {
 		
 		chkbAutoLogout = new JCheckBox("");
 		chkbAutoLogout.setForeground(Color.WHITE);
-		chkbAutoLogout.setBackground(new Color(61, 70, 85));
+		chkbAutoLogout.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		chkbAutoLogout.setBounds(665, 10, 21, 23);
 		panel_10.add(chkbAutoLogout);
 		
@@ -614,7 +664,18 @@ public class AgentScreen extends JFrame {
 		settingsPanel.add(lblAutoLogOut);
 		
 		btnSettingsSave = new JPanel();
-		btnSettingsSave.setBackground(new Color(60,71,85));
+		btnSettingsSave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				updateNavigationFontSize();
+				lblHomeButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+				lblSchedulesButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+				lblSettingsButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+				lblSellTicketButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+				lblEmployeeName.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+			}
+		});
+		btnSettingsSave.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnSettingsSave.setBounds(674, 566, 88, 32);
 		settingsPanel.add(btnSettingsSave);
 		btnSettingsSave.setLayout(null);
@@ -627,7 +688,7 @@ public class AgentScreen extends JFrame {
 		btnSettingsSave.add(lblNewLabel_8);
 		
 		btnSettingsCancel = new JPanel();
-		btnSettingsCancel.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
+		btnSettingsCancel.setBorder(new CompoundBorder(new LineBorder(new Color(getColorR(), getColorG(), getColorB())), null));
 		btnSettingsCancel.setLayout(null);
 		btnSettingsCancel.setBackground(new Color(255, 255, 255));
 		btnSettingsCancel.setBounds(576, 566, 88, 32);
@@ -635,7 +696,7 @@ public class AgentScreen extends JFrame {
 		
 		lblCancelButtonText = new JLabel("CANCEL");
 		lblCancelButtonText.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCancelButtonText.setForeground(new Color(61,70,85));
+		lblCancelButtonText.setForeground(new Color(getColorR(), getColorG(), getColorB()));
 		lblCancelButtonText.setFont(new Font("Candara", Font.BOLD, 14));
 		lblCancelButtonText.setBounds(10, 11, 68, 14);
 		btnSettingsCancel.add(lblCancelButtonText);
@@ -645,10 +706,10 @@ public class AgentScreen extends JFrame {
 		layeredPane.add(profilePanel, "name_255630843630500");
 		profilePanel.setLayout(null);
 		
-		panel_13 = new JPanel();
-		panel_13.setBackground(new Color(86, 97, 115));
-		panel_13.setBounds(0, 0, 790, 110);
-		profilePanel.add(panel_13);
+		profilePanelBar = new JPanel();
+		profilePanelBar.setBackground(new Color(getColorR(), getColorG(), getColorB()));
+		profilePanelBar.setBounds(0, 0, 801, 110);
+		profilePanel.add(profilePanelBar);
 		
 		JPanel panel_14 = new JPanel();
 		panel_14.setBounds(214, 176, 340, 60);
@@ -830,4 +891,166 @@ public void displayTicketInTable() {
 			System.out.println("error: " + e);
 		}
 	}
+
+	public void changeColorToInSettingPanel(int r, int g, int b) {
+		sidePanel.setBackground(new Color(r, g, b));
+		btnHomePanel.setBackground(new Color(r, g, b));
+		btnSchedulePanel.setBackground(new Color(r, g, b));
+		btnSettingsPanel.setBackground(new Color(r, g, b));
+		btnSellTicket.setBackground(new Color(r, g, b));
+		//btnProfilePanel.setBackground(new Color(r - 23, g - 23, b - 21));
+		
+		btnSettingsSave.setBackground(new Color(r, g, b));
+		btnSettingsCancel.setBorder(new CompoundBorder(new LineBorder(new Color(r,g, b)), null));
+		lblCancelButtonText.setForeground(new Color(r, g, b));
+		
+		cmbFontSize.setBackground(new Color(r, g, b));
+		chkbAdjustBrightness.setBackground(new Color(r, g, b));
+		chkbAutoLogout.setBackground(new Color(r, g, b));
+		
+		lblThemeColorText.setForeground(new Color(r, g, b));
+		lblFontSizeText.setForeground(new Color(r, g, b));
+		lblAdjustBrightnessText.setForeground(new Color(r, g, b));
+		lblLogoutWhenNoText.setForeground(new Color(r, g, b));
+	}
+//	
+	public void changeColorToSellTicketPanel(int r, int g, int b){
+		btnProceedBuyTicket.setBackground(new Color(r, g, b));
+	}
+
+	public void changeColorToInProfilePanel(int r, int g, int b){
+		profilePanelBar.setBackground(new Color(r, g, b));
+	}
+	
+	private int getColorR(){
+		int colorR = 0;
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+        try {
+            String query = "select * from employeesettings where username=? and name=?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, employeeUsername);
+            preparedStatement.setString(2, employeeName);
+            
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+            	colorR = resultSet.getInt("colorR");
+            }
+        }catch (SQLException e) {
+        	System.out.println("error: " + e);
+        }
+        return colorR;
+    }
+	
+	
+	private int getColorG(){
+		int colorG = 0;
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+        try {
+            String query = "select * from employeesettings where username=? and name=?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, employeeUsername);
+            preparedStatement.setString(2, employeeName);
+            
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+            	colorG = resultSet.getInt("colorG");
+            }
+        }catch (SQLException e) {
+        	System.out.println("error: " + e);
+        }
+        return colorG;
+    }
+	
+	private int getColorB(){
+		int colorB = 0;
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+        try {
+            String query = "select * from employeesettings where username=? and name=?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, employeeUsername);
+            preparedStatement.setString(2, employeeName);
+            
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+            	colorB = resultSet.getInt("colorB");
+            }
+        }catch (SQLException e) {
+        	System.out.println("error: " + e);
+        }
+        return colorB;
+    }
+	
+	
+	
+	public void updateColorTheme(int r, int g, int b) {
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+		try {
+				String query = "update employeesettings set colorR=?, colorG=?, colorB=? where username=? and name=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setInt(1, r);
+				preparedStatement.setInt(2, g);
+				preparedStatement.setInt(3, b);
+				preparedStatement.setString(4, employeeUsername);
+				preparedStatement.setString(5, employeeName);
+				
+				
+				preparedStatement.executeUpdate();
+				
+			} catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+	}
+	
+	private int getFontSizeNavigation(){
+		int fontsize = 0;
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+        try {
+            String query = "select * from employeesettings where username=? and name=?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, employeeUsername);
+            preparedStatement.setString(2, employeeName);
+            
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+            	fontsize = resultSet.getInt("fontSize");
+            }
+        }catch (SQLException e) {
+        	System.out.println("error: " + e);
+        }
+        return fontsize;
+    }
+		
+	public void updateNavigationFontSize() {
+		String fontSizeComboBox = cmbFontSize.getSelectedItem().toString();
+		int fontSize = Integer.valueOf(fontSizeComboBox);
+		
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+		try {
+				String query = "update employeesettings set fontSize=? where username=? and name=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setInt(1, fontSize);
+				preparedStatement.setString(2, employeeUsername);
+				preparedStatement.setString(3, employeeName);
+				
+				
+				preparedStatement.executeUpdate();
+				
+			} catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+		
+	}
+	
 }

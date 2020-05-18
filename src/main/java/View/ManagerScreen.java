@@ -2106,6 +2106,7 @@ public void displayRouteInTableWithNrOfSeat() {
 			lblErrorNumberSeats.setText("Provide number of available seats!");
 		}
 	}
+	
 	public void changeColorToInSettingPanel(int r, int g, int b) {
 		sidePanel.setBackground(new Color(r, g, b));
 		btnHomePanel.setBackground(new Color(r, g, b));
@@ -2291,6 +2292,7 @@ public void displayRouteInTableWithNrOfSeat() {
 			}
 		
 	}
+	
 	public void addNewEmployee() {
 		String name = txtName.getText();
 		String roleEmployee = cmbRole.getSelectedItem().toString();

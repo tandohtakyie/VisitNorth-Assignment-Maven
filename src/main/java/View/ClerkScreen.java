@@ -11,6 +11,7 @@ import java.awt.event.MouseMotionAdapter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.regex.Matcher;
@@ -118,7 +119,7 @@ public class ClerkScreen extends JFrame {
 	JComboBox cmbFontSize;
 	JPanel btnPurpleColor;
 	private JPanel profilePanel;
-	private JPanel panel_13;
+	private JPanel profilePanelBar;
 	private JCalendar departureDate;
 	JPanel btnProceedIssueTicketNumber;
 	private JLabel lblNewLabel_10;
@@ -194,7 +195,7 @@ public class ClerkScreen extends JFrame {
 		panelBG.setLayout(null);
 		
 		sidePanel = new JPanel();
-		sidePanel.setBackground(new Color(61, 70, 85));
+		sidePanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		sidePanel.setBounds(0, 0, 283, 760);
 		panelBG.add(sidePanel);
 		sidePanel.setLayout(null);
@@ -223,7 +224,7 @@ public class ClerkScreen extends JFrame {
 				switchPanel(homePanel);
 			}
 		});
-		btnHomePanel.setBackground(new Color(61, 70, 85));
+		btnHomePanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnHomePanel.setBounds(0, 105, 283, 58);
 		sidePanel.add(btnHomePanel);
 		btnHomePanel.setLayout(null);
@@ -238,12 +239,12 @@ public class ClerkScreen extends JFrame {
 		lblHomeButton.setBounds(95, 14, 78, 33);
 		lblHomeButton.setForeground(new Color(255, 255, 255));
 		lblHomeButton.setHorizontalAlignment(SwingConstants.LEFT);
-		lblHomeButton.setFont(new Font("Candara", Font.BOLD, 19));
+		lblHomeButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
 		btnHomePanel.add(lblHomeButton);
 		
 		btnIssueTicketNumber = new JPanel();
 		btnIssueTicketNumber.setLayout(null);
-		btnIssueTicketNumber.setBackground(new Color(61, 70, 85));
+		btnIssueTicketNumber.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnIssueTicketNumber.setBounds(0, 164, 283, 58);
 		btnIssueTicketNumber.addMouseListener(new MouseAdapter() {
 			@Override
@@ -264,13 +265,13 @@ public class ClerkScreen extends JFrame {
 		lblIssueTicketNumberButton = new JLabel("Issue Ticket Numbers");
 		lblIssueTicketNumberButton.setHorizontalAlignment(SwingConstants.LEFT);
 		lblIssueTicketNumberButton.setForeground(Color.WHITE);
-		lblIssueTicketNumberButton.setFont(new Font("Candara", Font.BOLD, 19));
+		lblIssueTicketNumberButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
 		lblIssueTicketNumberButton.setBounds(95, 14, 178, 33);
 		btnIssueTicketNumber.add(lblIssueTicketNumberButton);
 		
 		btnSchedulePanel = new JPanel();
 		btnSchedulePanel.setLayout(null);
-		btnSchedulePanel.setBackground(new Color(61, 70, 85));
+		btnSchedulePanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnSchedulePanel.setBounds(0, 223, 283, 58);
 		btnSchedulePanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -292,13 +293,13 @@ public class ClerkScreen extends JFrame {
 		lblAvailableSeatsButton = new JLabel("Available Seats");
 		lblAvailableSeatsButton.setHorizontalAlignment(SwingConstants.LEFT);
 		lblAvailableSeatsButton.setForeground(Color.WHITE);
-		lblAvailableSeatsButton.setFont(new Font("Candara", Font.BOLD, 19));
+		lblAvailableSeatsButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
 		lblAvailableSeatsButton.setBounds(95, 14, 143, 33);
 		btnSchedulePanel.add(lblAvailableSeatsButton);
 		
 		btnSettingsPanel = new JPanel();
 		btnSettingsPanel.setLayout(null);
-		btnSettingsPanel.setBackground(new Color(61, 70, 85));
+		btnSettingsPanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnSettingsPanel.setBounds(0, 282, 283, 58);
 		btnSettingsPanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -317,7 +318,7 @@ public class ClerkScreen extends JFrame {
 		lblSettingsButton = new JLabel("Settings");
 		lblSettingsButton.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSettingsButton.setForeground(Color.WHITE);
-		lblSettingsButton.setFont(new Font("Candara", Font.BOLD, 19));
+		lblSettingsButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
 		lblSettingsButton.setBounds(95, 14, 78, 33);
 		btnSettingsPanel.add(lblSettingsButton);
 		
@@ -330,7 +331,7 @@ public class ClerkScreen extends JFrame {
 			}
 		});
 		btnProfilePanel.setLayout(null);
-		btnProfilePanel.setBackground(new Color(48, 55, 66));
+		btnProfilePanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnProfilePanel.setBounds(0, 702, 283, 58);
 		sidePanel.add(btnProfilePanel);
 		
@@ -354,7 +355,7 @@ public class ClerkScreen extends JFrame {
 		lblEmployeeName = new JLabel(Login.empName);
 		lblEmployeeName.setHorizontalAlignment(SwingConstants.LEFT);
 		lblEmployeeName.setForeground(Color.WHITE);
-		lblEmployeeName.setFont(new Font("Candara", Font.BOLD, 19));
+		lblEmployeeName.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
 		lblEmployeeName.setBounds(95, 14, 78, 33);
 		btnProfilePanel.add(lblEmployeeName);
 		
@@ -461,7 +462,7 @@ public class ClerkScreen extends JFrame {
 			}
 		});
 		btnProceedIssueTicketNumber.setLayout(null);
-		btnProceedIssueTicketNumber.setBackground(new Color(60, 71, 85));
+		btnProceedIssueTicketNumber.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnProceedIssueTicketNumber.setBounds(119, 319, 110, 32);
 		issueTicketNumberPanel.add(btnProceedIssueTicketNumber);
 		
@@ -576,7 +577,7 @@ public class ClerkScreen extends JFrame {
 			}
 		});
 		btnAvailableSeatsLeft.setLayout(null);
-		btnAvailableSeatsLeft.setBackground(new Color(60, 71, 85));
+		btnAvailableSeatsLeft.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnAvailableSeatsLeft.setBounds(486, 425, 209, 32);
 		availableSeatsPanel.add(btnAvailableSeatsLeft);
 		
@@ -611,7 +612,7 @@ public class ClerkScreen extends JFrame {
 		panel_1.setLayout(null);
 		
 		lblThemeColorText = new JLabel("THEME COLOR");
-		lblThemeColorText.setForeground(new Color(61, 70, 85));
+		lblThemeColorText.setForeground(new Color(getColorR(), getColorG(), getColorB()));
 		lblThemeColorText.setFont(new Font("Candara", Font.BOLD, 16));
 		lblThemeColorText.setBounds(10, 11, 105, 14);
 		panel_1.add(lblThemeColorText);
@@ -622,21 +623,69 @@ public class ClerkScreen extends JFrame {
 		panel_1.add(lblNewLabel_5);
 		
 		btnBlueishColor = new JPanel();
+		btnBlueishColor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateColorTheme(61, 70, 85);
+				btnProfilePanel.setBackground(new Color(getColorR() - 13, getColorG() - 15, getColorB() - 19));
+				
+				changeColorToInSettingPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInAvailableSeatPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInIssueTicketNumberPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInProfilePanel(getColorR(), getColorG(), getColorB());
+			}
+		});
 		btnBlueishColor.setBackground(new Color(61, 70, 85));
 		btnBlueishColor.setBounds(632, 11, 20, 20);
 		panel_1.add(btnBlueishColor);
 		
 		btnBeigeColor = new JPanel();
+		btnBeigeColor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateColorTheme(245, 222, 179);
+				btnProfilePanel.setBackground(new Color(getColorR() - 23, getColorG() - 23, getColorB() - 21));
+				
+				changeColorToInSettingPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInAvailableSeatPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInIssueTicketNumberPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInProfilePanel(getColorR(), getColorG(), getColorB());
+			}
+		});
 		btnBeigeColor.setBackground(new Color(245, 222, 179));
 		btnBeigeColor.setBounds(662, 11, 20, 20);
 		panel_1.add(btnBeigeColor);
 		
 		btnGreenishColor = new JPanel();
+		btnGreenishColor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateColorTheme(51, 133, 153);
+				btnProfilePanel.setBackground(new Color(getColorR() - 8, getColorG() - 30, getColorB() - 36));
+				
+				changeColorToInSettingPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInAvailableSeatPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInIssueTicketNumberPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInProfilePanel(getColorR(), getColorG(), getColorB());
+			}
+		});
 		btnGreenishColor.setBackground(new Color(51, 153, 153));
 		btnGreenishColor.setBounds(632, 38, 20, 20);
 		panel_1.add(btnGreenishColor);
 		
 		btnPurpleColor = new JPanel();
+		btnPurpleColor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateColorTheme(102, 0, 204);
+				btnProfilePanel.setBackground(new Color(getColorR() - 16, getColorG() + 7, getColorB() - 38));
+				
+				changeColorToInSettingPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInAvailableSeatPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInIssueTicketNumberPanel(getColorR(), getColorG(), getColorB());
+				changeColorToInProfilePanel(getColorR(), getColorG(), getColorB());
+			}
+		});
 		btnPurpleColor.setBackground(new Color(102, 0, 204));
 		btnPurpleColor.setBounds(662, 38, 20, 20);
 		panel_1.add(btnPurpleColor);
@@ -653,7 +702,7 @@ public class ClerkScreen extends JFrame {
 		settingsPanel.add(panel_8);
 		
 		lblFontSizeText = new JLabel("Font size");
-		lblFontSizeText.setForeground(new Color(61, 70, 85));
+		lblFontSizeText.setForeground(new Color(getColorR(), getColorG(), getColorB()));
 		lblFontSizeText.setFont(new Font("Candara", Font.BOLD, 16));
 		lblFontSizeText.setBounds(10, 11, 105, 14);
 		panel_8.add(lblFontSizeText);
@@ -667,7 +716,7 @@ public class ClerkScreen extends JFrame {
 		cmbFontSize.setFont(new Font("Candara", Font.PLAIN, 12));
 		cmbFontSize.setForeground(new Color(255, 255, 255));
 		cmbFontSize.setModel(new DefaultComboBoxModel(new String[] {"12", "13", "14", "15", "16", "17", "18", "19"}));
-		cmbFontSize.setBackground(new Color(61, 70, 85));
+		cmbFontSize.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		cmbFontSize.setBounds(635, 11, 48, 20);
 		panel_8.add(cmbFontSize);
 		
@@ -683,7 +732,7 @@ public class ClerkScreen extends JFrame {
 		settingsPanel.add(panel_9);
 		
 		lblAdjustBrightnessText = new JLabel("Adjust brightness");
-		lblAdjustBrightnessText.setForeground(new Color(61, 70, 85));
+		lblAdjustBrightnessText.setForeground(new Color(getColorR(), getColorG(), getColorB()));
 		lblAdjustBrightnessText.setFont(new Font("Candara", Font.BOLD, 16));
 		lblAdjustBrightnessText.setBounds(10, 11, 138, 20);
 		panel_9.add(lblAdjustBrightnessText);
@@ -694,7 +743,7 @@ public class ClerkScreen extends JFrame {
 		panel_9.add(lblReduceTheBrightness);
 		
 		chkbAdjustBrightness = new JCheckBox("");
-		chkbAdjustBrightness.setBackground(new Color(61,70,85));
+		chkbAdjustBrightness.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		chkbAdjustBrightness.setForeground(new Color(255, 255, 255));
 		chkbAdjustBrightness.setBounds(664, 11, 21, 23);
 		panel_9.add(chkbAdjustBrightness);
@@ -706,7 +755,7 @@ public class ClerkScreen extends JFrame {
 		settingsPanel.add(panel_10);
 		
 		lblLogoutWhenNoText = new JLabel("Logout when no interaction");
-		lblLogoutWhenNoText.setForeground(new Color(61, 70, 85));
+		lblLogoutWhenNoText.setForeground(new Color(getColorR(), getColorG(), getColorB()));
 		lblLogoutWhenNoText.setFont(new Font("Candara", Font.BOLD, 16));
 		lblLogoutWhenNoText.setBounds(10, 11, 217, 20);
 		panel_10.add(lblLogoutWhenNoText);
@@ -718,7 +767,7 @@ public class ClerkScreen extends JFrame {
 		
 		chkbAutoLogout = new JCheckBox("");
 		chkbAutoLogout.setForeground(Color.WHITE);
-		chkbAutoLogout.setBackground(new Color(61, 70, 85));
+		chkbAutoLogout.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		chkbAutoLogout.setBounds(665, 10, 21, 23);
 		panel_10.add(chkbAutoLogout);
 		
@@ -728,7 +777,18 @@ public class ClerkScreen extends JFrame {
 		settingsPanel.add(lblAutoLogOut);
 		
 		btnSettingsSave = new JPanel();
-		btnSettingsSave.setBackground(new Color(60,71,85));
+		btnSettingsSave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateNavigationFontSize();
+				lblHomeButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+				lblAvailableSeatsButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+				lblIssueTicketNumberButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+				lblSettingsButton.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+				lblEmployeeName.setFont(new Font("Candara", Font.BOLD, getFontSizeNavigation()));
+			}
+		});
+		btnSettingsSave.setBackground(new Color(getColorR(), getColorG(), getColorB()));
 		btnSettingsSave.setBounds(674, 566, 88, 32);
 		settingsPanel.add(btnSettingsSave);
 		btnSettingsSave.setLayout(null);
@@ -741,7 +801,7 @@ public class ClerkScreen extends JFrame {
 		btnSettingsSave.add(lblNewLabel_8);
 		
 		btnSettingsCancel = new JPanel();
-		btnSettingsCancel.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
+		btnSettingsCancel.setBorder(new CompoundBorder(new LineBorder(new Color(getColorR(), getColorG(), getColorB())), null));
 		btnSettingsCancel.setLayout(null);
 		btnSettingsCancel.setBackground(new Color(255, 255, 255));
 		btnSettingsCancel.setBounds(576, 566, 88, 32);
@@ -749,7 +809,7 @@ public class ClerkScreen extends JFrame {
 		
 		lblCancelButtonText = new JLabel("CANCEL");
 		lblCancelButtonText.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCancelButtonText.setForeground(new Color(61,70,85));
+		lblCancelButtonText.setForeground(new Color(getColorR(), getColorG(), getColorB()));
 		lblCancelButtonText.setFont(new Font("Candara", Font.BOLD, 14));
 		lblCancelButtonText.setBounds(10, 11, 68, 14);
 		btnSettingsCancel.add(lblCancelButtonText);
@@ -759,10 +819,10 @@ public class ClerkScreen extends JFrame {
 		layeredPane.add(profilePanel, "name_255630843630500");
 		profilePanel.setLayout(null);
 		
-		panel_13 = new JPanel();
-		panel_13.setBackground(new Color(86, 97, 115));
-		panel_13.setBounds(0, 0, 790, 110);
-		profilePanel.add(panel_13);
+		profilePanelBar = new JPanel();
+		profilePanelBar.setBackground(new Color(getColorR(), getColorG(), getColorB()));
+		profilePanelBar.setBounds(0, 0, 790, 110);
+		profilePanel.add(profilePanelBar);
 		
 		panel_14 = new JPanel();
 		panel_14.setLayout(null);
@@ -1019,4 +1079,171 @@ public class ClerkScreen extends JFrame {
 			lblErrorNumberSeats.setText("Provide number of available seats!");
 		}
 	}
+	
+	public void changeColorToInSettingPanel(int r, int g, int b) {
+		sidePanel.setBackground(new Color(r, g, b));
+		btnHomePanel.setBackground(new Color(r, g, b));
+		btnSchedulePanel.setBackground(new Color(r, g, b));
+		btnIssueTicketNumber.setBackground(new Color(r, g, b));
+		btnSettingsPanel.setBackground(new Color(r, g, b));
+		//btnProfilePanel.setBackground(new Color(r - 23, g - 23, b - 21));
+		
+		btnSettingsSave.setBackground(new Color(r, g, b));
+		btnSettingsCancel.setBorder(new CompoundBorder(new LineBorder(new Color(r,g, b)), null));
+		lblCancelButtonText.setForeground(new Color(r, g, b));
+		
+		cmbFontSize.setBackground(new Color(r, g, b));
+		chkbAdjustBrightness.setBackground(new Color(r, g, b));
+		chkbAutoLogout.setBackground(new Color(r, g, b));
+		
+		lblThemeColorText.setForeground(new Color(r, g, b));
+		lblFontSizeText.setForeground(new Color(r, g, b));
+		lblAdjustBrightnessText.setForeground(new Color(r, g, b));
+		lblLogoutWhenNoText.setForeground(new Color(r, g, b));
+	}
+	
+	public void changeColorToInAvailableSeatPanel(int r, int g, int b){
+		btnAvailableSeatsLeft.setBackground(new Color(r, g, b));
+	}
+
+	public void changeColorToInIssueTicketNumberPanel(int r, int g, int b){
+		btnProceedIssueTicketNumber.setBackground(new Color(r, g, b));
+	}
+	public void changeColorToInProfilePanel(int r, int g, int b){
+		profilePanelBar.setBackground(new Color(r, g, b));
+	}
+	
+	
+	private int getColorR(){
+		int colorR = 0;
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+        try {
+            String query = "select * from employeesettings where username=? and name=?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, employeeUsername);
+            preparedStatement.setString(2, employeeName);
+            
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+            	colorR = resultSet.getInt("colorR");
+            }
+        }catch (SQLException e) {
+        	System.out.println("error: " + e);
+        }
+        return colorR;
+    }
+	
+	
+	private int getColorG(){
+		int colorG = 0;
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+        try {
+            String query = "select * from employeesettings where username=? and name=?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, employeeUsername);
+            preparedStatement.setString(2, employeeName);
+            
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+            	colorG = resultSet.getInt("colorG");
+            }
+        }catch (SQLException e) {
+        	System.out.println("error: " + e);
+        }
+        return colorG;
+    }
+	
+	private int getColorB(){
+		int colorB = 0;
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+        try {
+            String query = "select * from employeesettings where username=? and name=?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, employeeUsername);
+            preparedStatement.setString(2, employeeName);
+            
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+            	colorB = resultSet.getInt("colorB");
+            }
+        }catch (SQLException e) {
+        	System.out.println("error: " + e);
+        }
+        return colorB;
+    }
+	
+	
+	
+	public void updateColorTheme(int r, int g, int b) {
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+		try {
+				String query = "update employeesettings set colorR=?, colorG=?, colorB=? where username=? and name=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setInt(1, r);
+				preparedStatement.setInt(2, g);
+				preparedStatement.setInt(3, b);
+				preparedStatement.setString(4, employeeUsername);
+				preparedStatement.setString(5, employeeName);
+				
+				
+				preparedStatement.executeUpdate();
+				
+			} catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+	}
+	
+	private int getFontSizeNavigation(){
+		int fontsize = 0;
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+        try {
+            String query = "select * from employeesettings where username=? and name=?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, employeeUsername);
+            preparedStatement.setString(2, employeeName);
+            
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+            	fontsize = resultSet.getInt("fontSize");
+            }
+        }catch (SQLException e) {
+        	System.out.println("error: " + e);
+        }
+        return fontsize;
+    }
+		
+	public void updateNavigationFontSize() {
+		String fontSizeComboBox = cmbFontSize.getSelectedItem().toString();
+		int fontSize = Integer.valueOf(fontSizeComboBox);
+		
+		String employeeUsername = Login.username;
+		String employeeName = Login.empName;
+		
+		try {
+				String query = "update employeesettings set fontSize=? where username=? and name=?";
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setInt(1, fontSize);
+				preparedStatement.setString(2, employeeUsername);
+				preparedStatement.setString(3, employeeName);
+				
+				
+				preparedStatement.executeUpdate();
+				
+			} catch (Exception e) {
+				System.out.println("error: " + e);
+			}
+		
+	}
+	
+	
 }
