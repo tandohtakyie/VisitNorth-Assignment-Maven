@@ -36,6 +36,7 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
+import javax.swing.text.DocumentFilter.FilterBypass;
 
 import com.toedter.calendar.JCalendar;
 
@@ -481,6 +482,18 @@ public class ClerkScreen extends JFrame {
 		issueTicketNumberPanel.add(lblErrorIssueTicketNumber);
 		
 		txtTicketNumber = new JTextField();
+		((AbstractDocument)txtTicketNumber.getDocument()).setDocumentFilter(new DocumentFilter() {
+			Pattern regEx = Pattern.compile("\\d*");
+
+	        @Override
+	        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {          
+	            Matcher matcher = regEx.matcher(text);
+	            if(!matcher.matches()){
+	                return;
+	            }
+	            super.replace(fb, offset, length, text, attrs);
+	        }
+		});
 		txtTicketNumber.setToolTipText("Ticket number");
 		txtTicketNumber.setColumns(10);
 		txtTicketNumber.setBounds(20, 202, 209, 30);
@@ -563,7 +576,7 @@ public class ClerkScreen extends JFrame {
 	            super.replace(fb, offset, length, text, attrs);
 	        }
 		});
-		txtAvailableSeatsLeft.setToolTipText("Ticket number");
+		txtAvailableSeatsLeft.setToolTipText("Available seat left");
 		txtAvailableSeatsLeft.setColumns(10);
 		txtAvailableSeatsLeft.setBounds(486, 384, 209, 30);
 		availableSeatsPanel.add(txtAvailableSeatsLeft);

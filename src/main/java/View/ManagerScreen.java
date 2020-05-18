@@ -17,6 +17,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JLayeredPane;
 import java.awt.CardLayout;
@@ -26,6 +28,11 @@ import javax.swing.JCheckBox;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.DocumentFilter.FilterBypass;
 
 import com.toedter.calendar.JCalendar;
 
@@ -35,6 +42,7 @@ import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import com.toedter.calendar.JDateChooser;
 
 public class ManagerScreen extends JFrame {
 	
@@ -654,6 +662,7 @@ public class ManagerScreen extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				insertVehicle();
+				getVehicles();
 			}
 		});
 		btnAddVehicle.setLayout(null);
@@ -813,6 +822,10 @@ public class ManagerScreen extends JFrame {
 		lblAssignRouteTo.setFont(new Font("Candara", Font.PLAIN, 13));
 		lblAssignRouteTo.setBounds(10, 465, 159, 20);
 		routesPanel.add(lblAssignRouteTo);
+		
+		JDateChooser txtDateChooser = new JDateChooser();
+		txtDateChooser.setBounds(276, 120, 91, 20);
+		routesPanel.add(txtDateChooser);
 		
 		btnCitiesPanel = new JPanel();
 		btnCitiesPanel.setBackground(new Color(getColorR(), getColorG(), getColorB()));
@@ -1607,6 +1620,18 @@ public class ManagerScreen extends JFrame {
 		issueTicketNumberPanel.add(lblErrorIssueTicketNumber);
 		
 		txtTicketNumber = new JTextField();
+		((AbstractDocument)txtTicketNumber.getDocument()).setDocumentFilter(new DocumentFilter() {
+			Pattern regEx = Pattern.compile("\\d*");
+
+	        @Override
+	        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {          
+	            Matcher matcher = regEx.matcher(text);
+	            if(!matcher.matches()){
+	                return;
+	            }
+	            super.replace(fb, offset, length, text, attrs);
+	        }
+		});
 		txtTicketNumber.setToolTipText("Ticket number");
 		txtTicketNumber.setColumns(10);
 		txtTicketNumber.setBounds(20, 202, 209, 30);

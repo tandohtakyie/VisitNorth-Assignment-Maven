@@ -770,7 +770,8 @@ public class AgentScreen extends JFrame {
 	
 	public void getFromTo() {
 		try {
-			String query = "select distinct * from route where numberOfSeatLeft > 0";
+			//String query = "select distinct * from route where numberOfSeatLeft > 0";
+			String query = "select distinct * from route";
 			preparedStatement = conn.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
 			
